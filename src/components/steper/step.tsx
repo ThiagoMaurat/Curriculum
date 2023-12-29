@@ -40,8 +40,6 @@ export const Step = (props: StepProps) => {
         >
           {title}
         </p>
-
-        <p className="text-foreground text-sm line-clamp-2">{description}</p>
       </div>
 
       <Separator

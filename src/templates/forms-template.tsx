@@ -9,6 +9,7 @@ import FourthStep from "@/components/forms/curriculum-form/fourth-step";
 import FifthStep from "@/components/forms/curriculum-form/fifth-step";
 import { curriculumSteps } from "@/components/forms/curriculum-form/data";
 import { Step } from "@/components/steper/step";
+import { Form } from "@/components/ui/form";
 
 export default function FormsTemplate() {
   const [currentStep, setCurrentStep] = React.useState(0);
@@ -30,7 +31,7 @@ export default function FormsTemplate() {
   };
 
   return (
-    <div className="w-full h-full pb-4">
+    <div className="w-full h-full pb-4 flex flex-col gap-12">
       <div className="flex ring-1 ring-main-primary rounded-2xl py-5 px-4">
         {curriculumSteps.map((step, index) => {
           return (
@@ -48,13 +49,23 @@ export default function FormsTemplate() {
       </div>
 
       <FormProvider {...methods}>
-        <form className="w-full" onSubmit={methods.handleSubmit(submitHandler)}>
-          {currentStep === 0 && <FirstStep setCurrentStep={setCurrentStep} />}
-          {currentStep === 1 && <SecondStep setCurrentStep={setCurrentStep} />}
-          {currentStep === 2 && <ThirdStep setCurrentStep={setCurrentStep} />}
-          {currentStep === 3 && <FourthStep setCurrentStep={setCurrentStep} />}
-          {currentStep === 4 && <FifthStep setCurrentStep={setCurrentStep} />}
-        </form>
+        <Form {...methods}>
+          <form
+            onSubmit={(...args) =>
+              void methods.handleSubmit(submitHandler)(...args)
+            }
+          >
+            {currentStep === 0 && <FirstStep setCurrentStep={setCurrentStep} />}
+            {currentStep === 1 && (
+              <SecondStep setCurrentStep={setCurrentStep} />
+            )}
+            {currentStep === 2 && <ThirdStep setCurrentStep={setCurrentStep} />}
+            {currentStep === 3 && (
+              <FourthStep setCurrentStep={setCurrentStep} />
+            )}
+            {currentStep === 4 && <FifthStep setCurrentStep={setCurrentStep} />}
+          </form>
+        </Form>
       </FormProvider>
     </div>
   );

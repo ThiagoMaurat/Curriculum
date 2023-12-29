@@ -1,15 +1,19 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { DayPicker } from "react-day-picker"
+import * as React from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { DayPicker } from "react-day-picker";
 
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+import { Locale, format } from "date-fns";
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker>
+export type CalendarProps = {
+  locale?: Locale;
+} & React.ComponentProps<typeof DayPicker>;
 
 function Calendar({
+  locale,
   className,
   classNames,
   showOutsideDays = true,
@@ -18,7 +22,21 @@ function Calendar({
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn("p-3", className)}
+      className={cn("p-3 bg-background", className)}
+      formatters={{
+        formatMonthCaption: (date) => {
+          const month = format(date, "MMMM", { locale: locale });
+          return month.charAt(0).toUpperCase() + month.slice(1);
+        },
+        formatWeekdayName: (date) => {
+          const day = format(date, "E", { locale: locale });
+          return day.charAt(0).toUpperCase();
+        },
+        formatYearCaption: (date) => {
+          const year = format(date, "yyyy", { locale: locale });
+          return year;
+        },
+      }}
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
@@ -59,8 +77,8 @@ function Calendar({
       }}
       {...props}
     />
-  )
+  );
 }
-Calendar.displayName = "Calendar"
+Calendar.displayName = "Calendar";
 
-export { Calendar }
+export { Calendar };
