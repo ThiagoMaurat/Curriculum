@@ -30,11 +30,11 @@ export const Step = (props: StepProps) => {
     >
       <StepCircle index={index} isActive={isActive} isCompleted={isCompleted} />
 
-      <div className="flex ml-4 flex-col min-w-[50%]  items-start gap-1">
+      <div className="w-full flex ml-4 flex-col items-start gap-1">
         <p
           className={`${
             !isActive && !isCompleted ? "text-gray-400" : "text-foreground"
-          } font-semibold text-sm sm:text-2xl line-clamp-1 leading-4 sm:leading-8`}
+          } font-semibold text-sm sm:text-md leading-2`}
           data-is-completed={isCompleted}
           data-is-active={isActive}
         >
@@ -45,7 +45,7 @@ export const Step = (props: StepProps) => {
       </div>
 
       <Separator
-        className=" flex-1 sm:flex-initial data-[is-last-step=true]:hidden border-2 border-[#3A3E45] data-[is-completed]:border-[#FF7715]  data-[is-active]:border-[#FF7715] self-center"
+        className="flex-1 ml-4 sm:flex-initial data-[is-last-step=true]:hidden border-2 border-[#3A3E45] data-[is-completed]:border-main-primary  data-[is-active]:border-main-primary self-center"
         data-is-last-step={isLastStep}
         data-is-completed={isCompleted}
         data-is-active={isActive}

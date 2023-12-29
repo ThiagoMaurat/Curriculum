@@ -1,27 +1,21 @@
 interface Step {
   title: string;
-  description: string;
 }
 
 export const curriculumSteps: Step[] = [
   {
-    title: "First Step",
-    description: "First Step",
+    title: "Dados pessoais",
   },
   {
-    title: "Second Step",
-    description: "Second Step",
+    title: "Formação e Bibliografia",
   },
   {
-    title: "Third Step",
-    description: "Third Step",
+    title: "Congressos e Eventos",
   },
   {
-    title: "Fourth Step",
-    description: "Fourth Step",
+    title: "Atuação Profissional",
   },
   {
-    title: "Fifth Step",
-    description: "Fifth Step",
+    title: "Certificados",
   },
 ];

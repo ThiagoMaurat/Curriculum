@@ -41,7 +41,6 @@ export default function FormsTemplate() {
               isActive={currentStep === index}
               isCompleted={currentStep > index}
               isFirstStep={index === 0}
-              description={step.description}
               isLastStep={curriculumSteps.length === index + 1}
             />
           );
