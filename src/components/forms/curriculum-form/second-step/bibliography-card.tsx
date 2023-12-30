@@ -39,7 +39,7 @@ export default function BibliographyCard() {
   });
 
   return (
-    <Card className="max-w-2xl w-full mx-auto">
+    <Card className="max-w-2xl w-full">
       <CardHeader className="space-y-1">
         <CardTitle className="text-2xl">Bibliografia</CardTitle>
         <CardDescription>
@@ -47,10 +47,10 @@ export default function BibliographyCard() {
         </CardDescription>
       </CardHeader>
 
-      <CardContent className="w-full ">
+      <CardContent className="w-full relative">
         {fieldBibliography.fields.map((field, index) => (
           <div
-            className="w-full flex flex-col gap-2"
+            className="relative w-max flex flex-col gap-2"
             key={`fieldBibliography-${index}`}
           >
             <div className="w-full flex flex-col sm:flex-row gap-4">
@@ -159,6 +159,7 @@ export default function BibliographyCard() {
               }
               type="button"
               className="w-full"
+              variant="destructive"
             >
               <p>Remover</p>
               <Trash className="h-4 w-4 ml-1" />
