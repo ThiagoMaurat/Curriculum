@@ -27,7 +27,7 @@ export default function FormsTemplate() {
       title: "Congressos e Eventos",
     },
     {
-      title: "Atividades Extracurriculares e Profissional",
+      title: "Atividades Extracurriculares e Profissionais",
     },
     {
       title: "Certificados",

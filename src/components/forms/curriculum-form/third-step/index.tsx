@@ -33,7 +33,7 @@ export default function ThirdSep(props: ThirdStepProps) {
             type="button"
             className="self-center align-middle w-full"
             variant="outline"
-            onClick={() => setCurrentStep(2)}
+            onClick={() => setCurrentStep(1)}
           >
             Voltar
           </Button>
