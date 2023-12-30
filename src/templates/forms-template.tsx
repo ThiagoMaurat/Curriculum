@@ -41,6 +41,13 @@ export default function FormsTemplate() {
           year: new Date().getFullYear(),
         },
       ],
+      events: [
+        {
+          description: "",
+          type: "",
+          year: new Date().getFullYear(),
+        },
+      ],
     },
   });
 
