@@ -5,20 +5,36 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import FirstStep from "@/components/forms/curriculum-form/first-step";
 import SecondStep from "@/components/forms/curriculum-form/second-step";
 import ThirdStep from "@/components/forms/curriculum-form/third-step";
-import FourthStep from "@/components/forms/curriculum-form/fourth-step";
-import FifthStep from "@/components/forms/curriculum-form/fifth-step";
+import FourthStep from "@/components/forms/curriculum-form/fourth-step/fourth-step";
+import FifthStep from "@/components/forms/curriculum-form/fifth-step/fifth-step";
 import { curriculumSteps } from "@/components/forms/curriculum-form/data";
 import { Step } from "@/components/steper/step";
 import { Form } from "@/components/ui/form";
 import { schema } from "@/components/forms/curriculum-form/schema";
-import { FirstStepFormInput } from "@/components/forms/curriculum-form/type";
+import { CurriculumFormInput } from "@/components/forms/curriculum-form/type";
 
 export default function FormsTemplate() {
   const [currentStep, setCurrentStep] = React.useState(0);
 
-  const methods = useForm<FirstStepFormInput>({
-    resolver: zodResolver(schema),
-    defaultValues: {},
+  const methods = useForm<CurriculumFormInput>({
+    /* resolver: zodResolver(schema), */
+    mode: "onChange",
+    defaultValues: {
+      academicEducation: [
+        {
+          description: "",
+          type: "",
+          year: new Date().getFullYear(),
+        },
+      ],
+      bibliography: [
+        {
+          description: "",
+          type: "",
+          year: new Date().getFullYear(),
+        },
+      ],
+    },
   });
 
   const submitHandler = (data: any) => {
