@@ -1,4 +1,4 @@
-export const Bibliography = [
+export const BibliographyConst = [
   ...new Set([
     "Atividades de Pesquisa",
     "Artigos Completos Publicados",

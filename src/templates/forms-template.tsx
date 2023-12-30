@@ -34,6 +34,13 @@ export default function FormsTemplate() {
           year: new Date().getFullYear(),
         },
       ],
+      congress: [
+        {
+          description: "",
+          type: "",
+          year: new Date().getFullYear(),
+        },
+      ],
     },
   });
 

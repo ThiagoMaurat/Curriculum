@@ -1,4 +1,4 @@
-export const AcademicEducation = [
+export const AcademicEducationConst = [
   ...new Set([
     "Formação Acadêmica",
     "Estágio Extracurriculares",
