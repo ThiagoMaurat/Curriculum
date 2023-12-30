@@ -26,7 +26,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { AcademicEducation } from "@/const/academic-education-category";
+import {
+  AcademicEducationConst,
+  AcademicEducationConst,
+} from "@/const/academic-education-category";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
@@ -96,7 +99,7 @@ export default function AcademicCard() {
 
                         <SelectContent>
                           <SelectGroup>
-                            {AcademicEducation?.map((category) => (
+                            {AcademicEducationConst?.map((category) => (
                               <SelectItem
                                 key={`${field.name}-${category}`}
                                 value={String(category)}

@@ -28,7 +28,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Trash } from "lucide-react";
-import { Bibliography } from "@/const/bibliography";
+import { BibliographyConst } from "@/const/bibliography";
 
 export default function BibliographyCard() {
   const { control } = useFormContext<CurriculumFormInput>();
@@ -47,10 +47,10 @@ export default function BibliographyCard() {
         </CardDescription>
       </CardHeader>
 
-      <CardContent className="w-full relative">
+      <CardContent className="w-full">
         {fieldBibliography.fields.map((field, index) => (
           <div
-            className="relative w-max flex flex-col gap-2"
+            className="w-full flex flex-col gap-2"
             key={`fieldBibliography-${index}`}
           >
             <div className="w-full flex flex-col sm:flex-row gap-4">
@@ -93,7 +93,7 @@ export default function BibliographyCard() {
 
                         <SelectContent>
                           <SelectGroup>
-                            {Bibliography?.map((category) => (
+                            {BibliographyConst?.map((category) => (
                               <SelectItem
                                 key={`${field.name}-${category}`}
                                 value={String(category)}
