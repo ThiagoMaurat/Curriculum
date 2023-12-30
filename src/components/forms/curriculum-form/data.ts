@@ -1,21 +1,44 @@
-interface Step {
-  title: string;
-}
+import { CurriculumFormInput } from "./type";
 
-export const curriculumSteps: Step[] = [
-  {
-    title: "Dados pessoais",
-  },
-  {
-    title: "Formação e Bibliografia",
-  },
-  {
-    title: "Congressos e Eventos",
-  },
-  {
-    title: "Atuação Profissional",
-  },
-  {
-    title: "Certificados",
-  },
-];
+export const DEFAULT_FORM: CurriculumFormInput = {
+  name: "",
+  presentationName: "",
+  fathersName: "",
+  mothersName: "",
+  birthday: new Date(),
+  identityDocument: "",
+  CRM: "",
+  CPF: "",
+  phone: "",
+  address: "",
+  email: "",
+  lattes: "",
+  academicEducation: [
+    {
+      description: "",
+      type: "",
+      year: new Date().getFullYear(),
+    },
+  ],
+  bibliography: [
+    {
+      description: "",
+      type: "",
+      year: new Date().getFullYear(),
+    },
+  ],
+  congress: [
+    {
+      description: "",
+      type: "",
+      year: new Date().getFullYear(),
+    },
+  ],
+  events: [
+    {
+      description: "",
+      type: "",
+      year: new Date().getFullYear(),
+    },
+  ],
+};

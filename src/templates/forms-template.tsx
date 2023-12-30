@@ -5,50 +5,39 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import FirstStep from "@/components/forms/curriculum-form/first-step";
 import SecondStep from "@/components/forms/curriculum-form/second-step";
 import ThirdStep from "@/components/forms/curriculum-form/third-step";
-import FourthStep from "@/components/forms/curriculum-form/fourth-step/fourth-step";
+import FourthStep from "@/components/forms/curriculum-form/fourth-step";
 import FifthStep from "@/components/forms/curriculum-form/fifth-step/fifth-step";
-import { curriculumSteps } from "@/components/forms/curriculum-form/data";
 import { Step } from "@/components/steper/step";
 import { Form } from "@/components/ui/form";
 import { schema } from "@/components/forms/curriculum-form/schema";
 import { CurriculumFormInput } from "@/components/forms/curriculum-form/type";
+import { DEFAULT_FORM } from "@/components/forms/curriculum-form/data";
 
 export default function FormsTemplate() {
   const [currentStep, setCurrentStep] = React.useState(0);
 
+  const curriculumSteps: Array<{ title: string }> = [
+    {
+      title: "Dados pessoais",
+    },
+    {
+      title: "Formação e Bibliografia",
+    },
+    {
+      title: "Congressos e Eventos",
+    },
+    {
+      title: "Atividades Extracurriculares e Profissional",
+    },
+    {
+      title: "Certificados",
+    },
+  ];
+
   const methods = useForm<CurriculumFormInput>({
     /* resolver: zodResolver(schema), */
     mode: "onChange",
-    defaultValues: {
-      academicEducation: [
-        {
-          description: "",
-          type: "",
-          year: new Date().getFullYear(),
-        },
-      ],
-      bibliography: [
-        {
-          description: "",
-          type: "",
-          year: new Date().getFullYear(),
-        },
-      ],
-      congress: [
-        {
-          description: "",
-          type: "",
-          year: new Date().getFullYear(),
-        },
-      ],
-      events: [
-        {
-          description: "",
-          type: "",
-          year: new Date().getFullYear(),
-        },
-      ],
-    },
+    defaultValues: DEFAULT_FORM,
   });
 
   const submitHandler = (data: any) => {
