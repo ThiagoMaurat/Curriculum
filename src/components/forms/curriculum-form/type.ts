@@ -1,4 +1,10 @@
-export type FirstStepFormInput = {
+type AcademicEducation = {
+  year: number;
+  type: string;
+  description: string;
+};
+
+export type CurriculumFormInput = {
   name: string;
   presentationName: string;
   fathersName: string;
@@ -11,4 +17,5 @@ export type FirstStepFormInput = {
   address: string;
   email: string;
   lattes: string;
+  academicEducation: AcademicEducation[];
 };
