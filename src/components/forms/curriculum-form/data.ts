@@ -41,4 +41,11 @@ export const DEFAULT_FORM: CurriculumFormInput = {
       year: new Date().getFullYear(),
     },
   ],
+  extracurricularActivities: [
+    {
+      description: "",
+      type: "",
+      year: new Date().getFullYear(),
+    },
+  ],
 };
