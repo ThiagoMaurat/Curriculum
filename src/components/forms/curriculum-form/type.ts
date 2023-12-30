@@ -4,6 +4,8 @@ type AcademicEducation = {
   description: string;
 };
 
+type Bibliography = {} & AcademicEducation;
+
 export type CurriculumFormInput = {
   name: string;
   presentationName: string;
@@ -18,4 +20,5 @@ export type CurriculumFormInput = {
   email: string;
   lattes: string;
   academicEducation: AcademicEducation[];
+  bibliography: Bibliography[];
 };
