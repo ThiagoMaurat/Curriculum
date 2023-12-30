@@ -14,20 +14,10 @@ export const StepCircle = (props: RadioCircleProps) => {
     <div
       className="border-2 data-[is-active=true]:border-main-primary data-[is-active=false]:border-foreground h-8 w-8 sm:h-10 sm:w-10 flex items-center justify-center rounded-full"
       data-is-active={isActive}
-      /* borderWidth={
-        isMobile
-          ? "1.94px"
-          : !isActive && !isCompleted
-          ? "5px"
-          : isCompleted
-          ? "0px"
-          : "4px"
-      } */
-      /* borderColor={isActive ? "brand.500" : "#6B6B6B"} */
       {...props}
     >
       {isCompleted ? (
-        <Check className="text-[#202023] text-xl" />
+        <Check className="h-10 w-10 rounded-full flex items-center justify-center text-[#202023] text-xl" />
       ) : (
         <div
           data-is-active={isActive}

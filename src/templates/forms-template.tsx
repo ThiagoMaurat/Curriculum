@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FirstStep from "@/components/forms/curriculum-form/first-step";
 import SecondStep from "@/components/forms/curriculum-form/second-step";
@@ -10,20 +10,15 @@ import FifthStep from "@/components/forms/curriculum-form/fifth-step";
 import { curriculumSteps } from "@/components/forms/curriculum-form/data";
 import { Step } from "@/components/steper/step";
 import { Form } from "@/components/ui/form";
+import { schema } from "@/components/forms/curriculum-form/schema";
+import { FirstStepFormInput } from "@/components/forms/curriculum-form/type";
 
 export default function FormsTemplate() {
   const [currentStep, setCurrentStep] = React.useState(0);
 
-  const methods = useForm({
-    /* resolver: zodResolver(schema), */
-    mode: "onChange",
-    defaultValues: {
-      intendedSpecialties: [],
-      intendedInstitutions: [],
-      prepSchool: null,
-      trackId: null,
-      trialYear: null,
-    },
+  const methods = useForm<FirstStepFormInput>({
+    resolver: zodResolver(schema),
+    defaultValues: {},
   });
 
   const submitHandler = (data: any) => {
@@ -37,7 +32,7 @@ export default function FormsTemplate() {
           return (
             <Step
               key={`step-${index}`}
-              index={index}
+              index={index + 1}
               title={step.title}
               isActive={currentStep === index}
               isCompleted={currentStep > index}
@@ -48,25 +43,19 @@ export default function FormsTemplate() {
         })}
       </div>
 
-      <FormProvider {...methods}>
-        <Form {...methods}>
-          <form
-            onSubmit={(...args) =>
-              void methods.handleSubmit(submitHandler)(...args)
-            }
-          >
-            {currentStep === 0 && <FirstStep setCurrentStep={setCurrentStep} />}
-            {currentStep === 1 && (
-              <SecondStep setCurrentStep={setCurrentStep} />
-            )}
-            {currentStep === 2 && <ThirdStep setCurrentStep={setCurrentStep} />}
-            {currentStep === 3 && (
-              <FourthStep setCurrentStep={setCurrentStep} />
-            )}
-            {currentStep === 4 && <FifthStep setCurrentStep={setCurrentStep} />}
-          </form>
-        </Form>
-      </FormProvider>
+      <Form {...methods}>
+        <form
+          onSubmit={(...args) =>
+            void methods.handleSubmit(submitHandler)(...args)
+          }
+        >
+          {currentStep === 0 && <FirstStep setCurrentStep={setCurrentStep} />}
+          {currentStep === 1 && <SecondStep setCurrentStep={setCurrentStep} />}
+          {currentStep === 2 && <ThirdStep setCurrentStep={setCurrentStep} />}
+          {currentStep === 3 && <FourthStep setCurrentStep={setCurrentStep} />}
+          {currentStep === 4 && <FifthStep setCurrentStep={setCurrentStep} />}
+        </form>
+      </Form>
     </div>
   );
 }

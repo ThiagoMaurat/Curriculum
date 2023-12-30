@@ -4,7 +4,6 @@ import { Separator } from "../ui/separator";
 
 interface StepProps {
   title: string;
-  description?: string;
   isCompleted: boolean;
   isActive: boolean;
   isLastStep: boolean;
@@ -13,15 +12,8 @@ interface StepProps {
 }
 
 export const Step = (props: StepProps) => {
-  const {
-    isActive,
-    isCompleted,
-    index,
-    isLastStep,
-    isFirstStep,
-    title,
-    description,
-  } = props;
+  const { isActive, isCompleted, index, isLastStep, isFirstStep, title } =
+    props;
 
   return (
     <div
