@@ -26,10 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  AcademicEducationConst,
-  AcademicEducationConst,
-} from "@/const/academic-education-category";
+import { AcademicEducationConst } from "@/const/academic-education-category";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
@@ -49,7 +46,7 @@ export default function AcademicCard() {
       <CardHeader className="space-y-1">
         <CardTitle className="text-2xl">Formação Acadêmica</CardTitle>
         <CardDescription>
-          Insira sua formação acadêmica e informações adicionais pertinentes.
+          Insira sua formação acadêmica e informações adicionais.
         </CardDescription>
       </CardHeader>
 

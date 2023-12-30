@@ -1,5 +1,12 @@
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
 import React from "react";
-import { useFormContext, useFieldArray } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import { CurriculumFormInput } from "../type";
 import {
   FormField,
@@ -8,14 +15,9 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { ArrowRight, Trash } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 import {
   Select,
   SelectContent,
@@ -25,38 +27,36 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Trash } from "lucide-react";
-import { BibliographyConst } from "@/const/bibliography";
+import { CongressConst } from "@/const/congress";
 
-export default function BibliographyCard() {
+export default function Congress() {
   const { control } = useFormContext<CurriculumFormInput>();
 
-  const fieldBibliography = useFieldArray<CurriculumFormInput, "bibliography">({
+  const fieldCongress = useFieldArray<CurriculumFormInput, "congress">({
     control: control,
-    name: "bibliography",
+    name: "congress",
   });
 
   return (
     <Card className="max-w-2xl w-full">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl">Bibliografia</CardTitle>
+        <CardTitle className="text-2xl">Congressos Acadêmicos</CardTitle>
         <CardDescription>
-          Insira sua bibliografia e informações adicionais.
+          Insira seus congressos acadêmicos realizados.
         </CardDescription>
       </CardHeader>
 
       <CardContent className="w-full">
-        {fieldBibliography.fields.map((field, index) => (
+        {fieldCongress.fields.map((field, index) => (
           <div
             className="w-full flex flex-col gap-2"
-            key={`fieldBibliography-${index}`}
+            key={`fieldCongress-${index}`}
           >
             <div className="w-full flex flex-col sm:flex-row gap-4">
               <FormField
                 control={control}
-                name={`bibliography.${index}.year` as const}
+                name={`congress.${index}.year` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>Ano</FormLabel>
@@ -74,7 +74,7 @@ export default function BibliographyCard() {
 
               <FormField
                 control={control}
-                name={`bibliography.${index}.type` as const}
+                name={`congress.${index}.type` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>Categoria</FormLabel>
@@ -93,7 +93,7 @@ export default function BibliographyCard() {
 
                         <SelectContent>
                           <SelectGroup>
-                            {BibliographyConst?.map((category) => (
+                            {CongressConst?.map((category) => (
                               <SelectItem
                                 key={`${field.name}-${category}`}
                                 value={String(category)}
@@ -113,7 +113,7 @@ export default function BibliographyCard() {
 
             <FormField
               control={control}
-              name={`bibliography.${index}.description` as const}
+              name={`congress.${index}.description` as const}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Descrição</FormLabel>
@@ -129,8 +129,8 @@ export default function BibliographyCard() {
               )}
             />
 
-            {fieldBibliography.fields.length > 1 &&
-              fieldBibliography.fields.length - 1 !== index && (
+            {fieldCongress.fields.length > 1 &&
+              fieldCongress.fields.length - 1 !== index && (
                 <Separator orientation="horizontal" className="my-3" />
               )}
           </div>
@@ -139,7 +139,7 @@ export default function BibliographyCard() {
         <div className="w-full mt-4 flex sm:flex-row flex-col gap-2">
           <Button
             onClick={() =>
-              fieldBibliography.append({
+              fieldCongress.append({
                 description: "",
                 type: "",
                 year: new Date().getFullYear(),
@@ -152,10 +152,10 @@ export default function BibliographyCard() {
             <ArrowRight className="h-4 w-4 ml-1" />
           </Button>
 
-          {fieldBibliography.fields.length > 1 && (
+          {fieldCongress.fields.length > 1 && (
             <Button
               onClick={() =>
-                fieldBibliography.remove(fieldBibliography.fields.length - 1)
+                fieldCongress.remove(fieldCongress.fields.length - 1)
               }
               type="button"
               className="w-full"

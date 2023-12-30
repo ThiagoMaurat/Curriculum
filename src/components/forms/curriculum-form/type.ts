@@ -8,6 +8,8 @@ type Bibliography = {} & AcademicEducation;
 
 type Congress = {} & AcademicEducation;
 
+type Events = {} & AcademicEducation;
+
 export type CurriculumFormInput = {
   name: string;
   presentationName: string;
@@ -24,4 +26,5 @@ export type CurriculumFormInput = {
   academicEducation: AcademicEducation[];
   bibliography: Bibliography[];
   congress: Congress[];
+  events: Events[];
 };
