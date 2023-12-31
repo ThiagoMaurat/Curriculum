@@ -2,6 +2,7 @@ import React from "react";
 import ExtracurricularActivities from "./extracurricular-activities";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import ProfessionalExperience from "./professional-experience";
 
 interface FourthStepProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
@@ -14,6 +15,7 @@ export default function FourthStep(props: FourthStepProps) {
     <React.Fragment>
       <div className="flex flex-col md:flex-row gap-4">
         <ExtracurricularActivities />
+        <ProfessionalExperience />
       </div>
 
       <Card className="mt-4 max-w-xl w-full mx-auto">
@@ -22,7 +24,7 @@ export default function FourthStep(props: FourthStepProps) {
             type="button"
             className="self-center align-middle w-full"
             variant="default"
-            onClick={() => setCurrentStep(2)}
+            onClick={() => setCurrentStep(4)}
           >
             Próximo passo
           </Button>
@@ -31,7 +33,7 @@ export default function FourthStep(props: FourthStepProps) {
             type="button"
             className="self-center align-middle w-full"
             variant="outline"
-            onClick={() => setCurrentStep(0)}
+            onClick={() => setCurrentStep(2)}
           >
             Voltar
           </Button>
