@@ -6,7 +6,7 @@ import FirstStep from "@/components/forms/curriculum-form/first-step";
 import SecondStep from "@/components/forms/curriculum-form/second-step";
 import ThirdStep from "@/components/forms/curriculum-form/third-step";
 import FourthStep from "@/components/forms/curriculum-form/fourth-step";
-import FifthStep from "@/components/forms/curriculum-form/fifth-step/fifth-step";
+import FifthStep from "@/components/forms/curriculum-form/fifth-step";
 import { Step } from "@/components/steper/step";
 import { Form } from "@/components/ui/form";
 import { schema } from "@/components/forms/curriculum-form/schema";
