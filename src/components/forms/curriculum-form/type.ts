@@ -14,6 +14,10 @@ type ExtracurricularActivities = {} & AcademicEducation;
 
 type ProfessionalExperience = {} & AcademicEducation;
 
+type PdfLink = {
+  link: string;
+};
+
 export type CurriculumFormInput = {
   name: string;
   presentationName: string;
@@ -33,4 +37,5 @@ export type CurriculumFormInput = {
   events: Events[];
   extracurricularActivities: ExtracurricularActivities[];
   professionalExperience: ProfessionalExperience[];
+  pdfLink: PdfLink[];
 };

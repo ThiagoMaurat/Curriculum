@@ -55,4 +55,9 @@ export const DEFAULT_FORM: CurriculumFormInput = {
       year: new Date().getFullYear(),
     },
   ],
+  pdfLink: [
+    {
+      link: "",
+    },
+  ],
 };
