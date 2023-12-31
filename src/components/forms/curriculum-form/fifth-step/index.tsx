@@ -19,12 +19,11 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Trash } from "lucide-react";
-
 interface FifthStepProps {
-  setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
+  children?: React.ReactNode;
 }
 
-export default function FifthStep(props: FifthStepProps) {
+export default function FifthStep({ children }: FifthStepProps) {
   const { control } = useFormContext<CurriculumFormInput>();
 
   const fieldPdfLink = useFieldArray<CurriculumFormInput, "pdfLink">({
@@ -100,9 +99,7 @@ export default function FifthStep(props: FifthStepProps) {
           )}
         </div>
 
-        <Button className="mt-2" type="submit">
-          Finalizar
-        </Button>
+        {children}
       </CardContent>
     </Card>
   );

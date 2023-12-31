@@ -12,6 +12,8 @@ import { Form } from "@/components/ui/form";
 import { schema } from "@/components/forms/curriculum-form/schema";
 import { CurriculumFormInput } from "@/components/forms/curriculum-form/type";
 import { DEFAULT_FORM } from "@/components/forms/curriculum-form/data";
+import { PdfCurriculumTemplate } from "./pdf-curriculum-template";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 export default function FormsTemplate() {
   const [currentStep, setCurrentStep] = React.useState(0);
@@ -40,7 +42,7 @@ export default function FormsTemplate() {
     defaultValues: DEFAULT_FORM,
   });
 
-  const submitHandler = (data: any) => {
+  const submitHandler = async (data: CurriculumFormInput) => {
     console.log(data);
   };
 
@@ -72,7 +74,19 @@ export default function FormsTemplate() {
           {currentStep === 1 && <SecondStep setCurrentStep={setCurrentStep} />}
           {currentStep === 2 && <ThirdStep setCurrentStep={setCurrentStep} />}
           {currentStep === 3 && <FourthStep setCurrentStep={setCurrentStep} />}
-          {currentStep === 4 && <FifthStep setCurrentStep={setCurrentStep} />}
+          {currentStep === 4 && (
+            <FifthStep>
+              <PDFDownloadLink
+                document={<PdfCurriculumTemplate data={methods.getValues()} />}
+                fileName="curriculum"
+                onClick={async () => {
+                  await methods.handleSubmit(submitHandler)();
+                }}
+              >
+                Download
+              </PDFDownloadLink>
+            </FifthStep>
+          )}
         </form>
       </Form>
     </div>
