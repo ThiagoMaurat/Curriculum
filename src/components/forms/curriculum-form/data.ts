@@ -48,4 +48,11 @@ export const DEFAULT_FORM: CurriculumFormInput = {
       year: new Date().getFullYear(),
     },
   ],
+  professionalExperience: [
+    {
+      description: "",
+      type: "",
+      year: new Date().getFullYear(),
+    },
+  ],
 };

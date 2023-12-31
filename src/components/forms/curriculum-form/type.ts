@@ -12,6 +12,8 @@ type Events = {} & AcademicEducation;
 
 type ExtracurricularActivities = {} & AcademicEducation;
 
+type ProfessionalExperience = {} & AcademicEducation;
+
 export type CurriculumFormInput = {
   name: string;
   presentationName: string;
@@ -30,4 +32,5 @@ export type CurriculumFormInput = {
   congress: Congress[];
   events: Events[];
   extracurricularActivities: ExtracurricularActivities[];
+  professionalExperience: ProfessionalExperience[];
 };
