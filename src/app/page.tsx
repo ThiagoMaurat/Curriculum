@@ -1,3 +1,9 @@
+import Link from "next/link";
+
 export default function Home() {
-  return <h1>Hello World</h1>;
+  return (
+    <Link href="/forms" className="underline">
+      Página formulário
+    </Link>
+  );
 }
