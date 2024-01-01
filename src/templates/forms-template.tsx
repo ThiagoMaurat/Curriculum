@@ -13,7 +13,7 @@ import { schema } from "@/components/forms/curriculum-form/schema";
 import { CurriculumFormInput } from "@/components/forms/curriculum-form/type";
 import { DEFAULT_FORM } from "@/components/forms/curriculum-form/data";
 import { PdfCurriculumTemplate } from "./pdf-curriculum-template";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 
 export default function FormsTemplate() {
   const [currentStep, setCurrentStep] = React.useState(0);
@@ -85,6 +85,10 @@ export default function FormsTemplate() {
               >
                 Download
               </PDFDownloadLink>
+
+              <PDFViewer className="w-full h-full min-h-96">
+                <PdfCurriculumTemplate data={methods.watch()} />
+              </PDFViewer>
             </FifthStep>
           )}
         </form>

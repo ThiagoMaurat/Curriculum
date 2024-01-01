@@ -26,9 +26,12 @@ interface FifthStepProps {
 export default function FifthStep({ children }: FifthStepProps) {
   const { control } = useFormContext<CurriculumFormInput>();
 
-  const fieldPdfLink = useFieldArray<CurriculumFormInput, "pdfLink">({
+  const fieldCertificateImages = useFieldArray<
+    CurriculumFormInput,
+    "certificateImages"
+  >({
     control: control,
-    name: "pdfLink",
+    name: "certificateImages",
   });
 
   return (
@@ -41,17 +44,20 @@ export default function FifthStep({ children }: FifthStepProps) {
       <CardContent className="grid">
         {/* TODO: add the component field file instead of input field */}
         <p className="text-md text-red-500">
-          Apenas para teste o link do pdf no quinto step:
+          Apenas para teste o link da imagem no quinto step:
         </p>
 
-        {fieldPdfLink.fields.map((field, index) => (
-          <div className="w-full flex flex-col gap-2" key={`pdfLink-${index}`}>
+        {fieldCertificateImages.fields.map((field, index) => (
+          <div
+            className="w-full flex flex-col gap-2"
+            key={`certificateImages-${index}`}
+          >
             <FormField
               control={control}
-              name={`pdfLink.${index}.link` as const}
+              name={`certificateImages.${index}.link` as const}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Link PDF</FormLabel>
+                  <FormLabel>Link Imagem</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Insira o link do certificado"
@@ -63,8 +69,8 @@ export default function FifthStep({ children }: FifthStepProps) {
               )}
             />
 
-            {fieldPdfLink.fields.length > 1 &&
-              fieldPdfLink.fields.length - 1 !== index && (
+            {fieldCertificateImages.fields.length > 1 &&
+              fieldCertificateImages.fields.length - 1 !== index && (
                 <Separator orientation="horizontal" className="my-3" />
               )}
           </div>
@@ -73,7 +79,7 @@ export default function FifthStep({ children }: FifthStepProps) {
         <div className="w-full mt-4 flex sm:flex-row flex-col gap-2">
           <Button
             onClick={() =>
-              fieldPdfLink.append({
+              fieldCertificateImages.append({
                 link: "",
               })
             }
@@ -84,10 +90,12 @@ export default function FifthStep({ children }: FifthStepProps) {
             <ArrowRight className="h-4 w-4 ml-1" />
           </Button>
 
-          {fieldPdfLink.fields.length > 1 && (
+          {fieldCertificateImages.fields.length > 1 && (
             <Button
               onClick={() =>
-                fieldPdfLink.remove(fieldPdfLink.fields.length - 1)
+                fieldCertificateImages.remove(
+                  fieldCertificateImages.fields.length - 1
+                )
               }
               type="button"
               className="w-full"

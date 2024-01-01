@@ -24,15 +24,39 @@ export default function FirstPage({ data }: FirstPageProps) {
   return (
     <Page size={"A4"} style={commonStyles.body}>
       <View style={firstPageStyles.view}>
-        <Text>{name}</Text>
+        <Text style={[commonStyles.title, { fontStyle: "italic" }]}>
+          {name}
+        </Text>
 
-        <View>
-          <Text>CURRICULUM VITAE</Text>
-          <Text>Medicina</Text>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={[
+              commonStyles.title,
+              { textAlign: "center", fontStyle: "italic" },
+            ]}
+          >
+            CURRICULUM VITAE
+          </Text>
+          <Text style={[commonStyles.subtitle, { textAlign: "center" }]}>
+            Medicina
+          </Text>
         </View>
 
         <Text>{new Date().getFullYear()}</Text>
       </View>
+
+      <Text
+        style={commonStyles.pageNumber}
+        render={({ pageNumber, totalPages }) => `${pageNumber} / ${totalPages}`}
+        fixed
+      />
     </Page>
   );
 }

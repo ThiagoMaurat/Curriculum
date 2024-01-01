@@ -7,9 +7,9 @@ export const commonStyles = StyleSheet.create({
     paddingHorizontal: 35,
   },
   title: {
-    fontSize: 24,
+    fontSize: 18,
     textAlign: "center",
-    fontFamily: "Oswald",
+    fontWeight: "extrabold",
   },
   author: {
     fontSize: 12,
@@ -19,7 +19,7 @@ export const commonStyles = StyleSheet.create({
   subtitle: {
     fontSize: 18,
     margin: 12,
-    fontFamily: "Oswald",
+    fontWeight: "bold",
   },
   text: {
     margin: 12,
@@ -45,5 +45,13 @@ export const commonStyles = StyleSheet.create({
     right: 0,
     textAlign: "center",
     color: "grey",
+  },
+  commonCentralizedView: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });

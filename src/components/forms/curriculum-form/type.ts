@@ -14,7 +14,7 @@ type ExtracurricularActivities = {} & AcademicEducation;
 
 type ProfessionalExperience = {} & AcademicEducation;
 
-type PdfLink = {
+type CertificateImages = {
   link: string;
 };
 
@@ -37,5 +37,5 @@ export type CurriculumFormInput = {
   events: Events[];
   extracurricularActivities: ExtracurricularActivities[];
   professionalExperience: ProfessionalExperience[];
-  pdfLink: PdfLink[];
+  certificateImages: CertificateImages[];
 };
