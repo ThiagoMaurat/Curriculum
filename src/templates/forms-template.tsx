@@ -13,7 +13,9 @@ import { schema } from "@/components/forms/curriculum-form/schema";
 import { CurriculumFormInput } from "@/components/forms/curriculum-form/type";
 import { DEFAULT_FORM } from "@/components/forms/curriculum-form/data";
 import { PdfCurriculumTemplate } from "./pdf-curriculum-template";
-import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import { BlobProvider, PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import { Button } from "@/components/ui/button";
+import PDFMerger from "pdf-merger-js";
 
 export default function FormsTemplate() {
   const [currentStep, setCurrentStep] = React.useState(0);
@@ -46,6 +48,31 @@ export default function FormsTemplate() {
     console.log(data);
   };
 
+  const downloadBlob = async (blob: Blob) => {
+    const merger = new PDFMerger();
+
+    const blobBuffer = await blob.arrayBuffer();
+
+    await merger.add(blobBuffer); //merge all pages. parameter is the path to file and filename.
+
+    const pdf = await fetch(
+      "https://utfs.io/f/d3f5f289-1aa8-4064-9a86-b2234e915434-f1lhsm.pdf"
+    );
+
+    const pdfBuffer = await pdf.arrayBuffer();
+
+    await merger.add(pdfBuffer); //merge all pages. parameter is the path to file and filename.
+
+    const finalDoc = await merger.saveAsBuffer();
+    const blobFinalDoc = new Blob([finalDoc], { type: "application/pdf" });
+    const url = URL.createObjectURL(blobFinalDoc);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "curriculum.pdf");
+    document.body.appendChild(link);
+    link.click();
+  };
+
   return (
     <div className="w-full h-full pb-4 flex flex-col gap-12">
       <div className="flex ring-1 ring-main-primary rounded-2xl py-5 px-4">
@@ -76,15 +103,19 @@ export default function FormsTemplate() {
           {currentStep === 3 && <FourthStep setCurrentStep={setCurrentStep} />}
           {currentStep === 4 && (
             <FifthStep>
-              <PDFDownloadLink
-                document={<PdfCurriculumTemplate data={methods.getValues()} />}
-                fileName="curriculum"
-                onClick={async () => {
-                  await methods.handleSubmit(submitHandler)();
-                }}
+              <BlobProvider
+                document={<PdfCurriculumTemplate data={methods.watch()} />}
               >
-                Download
-              </PDFDownloadLink>
+                {({ blob, url, loading, error }) => {
+                  if (blob) {
+                    return (
+                      <Button onClick={() => downloadBlob(blob)}>
+                        {loading ? "Loading..." : "Download"}
+                      </Button>
+                    );
+                  }
+                }}
+              </BlobProvider>
 
               <PDFViewer className="w-full h-full min-h-96">
                 <PdfCurriculumTemplate data={methods.watch()} />

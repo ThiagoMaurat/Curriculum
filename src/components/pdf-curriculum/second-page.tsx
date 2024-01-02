@@ -21,7 +21,7 @@ export default function SecondPage({ data }: SecondPageProps) {
       </Text>
 
       {data?.name && (
-        <Text break style={[commonStyles.title, { fontStyle: "italic" }]}>
+        <Text style={[commonStyles.title, { fontStyle: "italic" }]}>
           {data?.name}
         </Text>
       )}
