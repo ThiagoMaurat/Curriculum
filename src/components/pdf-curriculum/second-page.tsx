@@ -36,6 +36,7 @@ export default function SecondPage({ data }: SecondPageProps) {
               display: "flex",
               flexDirection: "row",
               marginVertical: 8,
+              textAlign: "justify",
             }}
           >
             <Text
