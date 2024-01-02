@@ -1,7 +1,7 @@
 import React from "react";
 import { Page, Text, StyleSheet, View } from "@react-pdf/renderer";
-import { commonStyles } from "./common-style";
-import { CurriculumFormInput } from "../forms/curriculum-form/type";
+import { commonStyles } from "../common-style";
+import { CurriculumFormInput } from "../../forms/curriculum-form/type";
 
 const firstPageStyles = StyleSheet.create({
   view: {
@@ -25,10 +25,12 @@ export default function FirstPage({ data }: FirstPageProps) {
     <Page size={"A4"} style={commonStyles.body}>
       <View style={firstPageStyles.view}>
         <Text
-          style={[
-            commonStyles.title,
-            { fontStyle: "italic", textAlign: "center" },
-          ]}
+          style={{
+            fontStyle: "italic",
+            textAlign: "center",
+            fontSize: 22,
+            fontWeight: "bold",
+          }}
         >
           {name}
         </Text>
@@ -42,18 +44,23 @@ export default function FirstPage({ data }: FirstPageProps) {
           }}
         >
           <Text
-            style={[
-              commonStyles.title,
-              { textAlign: "center", fontStyle: "italic" },
-            ]}
+            style={{
+              textAlign: "center",
+              fontStyle: "italic",
+              fontSize: 22,
+              fontWeight: "bold",
+            }}
           >
             CURRICULUM VITAE
           </Text>
           <Text
-            style={[
-              commonStyles.subtitle,
-              { textAlign: "center", marginTop: 3 },
-            ]}
+            style={{
+              textAlign: "center",
+              fontStyle: "italic",
+              fontSize: 22,
+              fontWeight: "bold",
+              marginTop: 10,
+            }}
           >
             Medicina
           </Text>

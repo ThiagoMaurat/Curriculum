@@ -1,21 +1,17 @@
 import React from "react";
-import { Page, Text, View } from "@react-pdf/renderer";
-import { CurriculumFormInput } from "../forms/curriculum-form/type";
-import { commonStyles } from "./common-style";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { Text, View } from "@react-pdf/renderer";
+import { CurriculumFormInput } from "@/components/forms/curriculum-form/type";
+import { commonStyles } from "../../common-style";
 
-interface SecondPageProps {
+interface PersonalDataProps {
   data: CurriculumFormInput;
 }
 
-export default function SecondPage({ data }: SecondPageProps) {
+export default function PersonalData({ data }: PersonalDataProps) {
   return (
-    <Page
-      size={"A4"}
-      wrap
-      style={[commonStyles.body, { display: "flex", gap: 12 }]}
-    >
+    <React.Fragment>
       <Text style={[commonStyles.title, { fontStyle: "italic" }]}>
         Curriculum Vitae
       </Text>
@@ -169,6 +165,12 @@ export default function SecondPage({ data }: SecondPageProps) {
           </>
         </View>
       )}
-    </Page>
+
+      <Text
+        style={commonStyles.pageNumber}
+        render={({ pageNumber, totalPages }) => `${pageNumber} / ${totalPages}`}
+        fixed
+      />
+    </React.Fragment>
   );
 }
