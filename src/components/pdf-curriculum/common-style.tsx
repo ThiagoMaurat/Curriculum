@@ -2,24 +2,31 @@ import { StyleSheet } from "@react-pdf/renderer";
 
 export const commonStyles = StyleSheet.create({
   body: {
-    paddingTop: 35,
+    paddingTop: 55,
     paddingBottom: 65,
-    paddingHorizontal: 35,
+    paddingHorizontal: 55,
   },
   title: {
     fontSize: 18,
-    textAlign: "center",
-    fontWeight: "extrabold",
+    fontWeight: "bold",
+  },
+  subtitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  descriptionTitle: {
+    fontWeight: "normal",
+    fontSize: 14,
+  },
+  chapter: {
+    marginVertical: 6,
+    fontSize: 20,
+    fontWeight: "bold",
   },
   author: {
     fontSize: 12,
     textAlign: "center",
     marginBottom: 40,
-  },
-  subtitle: {
-    fontSize: 18,
-    margin: 12,
-    fontWeight: "bold",
   },
   text: {
     margin: 12,
@@ -47,11 +54,8 @@ export const commonStyles = StyleSheet.create({
     color: "grey",
   },
   commonCentralizedView: {
-    width: "100%",
-    height: "100%",
     display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
+    flexDirection: "row",
     alignItems: "center",
   },
 });

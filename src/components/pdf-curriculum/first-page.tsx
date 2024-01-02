@@ -44,7 +44,12 @@ export default function FirstPage({ data }: FirstPageProps) {
           >
             CURRICULUM VITAE
           </Text>
-          <Text style={[commonStyles.subtitle, { textAlign: "center" }]}>
+          <Text
+            style={[
+              commonStyles.subtitle,
+              { textAlign: "center", marginTop: 3 },
+            ]}
+          >
             Medicina
           </Text>
         </View>
