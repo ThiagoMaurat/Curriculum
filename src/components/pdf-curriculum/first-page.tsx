@@ -24,7 +24,12 @@ export default function FirstPage({ data }: FirstPageProps) {
   return (
     <Page size={"A4"} style={commonStyles.body}>
       <View style={firstPageStyles.view}>
-        <Text style={[commonStyles.title, { fontStyle: "italic" }]}>
+        <Text
+          style={[
+            commonStyles.title,
+            { fontStyle: "italic", textAlign: "center" },
+          ]}
+        >
           {name}
         </Text>
 
