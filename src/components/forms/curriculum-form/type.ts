@@ -31,6 +31,7 @@ export type CurriculumFormInput = {
   address: string;
   email: string;
   lattes: string;
+  description: string;
   academicEducation: AcademicEducation[];
   bibliography: Bibliography[];
   congress: Congress[];

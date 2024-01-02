@@ -20,6 +20,7 @@ import React from "react";
 import { useFormContext } from "react-hook-form";
 import { DatePicker } from "@/components/ui/date-picker";
 import { InputFieldMask } from "@/components/ui/input-mask";
+import { Textarea } from "@/components/ui/textarea";
 
 interface FirstStepProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
@@ -290,6 +291,24 @@ export default function FirstStep(props: FirstStepProps) {
               <FormLabel>Currículo Lattes</FormLabel>
               <FormControl>
                 <Input placeholder="Insira o link do Lattes" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={control}
+          name={"description"}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Descreva sua carreira e trajetória</FormLabel>
+              <FormControl>
+                <Textarea
+                  className="min-h-[90px]"
+                  placeholder="Insira uma descrição"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

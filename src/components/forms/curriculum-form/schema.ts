@@ -93,4 +93,9 @@ export const schema = z.object({
     })
     .email({ message: "Email inválido" }),
   lattes: z.string().optional(),
+  description: z
+    .string({
+      required_error: "A descrição é obrigatória",
+    })
+    .min(10, { message: "Deve ter pelo menos 10 letras" }),
 });
