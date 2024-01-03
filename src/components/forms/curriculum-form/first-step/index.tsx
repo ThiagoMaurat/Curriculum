@@ -45,6 +45,7 @@ export default function FirstStep(props: FirstStepProps) {
       address,
       email,
       lattes,
+      selfDescription,
     ] = await Promise.all([
       trigger("name"),
       trigger("presentationName"),
@@ -58,6 +59,7 @@ export default function FirstStep(props: FirstStepProps) {
       trigger("address"),
       trigger("email"),
       trigger("lattes"),
+      trigger("selfDescription"),
     ]);
 
     if (
@@ -72,7 +74,8 @@ export default function FirstStep(props: FirstStepProps) {
       phone &&
       address &&
       email &&
-      lattes
+      lattes &&
+      selfDescription
     ) {
       setCurrentStep(1);
     }
@@ -299,7 +302,7 @@ export default function FirstStep(props: FirstStepProps) {
 
         <FormField
           control={control}
-          name={"description"}
+          name={"selfDescription"}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Descreva sua carreira e trajetória</FormLabel>
@@ -312,9 +315,9 @@ export default function FirstStep(props: FirstStepProps) {
                     {...field}
                   />
 
-                  {watch("description") && (
+                  {watch("selfDescription") && (
                     <p className="text-xs text-muted-foreground w-full text-end">
-                      {watch("description").length}/ 400
+                      {watch("selfDescription").length}/ 400
                     </p>
                   )}
                 </React.Fragment>

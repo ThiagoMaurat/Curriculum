@@ -22,7 +22,7 @@ export default function PersonalData({ data }: PersonalDataProps) {
         </Text>
       )}
 
-      {data.description && (
+      {data.selfDescription && (
         <View
           style={{
             display: "flex",
@@ -39,7 +39,7 @@ export default function PersonalData({ data }: PersonalDataProps) {
               },
             ]}
           >
-            {data.description}
+            {data.selfDescription}
           </Text>
         </View>
       )}
