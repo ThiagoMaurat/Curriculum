@@ -29,7 +29,7 @@ interface FirstStepProps {
 export default function FirstStep(props: FirstStepProps) {
   const { setCurrentStep } = props;
 
-  const { control, trigger } = useFormContext();
+  const { control, trigger, watch } = useFormContext();
 
   const validateFirstStep = async () => {
     const [
@@ -304,11 +304,20 @@ export default function FirstStep(props: FirstStepProps) {
             <FormItem>
               <FormLabel>Descreva sua carreira e trajetória</FormLabel>
               <FormControl>
-                <Textarea
-                  className="min-h-[90px]"
-                  placeholder="Insira uma descrição"
-                  {...field}
-                />
+                <React.Fragment>
+                  <Textarea
+                    className="min-h-[90px]"
+                    maxLength={400}
+                    placeholder="Insira uma descrição"
+                    {...field}
+                  />
+
+                  {watch("description") && (
+                    <p className="text-xs text-muted-foreground w-full text-end">
+                      {watch("description").length}/ 400
+                    </p>
+                  )}
+                </React.Fragment>
               </FormControl>
               <FormMessage />
             </FormItem>

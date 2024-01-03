@@ -31,7 +31,7 @@ import { Button } from "@/components/ui/button";
 import { CongressConst } from "@/const/events";
 
 export default function Events() {
-  const { control } = useFormContext<CurriculumFormInput>();
+  const { control, watch } = useFormContext<CurriculumFormInput>();
 
   const fieldEvents = useFieldArray<CurriculumFormInput, "events">({
     control: control,
@@ -118,11 +118,21 @@ export default function Events() {
                 <FormItem>
                   <FormLabel>Descrição</FormLabel>
                   <FormControl>
-                    <Textarea
-                      className="min-h-[90px]"
-                      placeholder="Insira uma descrição"
-                      {...field}
-                    />
+                    <React.Fragment>
+                      <Textarea
+                        maxLength={400}
+                        className="min-h-[90px]"
+                        placeholder="Insira uma descrição"
+                        {...field}
+                      />
+
+                      {watch(`events.${index}.description` as const) && (
+                        <p className="text-xs text-muted-foreground w-full text-end">
+                          {watch(`events.${index}.description` as const).length}
+                          / 400
+                        </p>
+                      )}
+                    </React.Fragment>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

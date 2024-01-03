@@ -29,9 +29,10 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Trash } from "lucide-react";
 import { BibliographyConst } from "@/const/bibliography";
+import { watch } from "fs";
 
 export default function BibliographyCard() {
-  const { control } = useFormContext<CurriculumFormInput>();
+  const { control, watch } = useFormContext<CurriculumFormInput>();
 
   const fieldBibliography = useFieldArray<CurriculumFormInput, "bibliography">({
     control: control,
@@ -118,11 +119,24 @@ export default function BibliographyCard() {
                 <FormItem>
                   <FormLabel>Descrição</FormLabel>
                   <FormControl>
-                    <Textarea
-                      className="min-h-[90px]"
-                      placeholder="Insira uma descrição"
-                      {...field}
-                    />
+                    <React.Fragment>
+                      <Textarea
+                        maxLength={400}
+                        className="min-h-[90px]"
+                        placeholder="Insira uma descrição"
+                        {...field}
+                      />
+
+                      {watch(`bibliography.${index}.description` as const) && (
+                        <p className="text-xs text-muted-foreground w-full text-end">
+                          {
+                            watch(`bibliography.${index}.description` as const)
+                              .length
+                          }
+                          / 400
+                        </p>
+                      )}
+                    </React.Fragment>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

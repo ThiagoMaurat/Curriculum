@@ -29,9 +29,10 @@ import {
 import { AcademicEducationConst } from "@/const/academic-education-category";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { watch } from "fs";
 
 export default function AcademicCard() {
-  const { control } = useFormContext<CurriculumFormInput>();
+  const { control, watch } = useFormContext<CurriculumFormInput>();
 
   const fieldAcademicEducation = useFieldArray<
     CurriculumFormInput,
@@ -121,11 +122,27 @@ export default function AcademicCard() {
                 <FormItem>
                   <FormLabel>Descrição</FormLabel>
                   <FormControl>
-                    <Textarea
-                      className="min-h-[90px]"
-                      placeholder="Insira uma descrição"
-                      {...field}
-                    />
+                    <React.Fragment>
+                      <Textarea
+                        maxLength={400}
+                        className="min-h-[90px]"
+                        placeholder="Insira uma descrição"
+                        {...field}
+                      />
+
+                      {watch(
+                        `academicEducation.${index}.description` as const
+                      ) && (
+                        <p className="text-xs text-muted-foreground w-full text-end">
+                          {
+                            watch(
+                              `academicEducation.${index}.description` as const
+                            ).length
+                          }
+                          / 400
+                        </p>
+                      )}
+                    </React.Fragment>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

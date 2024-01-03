@@ -31,7 +31,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
 export default function ProfessionalExperience() {
-  const { control } = useFormContext<CurriculumFormInput>();
+  const { control, watch } = useFormContext<CurriculumFormInput>();
 
   const fieldProfessionalExperience = useFieldArray<
     CurriculumFormInput,
@@ -121,11 +121,27 @@ export default function ProfessionalExperience() {
                 <FormItem>
                   <FormLabel>Descrição</FormLabel>
                   <FormControl>
-                    <Textarea
-                      className="min-h-[90px]"
-                      placeholder="Insira uma descrição"
-                      {...field}
-                    />
+                    <React.Fragment>
+                      <Textarea
+                        maxLength={400}
+                        className="min-h-[90px]"
+                        placeholder="Insira uma descrição"
+                        {...field}
+                      />
+
+                      {watch(
+                        `professionalExperience.${index}.description` as const
+                      ) && (
+                        <p className="text-xs text-muted-foreground w-full text-end">
+                          {
+                            watch(
+                              `professionalExperience.${index}.description` as const
+                            ).length
+                          }
+                          / 400
+                        </p>
+                      )}
+                    </React.Fragment>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

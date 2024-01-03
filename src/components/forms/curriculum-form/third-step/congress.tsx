@@ -29,9 +29,10 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { CongressConst } from "@/const/congress";
+import { watch } from "fs";
 
 export default function Congress() {
-  const { control } = useFormContext<CurriculumFormInput>();
+  const { control, watch } = useFormContext<CurriculumFormInput>();
 
   const fieldCongress = useFieldArray<CurriculumFormInput, "congress">({
     control: control,
@@ -118,11 +119,24 @@ export default function Congress() {
                 <FormItem>
                   <FormLabel>Descrição</FormLabel>
                   <FormControl>
-                    <Textarea
-                      className="min-h-[90px]"
-                      placeholder="Insira uma descrição"
-                      {...field}
-                    />
+                    <React.Fragment>
+                      <Textarea
+                        maxLength={400}
+                        className="min-h-[90px]"
+                        placeholder="Insira uma descrição"
+                        {...field}
+                      />
+
+                      {watch(`congress.${index}.description` as const) && (
+                        <p className="text-xs text-muted-foreground w-full text-end">
+                          {
+                            watch(`congress.${index}.description` as const)
+                              .length
+                          }
+                          / 400
+                        </p>
+                      )}
+                    </React.Fragment>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
