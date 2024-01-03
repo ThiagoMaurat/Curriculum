@@ -3,12 +3,12 @@ import { View, Text } from "@react-pdf/renderer";
 import React from "react";
 import { commonStyles } from "../../common-style";
 
-interface AcademicEducationProps {
+interface BibliographyProps {
   data: CurriculumFormInput;
 }
 
-export default function AcademicEducation({ data }: AcademicEducationProps) {
-  if (!data.academicEducation || data.academicEducation.length === 0) {
+export default function Bibliography({ data }: BibliographyProps) {
+  if (!data.bibliography || data.bibliography.length === 0) {
     return null;
   }
 
@@ -20,7 +20,7 @@ export default function AcademicEducation({ data }: AcademicEducationProps) {
           { marginTop: 4, marginBottom: 4 },
         ]}
       >
-        <Text style={commonStyles.chapter}>2. FORMAÇÃO ACADÊMICA</Text>
+        <Text style={commonStyles.chapter}>3. BIBLIOGRAFIA</Text>
       </View>
 
       <View
@@ -31,7 +31,7 @@ export default function AcademicEducation({ data }: AcademicEducationProps) {
           textAlign: "justify",
         }}
       >
-        {data.academicEducation.map((item, index) => (
+        {data.bibliography.map((item, index) => (
           <View key={`academic-education-${index}`}>
             <Text style={[commonStyles.subChapter]}>
               {`2.${index + 1} ${item.type}`}
