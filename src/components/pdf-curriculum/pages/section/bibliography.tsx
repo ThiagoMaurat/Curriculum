@@ -20,7 +20,7 @@ export default function Bibliography({ data }: BibliographyProps) {
           { marginTop: 4, marginBottom: 4 },
         ]}
       >
-        <Text style={commonStyles.chapter}>3. BIBLIOGRAFIA</Text>
+        <Text style={commonStyles.chapter}>4. BIBLIOGRAFIA</Text>
       </View>
 
       <View
