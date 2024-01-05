@@ -1,21 +1,17 @@
 import { hash } from "bcryptjs";
-import { UsersRepository } from "@/server/repositories/user-repository";
 import { InvalidCredentialsError } from "@/server/errors/invalid-credentials-error";
 import { Users } from "@/db/types-schema";
 import { randomUUID } from "node:crypto";
 import { render } from "@react-email/render";
 import { SendEmailUseCase } from "../send-email";
 import AuthConfirmEmail from "@/email-templates/auth-confirm-email";
+import { UsersRepository } from "@/server/repositories/user-repository";
 
 interface RegisterUseCaseInputAndSendEmailInput {
   email: string;
   password: string;
+  confirmPassword: string;
   name: string;
-  phone: string;
-}
-
-interface RegisterUseCaseInputAndSendEmailOutput {
-  user: Users | null;
 }
 
 export class RegisterUseCaseInputAndSendEmail {
@@ -28,9 +24,13 @@ export class RegisterUseCaseInputAndSendEmail {
     email,
     name,
     password,
-    phone,
-  }: RegisterUseCaseInputAndSendEmailInput): Promise<RegisterUseCaseInputAndSendEmailOutput | null> {
+    confirmPassword,
+  }: RegisterUseCaseInputAndSendEmailInput): Promise<Users | null> {
     if (!password || !email) {
+      throw new InvalidCredentialsError();
+    }
+
+    if (password !== confirmPassword) {
       throw new InvalidCredentialsError();
     }
 
@@ -61,11 +61,10 @@ export class RegisterUseCaseInputAndSendEmail {
       password: password_hash,
       emailCodeVerified: emailCode,
       email,
+      name,
       roleId: 1,
     });
 
-    return {
-      user,
-    };
+    return user;
   }
 }

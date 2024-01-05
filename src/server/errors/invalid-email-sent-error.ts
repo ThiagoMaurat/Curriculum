@@ -1,5 +1,5 @@
 export class InvalidEmailSentError extends Error {
   constructor() {
-    super("Invalid email sent");
+    super("Erro ao enviar e-mail");
   }
 }
