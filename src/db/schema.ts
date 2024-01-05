@@ -30,7 +30,6 @@ export const users = pgTable("user", {
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   emailCodeVerified: varchar("emailCodeVerified", { length: 80 }),
   image: text("image"),
-  cpf: varchar("cpf", { length: 80 }).notNull(),
   password: varchar("password", { length: 60 }).notNull(),
   resetPassword: varchar("resetPassword", { length: 60 }),
   roleId: integer("roleId")

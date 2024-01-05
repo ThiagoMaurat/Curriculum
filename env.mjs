@@ -12,6 +12,10 @@ export const env = createEnv({
     PGDATABASE: z.string(),
     PGUSER: z.string(),
     PGPASSWORD: z.string(),
+    NEXTAUTH_SECRET: z.string(),
+    NEXTAUTH_URL: z.string().url(),
+    GMAIL_MAIL: z.string(),
+    GMAIL_PASSWORD: z.string(),
   },
   /*
    * Environment variables available on the client (and server).
@@ -33,5 +37,9 @@ export const env = createEnv({
     PGUSER: process.env.PGUSER,
     PGPASSWORD: process.env.PGPASSWORD,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    GMAIL_MAIL: process.env.GMAIL_MAIL,
+    GMAIL_PASSWORD: process.env.GMAIL_PASSWORD,
   },
 });
