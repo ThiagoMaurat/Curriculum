@@ -10,7 +10,7 @@ export default function layout(props: AuthLayoutProps) {
 
   return (
     <div className="h-screen bg-[#E7E2FF] flex items-center justify-center">
-      <div className="w-full container max-h-[600px] h-auto flex sm:flex-row flex-col my-4">
+      <div className="w-full container min-h-[600px] h-auto flex sm:flex-row flex-col my-4">
         <main className="w-full p-4 flex items-center justify-center mx-auto rounded-s-xl bg-white">
           {children}
         </main>
