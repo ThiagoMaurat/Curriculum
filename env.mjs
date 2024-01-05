@@ -16,6 +16,7 @@ export const env = createEnv({
     NEXTAUTH_URL: z.string().url(),
     GMAIL_MAIL: z.string(),
     GMAIL_PASSWORD: z.string(),
+    PG_CONNECTION_STRING: z.string(),
   },
   /*
    * Environment variables available on the client (and server).
@@ -41,5 +42,6 @@ export const env = createEnv({
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     GMAIL_MAIL: process.env.GMAIL_MAIL,
     GMAIL_PASSWORD: process.env.GMAIL_PASSWORD,
+    PG_CONNECTION_STRING: process.env.PG_CONNECTION_STRING,
   },
 });
