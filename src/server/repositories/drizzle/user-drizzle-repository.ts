@@ -32,10 +32,6 @@ export class DrizzleUsersRepository implements UsersRepository {
       })
       .returning();
 
-    if (!user) {
-      return null;
-    }
-
     return user;
   }
 }
