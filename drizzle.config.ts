@@ -21,4 +21,5 @@ export default {
     port: 5432,
     ssl: true,
   },
+  out: "./drizzle",
 } satisfies Config;

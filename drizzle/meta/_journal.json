@@ -15,6 +15,13 @@
       "when": 1704322196316,
       "tag": "0001_slimy_skin",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1704415504646,
+      "tag": "0002_crazy_doomsday",
+      "breakpoints": true
     }
   ]
 }
