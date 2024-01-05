@@ -24,19 +24,11 @@ export class DrizzleUsersRepository implements UsersRepository {
     };
   }
 
-  async createUser(
-    data: Omit<InsertSchemaUsersType, "roleId">
-  ): Promise<Users | null> {
-    const [userRole] = await db
-      .select({ id: roles.id })
-      .from(roles)
-      .where(eq(roles.name, "user"));
-
+  async createUser(data: InsertSchemaUsersType): Promise<Users | null> {
     const [user] = await db
       .insert(users)
       .values({
         ...data,
-        roleId: userRole.id,
       })
       .returning();
 
