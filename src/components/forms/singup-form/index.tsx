@@ -17,7 +17,6 @@ import { Button } from "@/components/ui/button";
 import { PasswordInput } from "@/components/ui/password-input";
 import { signUpAction } from "@/action/signup-action";
 import { Input } from "@/components/ui/input";
-import { InputFieldMask } from "@/components/ui/input-mask";
 import { SignUpSchema, signUpSchema } from "@/validators/signup";
 
 export function SignUpForm() {
