@@ -9,7 +9,7 @@ export default function LogoutButton() {
       onClick={() => signOut({ callbackUrl: "/" })}
       className="flex justify-center gap-2 cursor-pointer"
     >
-      <span>Log out</span>
+      <span>Sair</span>
       <LogOut size={24} cursor={"pointer"} />
     </div>
   );
