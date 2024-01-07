@@ -13,8 +13,8 @@ type AuthenticateUserCaseOutput = Promise<{
   id: string;
   name: string | null;
   email: string;
+  image: string | null;
   emailVerified: Date | null;
-  phone: string | null;
   roleName: Roles["name"];
 } | null>;
 
@@ -45,8 +45,8 @@ export class AuthenticateUseCase {
       name: user.user.name,
       email: user.user.email,
       emailVerified: user.user.emailVerified,
-      phone: user.user.phone,
       roleName: user.role.name,
+      image: user.user.image,
     };
   }
 }

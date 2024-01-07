@@ -21,28 +21,13 @@ declare module "next-auth" {
     id: string;
     name: string;
     email: string;
-    emailVerified: Date | null;
-    phone: string;
+    image: string | null;
+    emailVerified: string;
     roleName: Roles["name"];
   }
 
   interface Session {
-    user: {
-      name: string;
-      email: string;
-      picture: string | null;
-      sub: string;
-      id: string;
-      emailVerified: string | null;
-      image: string | null;
-      phone: string;
-      cpf: string;
-      birthdate: string;
-      roleName: Roles["name"];
-      iat: number;
-      exp: number;
-      jti: string;
-    };
+    user: User;
   }
 }
 
@@ -52,13 +37,6 @@ declare module "next-auth/jwt" {
     email: string;
     picture: string | null;
     sub: string;
-    id: string;
-    emailVerified: string | null;
-    phone: string;
-    roleName: string;
-    iat: number;
-    exp: number;
-    jti: string;
   }
 }
 
@@ -113,21 +91,23 @@ export const authOptions: NextAuthOptions = {
     signIn: "/signin",
   },
   callbacks: {
-    jwt: async ({ token, user, trigger, session }) => {
-      if (trigger === "update" && session) {
-        token.emailVerified = new Date().toISOString();
+    jwt: async ({ token, user }) => {
+      if (user) {
+        return {
+          ...token,
+          user: {
+            ...user,
+          },
+        };
       }
 
-      return {
-        ...token,
-        ...user,
-      } as JWT;
+      return token;
     },
 
     session: async ({ session, token }) => {
       return {
         ...session,
-        user: token,
+        user: token.user as User,
       };
     },
   },
