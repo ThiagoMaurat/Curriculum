@@ -20,7 +20,7 @@ export default function NavBar(props: NavBarProps) {
       )}
       {...rest}
     >
-      <nav className="md:max-w-full mx-auto w-full py-7 flex align-center justify-between flex-wrap">
+      <nav className="md:max-w-full mx-auto w-full py-4 flex align-center justify-between flex-wrap">
         <Logo />
 
         <Menus />
