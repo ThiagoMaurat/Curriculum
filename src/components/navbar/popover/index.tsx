@@ -32,10 +32,10 @@ export default async function PopoverNavBar() {
                 )}
               </Avatar>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="p-2" align="end">
+            <DropdownMenuContent className="p-5" align="end">
               <div className="w-full h-full flex flex-col gap-4">
-                <p className=" font-medium truncate">{data?.user?.name}</p>
-                <p className=" truncate">{data?.user?.email}</p>
+                <p className="font-medium truncate">{data?.user?.name}</p>
+                <p className="truncate">{data?.user?.email}</p>
 
                 <div className="border-b" />
 

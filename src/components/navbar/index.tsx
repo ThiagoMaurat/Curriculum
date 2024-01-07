@@ -15,7 +15,7 @@ export default function NavBar(props: NavBarProps) {
   return (
     <div
       className={cn(
-        "w-full sticky h-auto top-0 left-0 container bg-card rounded-b-xl",
+        "w-full sticky h-auto top-0 left-0 container bg-card dark:bg-zinc-950 rounded-b-xl",
         className
       )}
       {...rest}
