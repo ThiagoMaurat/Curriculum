@@ -1,13 +1,13 @@
 "use server";
 
 import { action } from "@/lib/safe-action";
-import { makeRegistryFactory } from "@/server/factories/make-register-use-case";
+import { makeRegistryFactory } from "@/server/factories/make-register-factory";
 import { signUpSchema } from "@/validators/signup";
 
 export const signUpAction = action(signUpSchema, async (data) => {
-  const regosterFactory = makeRegistryFactory();
+  const registerFactory = makeRegistryFactory();
 
-  await regosterFactory.execute({
+  await registerFactory.execute({
     ...data,
   });
 

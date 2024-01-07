@@ -1,7 +1,7 @@
 import { SendMailOptions } from "nodemailer";
 import { env } from "../../../../env.mjs";
 import transporter from "@/lib/node-mailer";
-import { InvalidEmailSentError } from "@/server/errors/invalid-email-sent-error";
+import { InvalidEmailSentError } from "@/server/errors/invalid-email-sent";
 
 interface SendEmailUseCaseInput {
   to: string;

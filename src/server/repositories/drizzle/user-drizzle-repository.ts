@@ -1,10 +1,43 @@
 import { db } from "@/lib/drizzle";
 import { UsersRepository } from "../user-repository";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { InsertSchemaUsersType, Roles, Users } from "@/db/types-schema";
 import { roles, users } from "@/db/schema";
 
 export class DrizzleUsersRepository implements UsersRepository {
+  async findUserAndCheckTheEmailCode(
+    code: string,
+    email: string
+  ): Promise<Users | null> {
+    const [user] = await db
+      .select()
+      .from(users)
+      .where(and(eq(users.email, email), eq(users.emailCodeVerified, code)));
+
+    if (!user) {
+      return null;
+    }
+
+    return user;
+  }
+
+  async updateUser(
+    field: Partial<Users>,
+    userId: string
+  ): Promise<Users | null> {
+    const [user] = await db
+      .update(users)
+      .set(field)
+      .where(eq(users.id, userId))
+      .returning();
+
+    if (!user) {
+      return null;
+    }
+
+    return user;
+  }
+
   async findByEmail(
     email: string
   ): Promise<{ user: Users; role: Roles } | null> {
