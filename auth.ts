@@ -90,23 +90,22 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        try {
-          const { execute } = makeAuthenticateFactory();
+        const authenticateFactory = makeAuthenticateFactory();
 
-          const user = await execute({
-            email: credentials.email,
-            password: credentials.password,
-          });
+        const user = await authenticateFactory.execute({
+          email: credentials.email,
+          password: credentials.password,
+        });
 
-          if (!user) {
-            return null;
-          }
-
-          return user as unknown as User;
-        } catch (error) {
-          console.log(error);
-          return null;
+        if (user && !user?.emailVerified) {
+          throw new Error(`Email não verificado ${user.email}`);
         }
+
+        if (user) {
+          return user as unknown as User;
+        }
+
+        throw new Error("Email ou senha inválidos");
       },
     }),
   ],
