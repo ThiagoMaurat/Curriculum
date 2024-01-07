@@ -36,20 +36,20 @@ export default function AuthConfirmEmail({
             className="aspect-video w-full object-cover"
           />
           <Heading style={heading}>Seu código aqui!</Heading>
+          <Text style={paragraph}>
+            Abaixo está seu código de verificação. Pode copiar e colar no seu
+            navegador.
+          </Text>
+          <code style={code}>{validationCode}</code>
+          <Hr style={hr} />
+          <Link href={new URL(env.NEXT_PUBLIC_APP_URL).href} style={reportLink}>
+            Curriculun
+          </Link>
           <Section style={buttonContainer}>
             <Button style={button} href={env.NEXT_PUBLIC_APP_URL}>
               Login
             </Button>
           </Section>
-          <Text style={paragraph}>
-            Abaixo está o código seu código de verificação. Pode copiar e colar
-            no seu navegador.
-          </Text>
-          <code style={code}>{validationCode}</code>
-          <Hr style={hr} />
-          <Link href="https://blog-prisma-gray.vercel.app/" style={reportLink}>
-            Curriculun
-          </Link>
         </Container>
       </Body>
     </Html>

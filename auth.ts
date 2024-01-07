@@ -7,7 +7,7 @@ import { db } from "@/lib/drizzle";
 import { Adapter } from "next-auth/adapters";
 import { encode, decode, JWT } from "next-auth/jwt";
 import { Roles } from "@/db/types-schema";
-import { makeAuthenticateFactory } from "@/server/factories/make-authenticate-use-case";
+import { makeAuthenticateFactory } from "@/server/factories/make-authenticate-factory";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
