@@ -3,7 +3,8 @@ import { AuthenticateUseCase } from "../use-cases/authenticate";
 
 export function makeAuthenticateFactory() {
   const drizzleUsersRepository = new DrizzleUsersRepository();
-  const registerUseCase = new AuthenticateUseCase(drizzleUsersRepository);
 
-  return registerUseCase;
+  const authenticateUseCase = new AuthenticateUseCase(drizzleUsersRepository);
+
+  return authenticateUseCase;
 }
