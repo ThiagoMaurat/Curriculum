@@ -19,15 +19,13 @@ interface AuthConfirmEmailProps {
   validationCode?: string;
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "";
-
 export default function AuthConfirmEmail({
   validationCode,
 }: AuthConfirmEmailProps) {
   return (
     <Html>
       <Head />
-      <Preview>Welcome!</Preview>
+      <Preview>Bem-vindo!</Preview>
       <Body style={main}>
         <Container style={container}>
           <Img

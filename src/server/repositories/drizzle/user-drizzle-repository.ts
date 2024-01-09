@@ -5,6 +5,22 @@ import { InsertSchemaUsersType, Roles, Users } from "@/db/types-schema";
 import { roles, users } from "@/db/schema";
 
 export class DrizzleUsersRepository implements UsersRepository {
+  async checkIfUserAndPasswordCodeMatch(
+    email: string,
+    code: string
+  ): Promise<Users | null> {
+    const [user] = await db
+      .select()
+      .from(users)
+      .where(and(eq(users.email, email), eq(users.resetPassword, code)));
+
+    if (!user) {
+      return null;
+    }
+
+    return user;
+  }
+
   async findUserAndCheckTheEmailCode(
     code: string,
     email: string
