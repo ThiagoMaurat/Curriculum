@@ -11,4 +11,8 @@ export interface UsersRepository {
     field: Partial<InsertSchemaUsersType>,
     userId: string
   ): Promise<Users | null>;
+  checkIfUserAndPasswordCodeMatch(
+    email: string,
+    code: string
+  ): Promise<Users | null>;
 }
