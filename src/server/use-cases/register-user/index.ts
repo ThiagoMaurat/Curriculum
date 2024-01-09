@@ -60,6 +60,7 @@ export class RegisterUseCaseInputAndSendEmail {
       id: randomUUID(),
       password: password_hash,
       emailCodeVerified: emailCode,
+      emailVerified: null,
       email,
       name,
       roleId: 1,

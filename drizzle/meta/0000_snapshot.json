@@ -1,5 +1,5 @@
 {
-  "id": "b4244fbc-84e3-4bef-b3e3-daba185eface",
+  "id": "95ca9836-9430-46ff-b6e5-2c359e1aec90",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -181,25 +181,25 @@
           "name": "name",
           "type": "varchar(191)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "presentationName": {
           "name": "presentationName",
           "type": "varchar(191)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "fathersName": {
           "name": "fathersName",
           "type": "varchar(191)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "mothersName": {
           "name": "mothersName",
           "type": "varchar(191)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "birthday": {
           "name": "birthday",
@@ -211,37 +211,37 @@
           "name": "identityDocument",
           "type": "varchar(80)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "CRM": {
           "name": "CRM",
           "type": "varchar(80)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "CPF": {
           "name": "CPF",
           "type": "varchar(80)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "phone": {
           "name": "phone",
           "type": "varchar(80)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "adress": {
           "name": "adress",
           "type": "varchar(80)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "lattes": {
           "name": "lattes",
           "type": "varchar(80)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "selfDescription": {
           "name": "selfDescription",
@@ -257,9 +257,10 @@
         },
         "emailVerified": {
           "name": "emailVerified",
-          "type": "timestamp",
+          "type": "timestamp (3)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "default": "now()"
         },
         "emailCodeVerified": {
           "name": "emailCodeVerified",
@@ -272,12 +273,6 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false
-        },
-        "cpf": {
-          "name": "cpf",
-          "type": "varchar(80)",
-          "primaryKey": false,
-          "notNull": true
         },
         "password": {
           "name": "password",

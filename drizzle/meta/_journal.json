@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1704318824715,
-      "tag": "0000_flashy_roxanne_simpson",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1704322196316,
-      "tag": "0001_slimy_skin",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1704415504646,
-      "tag": "0002_crazy_doomsday",
+      "when": 1704807460629,
+      "tag": "0000_windy_omega_red",
       "breakpoints": true
     }
   ]

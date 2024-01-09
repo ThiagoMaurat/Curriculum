@@ -1,8 +1,6 @@
 import { relations } from "drizzle-orm";
 import {
-  decimal,
   integer,
-  json,
   pgTable,
   primaryKey,
   serial,
@@ -27,7 +25,10 @@ export const users = pgTable("user", {
   lattes: varchar("lattes", { length: 80 }),
   selfDescription: text("selfDescription"),
   email: varchar("email", { length: 80 }).notNull().unique(),
-  emailVerified: timestamp("emailVerified", { mode: "date" }),
+  emailVerified: timestamp("emailVerified", {
+    mode: "date",
+    precision: 3,
+  }).defaultNow(),
   emailCodeVerified: varchar("emailCodeVerified", { length: 80 }),
   image: text("image"),
   password: varchar("password", { length: 60 }).notNull(),
