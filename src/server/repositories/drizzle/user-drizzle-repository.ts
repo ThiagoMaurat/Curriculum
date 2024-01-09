@@ -45,7 +45,7 @@ export class DrizzleUsersRepository implements UsersRepository {
       .select()
       .from(users)
       .where(eq(users.email, email))
-      .innerJoin(roles, eq(roles.id, users.roleId));
+      .innerJoin(roles, eq(users.roleId, roles.id));
 
     if (!user) {
       return null;
