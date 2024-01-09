@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const resetPasswordSchema = z.object({
+export const resetPasswordFirstStepSchema = z.object({
   email: z
     .string({
       required_error: "Email é obrigatório",
@@ -10,4 +10,4 @@ export const resetPasswordSchema = z.object({
     }),
 });
 
-export type ResetPassword = z.infer<typeof resetPasswordSchema>;
+export type ResetPassword = z.infer<typeof resetPasswordFirstStepSchema>;
