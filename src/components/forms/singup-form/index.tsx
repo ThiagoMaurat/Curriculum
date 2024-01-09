@@ -48,7 +48,7 @@ export function SignUpForm() {
         toast({
           title: "Erro",
           description: serverError,
-          duration: 2000,
+          duration: 4000,
         });
 
         return;
@@ -57,7 +57,7 @@ export function SignUpForm() {
       toast({
         title: "Sucesso",
         description: "Conta criada com sucesso.",
-        duration: 2000,
+        duration: 4000,
       });
 
       router.push(`/signup/verify-email/?email=${data?.email}`);

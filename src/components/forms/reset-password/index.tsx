@@ -17,8 +17,8 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
 import {
   ResetPassword,
-  resetPasswordSchema,
-} from "@/validators/reset-password";
+  resetPasswordFirstStepSchema,
+} from "@/validators/reset-password-first-step";
 import { resetPasswordFirstStepAction } from "@/action/reset-password-first-step";
 
 export function ResetPasswordForm() {
@@ -26,7 +26,7 @@ export function ResetPasswordForm() {
   const [isPending, startTransition] = React.useTransition();
 
   const form = useForm<ResetPassword>({
-    resolver: zodResolver(resetPasswordSchema),
+    resolver: zodResolver(resetPasswordFirstStepSchema),
     defaultValues: {
       email: "",
     },
@@ -42,15 +42,16 @@ export function ResetPasswordForm() {
         toast({
           title: "Erro",
           description: serverError,
-          duration: 2000,
+          duration: 4000,
         });
         return;
       }
 
       toast({
         title: "Sucesso.",
-        description: "Email com o código enviado com sucesso.",
-        duration: 2000,
+        description:
+          "Email com o código enviado com sucesso. Favor digitar o código enviado.",
+        duration: 4000,
       });
 
       router.push(`/reset-password/second-step/?email=${data.email}`);

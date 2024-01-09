@@ -41,7 +41,7 @@ export const SignInForm = ({}) => {
         toast({
           title: "Erro",
           description: response?.error || "Credenciais inválidas",
-          duration: 3000,
+          duration: 4000,
         });
 
         return;

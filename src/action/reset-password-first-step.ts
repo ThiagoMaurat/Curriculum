@@ -2,10 +2,10 @@
 
 import { action } from "@/lib/safe-action";
 import { makeResetPasswordFirstStep } from "@/server/factories/make-reset-password-first-step";
-import { resetPasswordSchema } from "@/validators/reset-password";
+import { resetPasswordFirstStepSchema } from "@/validators/reset-password-first-step";
 
 export const resetPasswordFirstStepAction = action(
-  resetPasswordSchema,
+  resetPasswordFirstStepSchema,
   async (data) => {
     const resetPassword = makeResetPasswordFirstStep();
 

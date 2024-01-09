@@ -43,7 +43,7 @@ export function VerifyEmailForm({ email }: { email: string }) {
         toast({
           title: "Sucesso",
           description: "Email verificado com sucesso. Favor logar.",
-          duration: 2000,
+          duration: 4000,
         });
 
         router.push("/signin");
@@ -51,7 +51,7 @@ export function VerifyEmailForm({ email }: { email: string }) {
         toast({
           title: "Erro",
           description: error?.message || "Erro ao verificar o email.",
-          duration: 2000,
+          duration: 4000,
         });
       }
     });
