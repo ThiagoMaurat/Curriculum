@@ -68,6 +68,10 @@ export function MenuLinks({ isOpen }: MenuLinksProps) {
             </Link>
           )}
         </div>
+
+        <div className="md:hidden flex items-center self-center">
+          <PopoverNavBar />
+        </div>
       </div>
     </div>
   );

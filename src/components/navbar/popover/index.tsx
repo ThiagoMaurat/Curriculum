@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -7,12 +8,11 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import SwitchTheme from "./switch-theme";
 import LogoutButton from "./logout-button";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../../../auth";
 import { Button } from "@/components/ui/button";
+import { useSession } from "next-auth/react";
 
-export default async function PopoverNavBar() {
-  const data = await getServerSession(authOptions);
+export default function PopoverNavBar() {
+  const { data } = useSession();
 
   if (data?.user) {
     return (
