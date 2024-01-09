@@ -17,10 +17,12 @@ import { env } from "../../env.mjs";
 
 interface ResetPasswordEmailProps {
   validationCode?: string;
+  email: string;
 }
 
 export default function ResetPasswordEmail({
   validationCode,
+  email,
 }: ResetPasswordEmailProps) {
   return (
     <Html>
@@ -52,8 +54,11 @@ export default function ResetPasswordEmail({
           </Link>
 
           <Section style={buttonContainer}>
-            <Button style={button} href={env.NEXT_PUBLIC_APP_URL}>
-              Login
+            <Button
+              style={button}
+              href={`${env.NEXT_PUBLIC_APP_URL}/reset-password/second-step/?email=${email}`}
+            >
+              Clique aqui para ser redirecionado
             </Button>
           </Section>
         </Container>

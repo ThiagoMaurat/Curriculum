@@ -11,7 +11,7 @@ interface ResetPasswordSendEmailUseCaseInput {
 }
 
 interface ResetPasswordSendEmailUseCaseOutput {
-  status: string | null;
+  status: "sent" | null;
 }
 
 export class ResetPasswordSendEmailUseCase {
@@ -37,7 +37,10 @@ export class ResetPasswordSendEmailUseCase {
     );
 
     const emailHtml = render(
-      ResetPasswordEmail({ validationCode: resetPasswordUUID })
+      ResetPasswordEmail({
+        validationCode: resetPasswordUUID,
+        email: user.user.email,
+      })
     );
 
     const emailSent = await this.sendEmailUseCase.execute({
