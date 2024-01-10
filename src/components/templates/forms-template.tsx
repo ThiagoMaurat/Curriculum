@@ -12,7 +12,7 @@ import { Form } from "@/components/ui/form";
 import { schema } from "@/components/forms/curriculum-form/schema";
 import { CurriculumFormInput } from "@/components/forms/curriculum-form/type";
 import { DEFAULT_FORM } from "@/components/forms/curriculum-form/data";
-import { PdfCurriculumTemplate } from "./pdf-curriculum-template";
+import { PdfCurriculumTemplate } from "./pdf-curriculum-template-admin";
 import { BlobProvider, PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { Button } from "@/components/ui/button";
 import PDFMerger from "pdf-merger-js";
