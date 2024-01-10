@@ -14,19 +14,13 @@ export default function layout(props: AuthLayoutProps) {
       <Header />
 
       <div className=" h-[calc(100vh-72px)] flex flex-col items-center justify-center">
-        <div className="container px-0 w-full  min-h-[600px] h-auto flex sm:flex-row flex-col my-4">
-          <main className="w-full p-4 flex items-center justify-center mx-auto rounded-s-xl bg-card dark:bg-zinc-950">
+        <div className="container px-4 w-full min-h-[600px] h-auto flex sm:flex-row flex-col my-4">
+          <main className="w-full min-h-[600px] p-4 h-auto flex items-center justify-center mx-auto rounded-s-xl bg-card dark:bg-zinc-950">
             {children}
           </main>
 
-          <div className="relative w-full rounded-e-xl overflow-hidden flex items-center justify-center ">
-            <Image
-              className="absolute w-full"
-              height={600}
-              width={600}
-              src={"/bg-auth.svg"}
-              alt="login background image"
-            />
+          <div className="w-full relative rounded-e-xl overflow-hidden items-center justify-center hidden md:flex">
+            <div className="w-full h-full absolute bg-[url('/bg-auth.svg')] bg-cover bg-center" />
 
             <Image
               src={"/auth-image.svg"}
