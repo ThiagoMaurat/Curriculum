@@ -13,6 +13,7 @@ export const DEFAULT_FORM: CurriculumFormInput = {
   address: "",
   email: "",
   lattes: "",
+  selfDescription: "",
   academicEducation: [
     {
       description: "",
@@ -55,7 +56,7 @@ export const DEFAULT_FORM: CurriculumFormInput = {
       year: new Date().getFullYear(),
     },
   ],
-  pdfLink: [
+  certificateImages: [
     {
       link: "",
     },

@@ -1,4 +1,4 @@
-import { CurriculumFormInput } from "@/components/forms/curriculum-form/type";
+import { CurriculumFormInput } from "@/components/forms/curriculum-form-admin/type";
 import FirstPage from "@/components/pdf-curriculum/pages/first-page";
 import Certifications from "@/components/pdf-curriculum/certifications";
 import { Document, Font } from "@react-pdf/renderer";

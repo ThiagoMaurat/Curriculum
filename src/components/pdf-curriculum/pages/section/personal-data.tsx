@@ -2,7 +2,7 @@ import React from "react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Text, View } from "@react-pdf/renderer";
-import { CurriculumFormInput } from "@/components/forms/curriculum-form/type";
+import { CurriculumFormInput } from "@/components/forms/curriculum-form-admin/type";
 import { commonStyles } from "../../common-style";
 
 interface PersonalDataProps {
