@@ -1,5 +1,5 @@
 import { NoSSRWrapper } from "@/hooks/no-ssr-wrapper";
-import FormsTemplate from "@/components/templates/forms-template-admin";
+import FormsTemplateAdmin from "@/components/templates/forms-template-admin";
 import React from "react";
 import { type Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -21,7 +21,7 @@ export default async function FormsPage() {
 
   return (
     <NoSSRWrapper>
-      <FormsTemplate />
+      <FormsTemplateAdmin />
     </NoSSRWrapper>
   );
 }
