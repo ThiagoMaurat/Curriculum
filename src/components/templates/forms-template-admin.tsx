@@ -17,7 +17,7 @@ import { BlobProvider, PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { Button } from "@/components/ui/button";
 import PDFMerger from "pdf-merger-js";
 
-export default function FormsTemplate() {
+export default function FormsTemplateAdmin() {
   const [currentStep, setCurrentStep] = React.useState(0);
 
   const curriculumSteps: Array<{ title: string }> = [
