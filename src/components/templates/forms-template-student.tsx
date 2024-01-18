@@ -5,7 +5,8 @@ import { FormStudent } from "../forms/curriculum-form-student/type";
 import { DEFAULT_FORM } from "../forms/curriculum-form-student/data";
 import { Step } from "../steper/step";
 import { Form } from "../ui/form";
-import FirstStep from "../forms/curriculum-form-student/first-step";
+import FirstStepStudent from "../forms/curriculum-form-student/first-step";
+import SecondStepStudent from "../forms/curriculum-form-student/second-step";
 
 export default function FormsTemplateStudent() {
   const [currentStep, setCurrentStep] = React.useState(0);
@@ -53,7 +54,10 @@ export default function FormsTemplateStudent() {
             void methods.handleSubmit(submitHandler)(...args)
           }
         >
-          {currentStep === 0 && <FirstStep setCurrentStep={setCurrentStep} />}
+          {currentStep === 0 && (
+            <FirstStepStudent setCurrentStep={setCurrentStep} />
+          )}
+          {currentStep === 1 && <SecondStepStudent />}
         </form>
       </Form>
     </div>

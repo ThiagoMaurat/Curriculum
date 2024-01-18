@@ -98,4 +98,14 @@ export const schema = z.object({
       required_error: "A descrição é obrigatória",
     })
     .min(10, { message: "Deve ter pelo menos 10 letras" }),
+  certificate: z
+    .unknown()
+    .refine((val) => {
+      if (!Array.isArray(val)) return false;
+      if (val.some((file) => !(file instanceof File))) return false;
+      return true;
+    }, "Deve ser um array de arquivos")
+    .optional()
+    .nullable()
+    .default(null),
 });

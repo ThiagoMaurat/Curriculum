@@ -175,7 +175,7 @@ export function FileDialog<TFieldValues extends FieldValues>({
         </p>
 
         {files?.length ? (
-          <div className="grid gap-5">
+          <div className="grid gap-5 max-h-52 overflow-y-auto">
             {files?.map((file, i) => (
               <FileCard
                 key={i}

@@ -21,17 +21,18 @@ import { useFormContext } from "react-hook-form";
 import { DatePicker } from "@/components/ui/date-picker";
 import { InputFieldMask } from "@/components/ui/input-mask";
 import { Textarea } from "@/components/ui/textarea";
+import { FormStudent } from "../type";
 
-interface FirstStepProps {
+interface FirstStepStudentProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function FirstStep(props: FirstStepProps) {
+export default function FirstStepStudent(props: FirstStepStudentProps) {
   const { setCurrentStep } = props;
 
-  const { control, trigger, watch } = useFormContext();
+  const { control, trigger, watch } = useFormContext<FormStudent>();
 
-  const validateFirstStep = async () => {
+  const validateFirstStepStudent = async () => {
     const [
       name,
       presentationName,
@@ -327,7 +328,7 @@ export default function FirstStep(props: FirstStepProps) {
           )}
         />
 
-        <Button type="button" onClick={validateFirstStep}>
+        <Button type="button" onClick={validateFirstStepStudent}>
           Próximo passo
         </Button>
       </CardContent>
