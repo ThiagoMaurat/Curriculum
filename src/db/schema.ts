@@ -87,6 +87,17 @@ export const roles = pgTable("role", {
     .default("user"),
 });
 
+export const certifications = pgTable("certification", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 191 }).notNull(),
+  url: varchar("url", { length: 191 }).notNull(),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id),
+  createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
+  updatedAt: timestamp("updatedAt", { mode: "date" }).notNull().defaultNow(),
+});
+
 export const rolesRelations = relations(roles, ({ many }) => ({
   user: many(users),
 }));
@@ -95,5 +106,9 @@ export const userRelations = relations(users, ({ one }) => ({
   roles: one(roles, {
     fields: [users.roleId],
     references: [roles.id],
+  }),
+  certifications: one(certifications, {
+    fields: [users.id],
+    references: [certifications.userId],
   }),
 }));
