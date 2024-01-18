@@ -4,8 +4,8 @@ import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { env } from "@/../env.mjs";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { db } from "@/lib/drizzle";
-import { Adapter } from "next-auth/adapters";
-import { encode, decode, JWT } from "next-auth/jwt";
+import { Adapter, AdapterUser } from "next-auth/adapters";
+import { encode, decode, DefaultJWT } from "next-auth/jwt";
 import { Roles } from "@/db/types-schema";
 import { makeAuthenticateFactory } from "@/server/factories/make-authenticate-factory";
 
@@ -32,11 +32,8 @@ declare module "next-auth" {
 }
 
 declare module "next-auth/jwt" {
-  interface JWT {
-    name: string;
-    email: string;
-    picture: string | null;
-    sub: string;
+  interface JWT extends DefaultJWT {
+    user: User | AdapterUser;
   }
 }
 
@@ -107,7 +104,7 @@ export const authOptions: NextAuthOptions = {
     session: async ({ session, token }) => {
       return {
         ...session,
-        user: token.user as User,
+        user: token.user,
       };
     },
   },

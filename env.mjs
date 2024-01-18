@@ -17,6 +17,8 @@ export const env = createEnv({
     GMAIL_MAIL: z.string(),
     GMAIL_PASSWORD: z.string(),
     PG_CONNECTION_STRING: z.string(),
+    UPLOADTHING_SECRET: z.string(),
+    UPLOADTHING_APP_ID: z.string(),
   },
   /*
    * Environment variables available on the client (and server).
@@ -43,5 +45,7 @@ export const env = createEnv({
     GMAIL_MAIL: process.env.GMAIL_MAIL,
     GMAIL_PASSWORD: process.env.GMAIL_PASSWORD,
     PG_CONNECTION_STRING: process.env.PG_CONNECTION_STRING,
+    UPLOADTHING_SECRET: process.env.UPLOADTHING_SECRET,
+    UPLOADTHING_APP_ID: process.env.UPLOADTHING_APP_ID,
   },
 });
