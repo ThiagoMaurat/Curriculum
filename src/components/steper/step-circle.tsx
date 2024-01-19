@@ -17,7 +17,7 @@ export const StepCircle = (props: RadioCircleProps) => {
       {...props}
     >
       {isCompleted ? (
-        <Check className="h-10 w-10 rounded-full flex items-center justify-center text-[#202023] text-xl" />
+        <Check className="h-10 w-10 rounded-full flex items-center justify-center text-xl" />
       ) : (
         <div
           data-is-active={isActive}

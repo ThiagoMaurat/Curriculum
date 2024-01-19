@@ -1,4 +1,4 @@
-import { FormStudent } from "./type";
+import { FormStudent } from "./schema";
 
 export const DEFAULT_FORM: FormStudent = {
   name: "",
