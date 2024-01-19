@@ -10,18 +10,12 @@ import { FileDialog, FileWithPreview } from "@/components/ui/file-upload";
 import { FormItem, FormLabel, FormControl } from "@/components/ui/form";
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import { generateReactHelpers } from "@uploadthing/react/hooks";
-import { OurFileRouter } from "@/app/api/uploadthing/core";
-import { FormStudent } from "../type";
+import { FormStudent } from "../schema";
 
 export default function SecondStepStudent() {
   const form = useFormContext<FormStudent>();
 
   const [files, setFiles] = React.useState<FileWithPreview[] | null>(null);
-
-  const { useUploadThing } = generateReactHelpers<OurFileRouter>();
-
-  const { isUploading, startUpload } = useUploadThing("pdfUploadStudent");
 
   return (
     <Card className="max-w-2xl mx-auto">
@@ -44,9 +38,9 @@ export default function SecondStepStudent() {
               maxSize={1024 * 1024 * 4 /* 4mb */}
               files={files}
               setFiles={setFiles}
-              isUploading={isUploading}
-              disabled={isUploading}
-              accept={{ "pdf/*": [".pdf"] }}
+              /* isUploading={isUploading}
+              disabled={isUploading} */
+              accept={{ pdf: [".pdf"] }}
             />
           </FormControl>
 
@@ -55,7 +49,13 @@ export default function SecondStepStudent() {
           </p>
         </FormItem>
 
-        <Button type="submit">Enviar</Button>
+        <Button
+          type="submit"
+          isLoading={form.formState.isSubmitting}
+          disabled={form.formState.isSubmitting}
+        >
+          Enviar
+        </Button>
       </CardContent>
     </Card>
   );

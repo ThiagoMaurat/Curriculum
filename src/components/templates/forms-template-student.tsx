@@ -1,12 +1,22 @@
 "use client";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { FormStudent } from "../forms/curriculum-form-student/type";
 import { DEFAULT_FORM } from "../forms/curriculum-form-student/data";
 import { Step } from "../steper/step";
 import { Form } from "../ui/form";
 import FirstStepStudent from "../forms/curriculum-form-student/first-step";
 import SecondStepStudent from "../forms/curriculum-form-student/second-step";
+import { generateReactHelpers } from "@uploadthing/react/hooks";
+import { OurFileRouter } from "@/app/api/uploadthing/core";
+import { updateUserAndCreateCertificateAction } from "@/action/update-user-create-certificate";
+import { toast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+import {
+  FormStudent,
+  sendUserCurriculumForm,
+} from "../forms/curriculum-form-student/schema";
+import { useSession } from "next-auth/react";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function FormsTemplateStudent() {
   const [currentStep, setCurrentStep] = React.useState(0);
@@ -20,14 +30,76 @@ export default function FormsTemplateStudent() {
     },
   ];
 
+  const { data: session } = useSession();
+
+  const { push } = useRouter();
+
+  const { useUploadThing } = generateReactHelpers<OurFileRouter>();
+
+  const { startUpload } = useUploadThing("pdfUploadStudent");
+
   const methods = useForm<FormStudent>({
-    /* resolver: zodResolver(schema), */
-    mode: "onChange",
+    resolver: zodResolver(sendUserCurriculumForm),
+    mode: "onBlur",
     defaultValues: DEFAULT_FORM,
   });
 
   const submitHandler = async (data: FormStudent) => {
-    console.log(data);
+    if (!session?.user.id) {
+      return;
+    }
+
+    let uploadDedImages: { url: string; key: string }[] = [];
+    if (data.certificate && data.certificate.length > 0) {
+      const uploadImages = await startUpload(data.certificate);
+
+      if (!uploadImages) {
+        return;
+      }
+
+      uploadDedImages = uploadImages?.map((item) => {
+        return {
+          url: item.url,
+          key: item.key,
+        };
+      });
+    }
+
+    const { serverError } = await updateUserAndCreateCertificateAction({
+      name: data.name,
+      presentationName: data.presentationName,
+      fathersName: data.fathersName,
+      mothersName: data.mothersName,
+      birthday: data.birthday,
+      identityDocument: data.identityDocument,
+      CRM: data.CRM,
+      CPF: data.CPF,
+      phone: data.phone,
+      address: data.address,
+      email: data.email,
+      selfDescription: data.selfDescription,
+      lattes: data.lattes,
+      userId: session?.user.id,
+      certification: uploadDedImages,
+    });
+
+    if (serverError) {
+      toast({
+        title: "Erro",
+        description: serverError || "Erro ao enviar formulário.",
+        duration: 4000,
+      });
+
+      return;
+    }
+
+    toast({
+      title: "Sucesso.",
+      description: "Formulário enviado.",
+      duration: 4000,
+    });
+
+    push("/");
   };
 
   return (

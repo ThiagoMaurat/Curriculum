@@ -21,7 +21,7 @@ import { useFormContext } from "react-hook-form";
 import { DatePicker } from "@/components/ui/date-picker";
 import { InputFieldMask } from "@/components/ui/input-mask";
 import { Textarea } from "@/components/ui/textarea";
-import { FormStudent } from "../type";
+import { FormStudent } from "../schema";
 
 interface FirstStepStudentProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
