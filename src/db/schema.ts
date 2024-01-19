@@ -16,7 +16,7 @@ export const users = pgTable("user", {
   presentationName: varchar("presentationName", { length: 191 }),
   fathersName: varchar("fathersName", { length: 191 }),
   mothersName: varchar("mothersName", { length: 191 }),
-  birthday: timestamp("birthday", { mode: "string" }),
+  birthday: timestamp("birthday", { mode: "date" }),
   identityDocument: varchar("identityDocument", { length: 80 }),
   CRM: varchar("CRM", { length: 80 }),
   CPF: varchar("CPF", { length: 80 }),
@@ -89,7 +89,7 @@ export const roles = pgTable("role", {
 
 export const certifications = pgTable("certification", {
   id: serial("id").primaryKey(),
-  name: varchar("name", { length: 191 }).notNull(),
+  key: varchar("key", { length: 191 }).notNull(),
   url: varchar("url", { length: 191 }).notNull(),
   userId: text("userId")
     .notNull()
@@ -102,13 +102,17 @@ export const rolesRelations = relations(roles, ({ many }) => ({
   user: many(users),
 }));
 
-export const userRelations = relations(users, ({ one }) => ({
+export const userRelations = relations(users, ({ one, many }) => ({
   roles: one(roles, {
     fields: [users.roleId],
     references: [roles.id],
   }),
-  certifications: one(certifications, {
-    fields: [users.id],
-    references: [certifications.userId],
+  certifications: many(certifications),
+}));
+
+export const certificatesRelations = relations(certifications, ({ one }) => ({
+  user: one(users, {
+    fields: [certifications.userId],
+    references: [users.id],
   }),
 }));
