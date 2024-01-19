@@ -50,21 +50,30 @@ export default function FormsTemplateStudent() {
     }
 
     let uploadDedImages: { url: string; key: string }[] = [];
+
     if (data.certificate && data.certificate.length > 0) {
-      const uploadImages = await startUpload(data.certificate as File[]);
-      uploadImages?.forEach((item) => {
-        console.log(item.serverData);
-      });
-      if (!uploadImages) {
+      try {
+        const uploadImages = await startUpload(data.certificate as File[]);
+
+        if (!uploadImages) {
+          return;
+        }
+
+        uploadDedImages = uploadImages?.map((item) => {
+          return {
+            url: item.url,
+            key: item.key,
+          };
+        });
+      } catch {
+        toast({
+          title: "Erro",
+          description: "Erro ao enviar certificado.",
+          duration: 3000,
+        });
+
         return;
       }
-
-      uploadDedImages = uploadImages?.map((item) => {
-        return {
-          url: item.url,
-          key: item.key,
-        };
-      });
     }
 
     const { serverError } = await updateUserAndCreateCertificateAction({
