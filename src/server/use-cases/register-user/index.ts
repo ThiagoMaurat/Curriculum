@@ -64,6 +64,7 @@ export class RegisterUseCaseInputAndSendEmail {
       email,
       name,
       roleId: 1,
+      hasSendCertification: false,
     });
 
     return user;

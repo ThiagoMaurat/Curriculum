@@ -16,6 +16,7 @@ type AuthenticateUserCaseOutput = Promise<{
   image: string | null;
   emailVerified: Date | null;
   roleName: Roles["name"];
+  hasSendCertification: boolean | null;
 } | null>;
 
 export class AuthenticateUseCase {
@@ -47,6 +48,7 @@ export class AuthenticateUseCase {
       emailVerified: user.user.emailVerified,
       roleName: user.role.name,
       image: user.user.image,
+      hasSendCertification: user.user.hasSendCertification,
     };
   }
 }

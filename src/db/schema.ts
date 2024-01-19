@@ -1,5 +1,6 @@
 import { relations } from "drizzle-orm";
 import {
+  boolean,
   integer,
   pgTable,
   primaryKey,
@@ -36,6 +37,7 @@ export const users = pgTable("user", {
   roleId: integer("roleId")
     .notNull()
     .references(() => roles.id, { onDelete: "cascade" }),
+  hasSendCertification: boolean("hasSendCertification").default(false),
 });
 
 export const accounts = pgTable(

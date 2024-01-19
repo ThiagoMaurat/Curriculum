@@ -1,10 +1,8 @@
 import { db } from "@/lib/drizzle";
 import { UsersRepository } from "../user-repository";
-import { ExtractTablesWithRelations, and, eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { InsertSchemaUsersType, Roles, Users } from "@/db/types-schema";
 import { roles, users } from "@/db/schema";
-import * as schema from "@/db/schema";
-import { PgTransaction } from "drizzle-orm/pg-core";
 
 export class DrizzleUsersRepository implements UsersRepository {
   async checkIfUserAndPasswordCodeMatch(

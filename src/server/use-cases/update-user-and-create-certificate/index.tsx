@@ -66,6 +66,7 @@ export class UpdateUserAndCreateCertificateUseCase {
         email: userValidated.email,
         selfDescription: userValidated.selfDescription,
         lattes: userValidated.lattes,
+        hasSendCertification: true,
       },
       userId
     );

@@ -24,6 +24,7 @@ declare module "next-auth" {
     image: string | null;
     emailVerified: string;
     roleName: Roles["name"];
+    hasSendCertification: boolean | null;
   }
 
   interface Session {
@@ -88,7 +89,11 @@ export const authOptions: NextAuthOptions = {
     signIn: "/signin",
   },
   callbacks: {
-    jwt: async ({ token, user }) => {
+    jwt: async ({ token, user, trigger, session }) => {
+      if (trigger === "update" && session.hasSendCertification) {
+        token.user.hasSendCertification = session.hasSendCertification;
+      }
+
       if (user) {
         return {
           ...token,

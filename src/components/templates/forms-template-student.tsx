@@ -30,9 +30,9 @@ export default function FormsTemplateStudent() {
     },
   ];
 
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
 
-  const { push } = useRouter();
+  const { push, prefetch } = useRouter();
 
   const { useUploadThing } = generateReactHelpers<OurFileRouter>();
 
@@ -51,8 +51,10 @@ export default function FormsTemplateStudent() {
 
     let uploadDedImages: { url: string; key: string }[] = [];
     if (data.certificate && data.certificate.length > 0) {
-      const uploadImages = await startUpload(data.certificate);
-
+      const uploadImages = await startUpload(data.certificate as File[]);
+      uploadImages?.forEach((item) => {
+        console.log(item.serverData);
+      });
       if (!uploadImages) {
         return;
       }
@@ -99,6 +101,11 @@ export default function FormsTemplateStudent() {
       duration: 4000,
     });
 
+    await update({
+      hasSendCertification: true,
+    });
+
+    prefetch("/");
     push("/");
   };
 

@@ -42,7 +42,7 @@ export function MenuLinks({ isOpen }: MenuLinksProps) {
             </p>
           </Link>
 
-          <Link href={"/forms"}>
+          <Link prefetch={false} href={"/forms"}>
             <p
               className={`${
                 CheckRouterMatchesLabel("Home")

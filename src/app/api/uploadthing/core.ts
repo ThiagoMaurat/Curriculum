@@ -3,7 +3,13 @@ import { cookies } from "next/headers";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { env } from "../../../../env.mjs";
 
-const f = createUploadthing();
+const f = createUploadthing({
+  errorFormatter(err) {
+    return {
+      message: err.message,
+    };
+  },
+});
 
 // FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {

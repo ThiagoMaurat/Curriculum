@@ -8,6 +8,13 @@
       "when": 1705674432081,
       "tag": "0000_lovely_energizer",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1705685801339,
+      "tag": "0001_perfect_golden_guardian",
+      "breakpoints": true
     }
   ]
 }
