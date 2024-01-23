@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import React from "react";
 import { authOptions } from "../../../../auth";
 import RedirectUnauthorized from "@/components/redirect-unauthorized";
+import { redirect } from "next/navigation";
 
 export default async function FormsPage() {
   const data = await getServerSession(authOptions);
@@ -13,7 +14,7 @@ export default async function FormsPage() {
   }
 
   if (data.user.hasSendCertification) {
-    return <h2>sent</h2>;
+    redirect("/edit-form");
   }
 
   return (
