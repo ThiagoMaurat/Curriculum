@@ -25,7 +25,7 @@ export class AuthenticateUseCase {
   async execute({
     email,
     password,
-  }: AuthenticateUseCaseInput): Promise<AuthenticateUserCaseOutput> {
+  }: AuthenticateUseCaseInput): AuthenticateUserCaseOutput {
     if (!password || !email) {
       throw new InvalidCredentialsError();
     }
