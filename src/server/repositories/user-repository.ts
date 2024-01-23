@@ -1,6 +1,3 @@
-import * as schema from "@/db/schema";
-import { ExtractTablesWithRelations } from "drizzle-orm";
-import { PgTransaction } from "drizzle-orm/pg-core";
 import { InsertSchemaUsersType, Roles, Users } from "../../db/types-schema";
 
 export interface UsersRepository {
