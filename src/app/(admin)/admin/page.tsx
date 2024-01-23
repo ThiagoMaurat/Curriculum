@@ -8,8 +8,8 @@ import RedirectUnauthorized from "@/components/redirect-unauthorized";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? ""),
-  title: "Formulário",
-  description: "Formulário de envio de currículo",
+  title: "Área do admin",
+  description: "Área do administrador",
 };
 
 export default async function FormsPage() {

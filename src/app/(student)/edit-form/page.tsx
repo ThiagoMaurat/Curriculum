@@ -4,6 +4,14 @@ import React from "react";
 import { authOptions } from "../../../../auth";
 import RedirectUnauthorized from "@/components/redirect-unauthorized";
 import EditFormTemplate from "@/components/templates/edit-form";
+import { type Metadata } from "next";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? ""),
+  title: "Edição de formulário",
+  description: "Edição de formulário de envio de currículo",
+};
 
 export default async function EditForm() {
   const data = await getServerSession(authOptions);
@@ -18,5 +26,14 @@ export default async function EditForm() {
     userId: data?.user.id,
   });
 
-  return <EditFormTemplate />;
+  return (
+    <Card className="max-w-2xl mx-auto">
+      <CardHeader className="p-4 space-y-1 ">
+        <CardTitle className="text-2xl">Editar Currículo</CardTitle>
+      </CardHeader>
+      <CardContent className="pb-4">
+        <EditFormTemplate data={dataUserCertificate} />
+      </CardContent>
+    </Card>
+  );
 }

@@ -16,7 +16,7 @@ const InputFieldMask = React.forwardRef<ReactInputMask, InputProps>(
         mask={mask}
         type={type}
         className={cn(
-          "bg-background border  placeholder:text-muted-foreground ring-offset-background px-3 rounded-lg h-10 w-full",
+          "bg-background border placeholder:text-muted-foreground ring-offset-background px-3 rounded-lg h-10 w-full",
           className
         )}
         {...props}

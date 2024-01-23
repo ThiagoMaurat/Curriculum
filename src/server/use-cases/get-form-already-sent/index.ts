@@ -7,7 +7,7 @@ interface GetFormAlreadySenteUseCaseInput {
   userId: string;
 }
 
-type GetFormAlreadySenteUserCaseOutput = {} & Pick<
+export type GetFormAlreadySenteUserCaseOutput = {} & Pick<
   Users,
   | "CPF"
   | "address"
