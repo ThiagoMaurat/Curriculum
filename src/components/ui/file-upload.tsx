@@ -12,12 +12,12 @@ import type {
   PathValue,
   UseFormSetValue,
 } from "react-hook-form";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "@/hooks/use-toast";
-import { Trash, Upload, X } from "lucide-react";
+import { ArrowUpRight, Trash, Upload, X } from "lucide-react";
 import { cn, formatBytes } from "@/lib/utils";
+import Link from "next/link";
 
 export type FileWithPreview = FileWithPath & {
   preview: string;
@@ -216,15 +216,15 @@ interface FileCardProps {
 function FileCard({ i, file, files, setFiles }: FileCardProps) {
   return (
     <div className="relative flex items-center justify-between gap-2.5">
-      <div className="flex items-center gap-2">
-        <Image
-          src={file.preview}
-          alt={file.name}
-          className="h-10 w-10 shrink-0 rounded-md"
-          width={40}
-          height={40}
-          loading="lazy"
-        />
+      <div className="flex items-center gap-3">
+        <Link
+          href={file.preview}
+          target="_blank"
+          rel="noreferrer"
+          className=" shrink-0 rounded-md"
+        >
+          <ArrowUpRight className="h-5 w-5" />
+        </Link>
 
         <div className="flex flex-col">
           <p className="line-clamp-1 text-sm font-medium text-muted-foreground">

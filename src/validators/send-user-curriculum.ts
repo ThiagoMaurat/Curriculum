@@ -110,9 +110,17 @@ export const sendUserCurriculumSchema = z.object({
 
 export const studentCurriculumAction = sendUserCurriculumSchema.extend({
   certification: z
-    .array(z.object({ key: z.string(), url: z.string() }))
+    .array(
+      z.object({
+        key: z.string().min(1, { message: "A chave é obrigatória" }),
+        url: z.string().min(1, { message: "O link é obrigatório" }),
+        fileName: z
+          .string()
+          .min(1, { message: "O nome do arquivo é obrigatório" }),
+      })
+    )
     .optional(),
-  userId: z.string(),
+  userId: z.string().min(1, { message: "O ID do usuário é obrigatório" }),
 });
 
 export type SendUserCurriculum = z.infer<typeof sendUserCurriculumSchema>;

@@ -91,6 +91,7 @@ export const roles = pgTable("role", {
 
 export const certifications = pgTable("certification", {
   id: serial("id").primaryKey(),
+  fileName: varchar("fileName", { length: 191 }).notNull(),
   key: varchar("key", { length: 191 }).notNull(),
   url: varchar("url", { length: 191 }).notNull(),
   userId: text("userId")

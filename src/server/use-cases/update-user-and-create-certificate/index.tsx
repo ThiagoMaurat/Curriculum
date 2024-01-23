@@ -12,6 +12,7 @@ interface UpdateUserAndCreateCertificateInput {
     | Array<{
         url: string;
         key: string;
+        fileName: string;
       }>
     | undefined;
   userId: string;
@@ -37,6 +38,7 @@ export class UpdateUserAndCreateCertificateUseCase {
             userId: userId,
             url: data.url,
             key: data.key,
+            fileName: data.fileName,
           };
         }
       );

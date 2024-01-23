@@ -49,7 +49,7 @@ export default function FormsTemplateStudent() {
       return;
     }
 
-    let uploadDedImages: { url: string; key: string }[] = [];
+    let uploadDedImages: { url: string; key: string; fileName: string }[] = [];
 
     if (data.certificate && data.certificate.length > 0) {
       try {
@@ -63,6 +63,7 @@ export default function FormsTemplateStudent() {
           return {
             url: item.url,
             key: item.key,
+            fileName: item.name,
           };
         });
       } catch {

@@ -11,19 +11,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { InputFieldMask } from "@/components/ui/input-mask";
 import { Textarea } from "@/components/ui/textarea";
-import { GetFormAlreadySenteUserCaseOutput } from "@/server/use-cases/get-form-already-sent";
 import { ptBR } from "date-fns/locale";
 import React from "react";
 import { useFormContext } from "react-hook-form";
+import { EditFormStudent } from "../schema";
 
-interface FirstStepProps {
-  data: GetFormAlreadySenteUserCaseOutput;
-}
-
-export default function FirstStepEditForm(props: FirstStepProps) {
-  const { data } = props;
-
-  const { control, watch } = useFormContext();
+export default function FirstStepEditForm() {
+  const { control, watch } = useFormContext<EditFormStudent>();
 
   return (
     <div className="grid gap-4">

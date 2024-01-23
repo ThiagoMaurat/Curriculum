@@ -10,6 +10,9 @@ import {
 import FirstStepEditForm from "../forms/curriculum-edit-form/first-step";
 import { Form } from "../ui/form";
 import { useForm } from "react-hook-form";
+import SecondStepEditForm from "../forms/curriculum-edit-form/second-step";
+import { EditFormStudent } from "../forms/curriculum-edit-form/schema";
+import { Button } from "../ui/button";
 
 interface EditFormTemplateProps {
   data: GetFormAlreadySenteUserCaseOutput;
@@ -18,27 +21,51 @@ interface EditFormTemplateProps {
 export default function EditFormTemplate(props: EditFormTemplateProps) {
   const { data } = props;
 
-  const form = useForm({
-    defaultValues: data,
+  const form = useForm<EditFormStudent>({
+    defaultValues: {
+      name: data.name ?? "",
+      address: data.address ?? "",
+      birthday: data.birthday ?? undefined,
+      CPF: data.CPF ?? "",
+      CRM: data.CRM ?? "",
+      email: data.email ?? "",
+      fathersName: data.fathersName ?? "",
+      lattes: data.lattes ?? "",
+      selfDescription: data.selfDescription ?? "",
+      phone: data.phone ?? "",
+      presentationName: data.presentationName ?? "",
+      mothersName: data.mothersName ?? "",
+      identityDocument: data.identityDocument ?? "",
+    },
   });
 
   return (
     <Form {...form}>
-      <Accordion type="single" collapsible defaultValue="item-1">
-        <AccordionItem value="item-1">
-          <AccordionTrigger>Dados pessoais</AccordionTrigger>
-          <AccordionContent>
-            <FirstStepEditForm data={data} />
-          </AccordionContent>
-        </AccordionItem>
+      <form
+        onSubmit={form.handleSubmit((data) => {
+          console.log(data);
+        })}
+      >
+        <Accordion type="single" collapsible defaultValue="item-1">
+          <AccordionItem value="item-1">
+            <AccordionTrigger>Dados pessoais</AccordionTrigger>
+            <AccordionContent>
+              <FirstStepEditForm />
+            </AccordionContent>
+          </AccordionItem>
 
-        <AccordionItem value="item-2">
-          <AccordionTrigger>Certificados</AccordionTrigger>
-          <AccordionContent>
-            Yes. It adheres to the WAI-ARIA design pattern.
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+          <AccordionItem value="item-2">
+            <AccordionTrigger>Certificados</AccordionTrigger>
+            <AccordionContent>
+              <SecondStepEditForm data={data} />
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+
+        <Button className="w-full mt-4" type="submit">
+          Enviar
+        </Button>
+      </form>
     </Form>
   );
 }
