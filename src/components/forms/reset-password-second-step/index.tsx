@@ -20,7 +20,7 @@ import {
   ResetPasswordSecondStepType,
   resetPasswordSecondStepSchema,
 } from "@/validators/reset-password-second-step";
-import { resetPasswordSecondStepAction } from "@/action/reset-password-second-step";
+import { resetPasswordSecondStepAction } from "@/server/action/reset-password-second-step";
 
 interface ResetPasswordFormSecondStepProps {
   emailSearchParams?: string;

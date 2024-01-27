@@ -15,7 +15,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { PasswordInput } from "@/components/ui/password-input";
-import { signUpAction } from "@/action/signup-action";
+import { signUpAction } from "@/server/action/signup-action";
 import { Input } from "@/components/ui/input";
 import { SignUpSchema, signUpSchema } from "@/validators/signup";
 

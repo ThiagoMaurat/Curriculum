@@ -19,7 +19,7 @@ import {
   ResetPassword,
   resetPasswordFirstStepSchema,
 } from "@/validators/reset-password-first-step";
-import { resetPasswordFirstStepAction } from "@/action/reset-password-first-step";
+import { resetPasswordFirstStepAction } from "@/server/action/reset-password-first-step";
 
 export function ResetPasswordForm() {
   const router = useRouter();

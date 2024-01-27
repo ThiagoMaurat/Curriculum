@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { validateEmailCodeAction } from "@/action/verify-email";
+import { validateEmailCodeAction } from "@/server/action/verify-email";
 
 export function VerifyEmailForm({ email }: { email: string }) {
   const router = useRouter();
