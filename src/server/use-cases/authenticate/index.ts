@@ -15,7 +15,7 @@ type AuthenticateUserCaseOutput = Promise<{
   email: string;
   image: string | null;
   emailVerified: Date | null;
-  roleName: Roles["name"];
+  roleName: Roles["name"] | null;
   hasSendCertification: boolean | null;
 } | null>;
 
@@ -31,6 +31,7 @@ export class AuthenticateUseCase {
     }
 
     const user = await this.userRepository.findByEmail(email);
+
     if (!user) {
       throw new UserDoesNotExistsError();
     }
@@ -46,9 +47,9 @@ export class AuthenticateUseCase {
       name: user.user.name,
       email: user.user.email,
       emailVerified: user.user.emailVerified,
-      roleName: user.role.name,
+      roleName: user?.role?.name ?? null,
       image: user.user.image,
-      hasSendCertification: user.user.hasSendCertification,
+      hasSendCertification: user.hasSendCertification,
     };
   }
 }

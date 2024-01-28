@@ -33,7 +33,7 @@ export default function FirstStep(props: FirstStepProps) {
 
   const validateFirstStep = async () => {
     const [
-      name,
+      fullName,
       fathersName,
       mothersName,
       birthday,
@@ -46,7 +46,7 @@ export default function FirstStep(props: FirstStepProps) {
       lattes,
       selfDescription,
     ] = await Promise.all([
-      trigger("name"),
+      trigger("fullName"),
       trigger("fathersName"),
       trigger("mothersName"),
       trigger("birthday"),
@@ -61,7 +61,7 @@ export default function FirstStep(props: FirstStepProps) {
     ]);
 
     if (
-      name &&
+      fullName &&
       fathersName &&
       mothersName &&
       birthday &&
@@ -91,7 +91,7 @@ export default function FirstStep(props: FirstStepProps) {
       <CardContent className="grid gap-4">
         <FormField
           control={control}
-          name="name"
+          name="fullName"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Nome Completo</FormLabel>
@@ -189,7 +189,7 @@ export default function FirstStep(props: FirstStepProps) {
           name="CRM"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>CRM</FormLabel>
+              <FormLabel>CRM (Opcional)</FormLabel>
               <FormControl>
                 <Input
                   placeholder="Insira o CRM acompanhado do estado"

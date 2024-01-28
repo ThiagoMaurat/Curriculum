@@ -22,6 +22,41 @@
       "when": 1706034273081,
       "tag": "0002_parallel_ender_wiggin",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1706471901473,
+      "tag": "0003_organic_wrecking_crew",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1706472394346,
+      "tag": "0004_remarkable_legion",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1706479959559,
+      "tag": "0005_true_kronos",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1706480628553,
+      "tag": "0006_nice_crystal",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1706480927016,
+      "tag": "0007_light_domino",
+      "breakpoints": true
     }
   ]
 }

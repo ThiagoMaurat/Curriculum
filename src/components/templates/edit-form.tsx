@@ -23,7 +23,7 @@ export default function EditFormTemplate(props: EditFormTemplateProps) {
 
   const form = useForm<EditFormStudent>({
     defaultValues: {
-      name: data.name ?? "",
+      fullName: data.fullName ?? "",
       address: data.address ?? "",
       birthday: data.birthday ?? undefined,
       CPF: data.CPF ?? "",

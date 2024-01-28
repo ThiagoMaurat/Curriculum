@@ -1,11 +1,12 @@
 import { hash } from "bcryptjs";
 import { InvalidCredentialsError } from "@/server/errors/invalid-credentials";
-import { Users } from "@/server/db/types-schema";
+import { Roles, Users } from "@/server/db/types-schema";
 import { randomUUID } from "node:crypto";
 import { render } from "@react-email/render";
 import { SendEmailUseCase } from "../send-email";
 import AuthConfirmEmail from "@/email-templates/auth-confirm-email";
 import { UsersRepository } from "@/server/repositories/user-repository";
+import { RolesRepository } from "@/server/repositories/roles-repository";
 
 interface RegisterUseCaseInputAndSendEmailInput {
   email: string;
@@ -14,9 +15,15 @@ interface RegisterUseCaseInputAndSendEmailInput {
   name: string;
 }
 
+interface RegisterUseCaseOutput {
+  user: Users;
+  role: Roles;
+}
+
 export class RegisterUseCaseInputAndSendEmail {
   constructor(
     private usersRepository: UsersRepository,
+    private rolesRepository: RolesRepository,
     private sendEmailUseCase: SendEmailUseCase
   ) {}
 
@@ -25,7 +32,7 @@ export class RegisterUseCaseInputAndSendEmail {
     name,
     password,
     confirmPassword,
-  }: RegisterUseCaseInputAndSendEmailInput): Promise<Users | null> {
+  }: RegisterUseCaseInputAndSendEmailInput): Promise<RegisterUseCaseOutput | null> {
     if (!password || !email) {
       throw new InvalidCredentialsError();
     }
@@ -63,10 +70,25 @@ export class RegisterUseCaseInputAndSendEmail {
       emailVerified: null,
       email,
       name,
-      roleId: 1,
       hasSendCertification: false,
     });
 
-    return user;
+    if (!user) {
+      return null;
+    }
+
+    const role = await this.rolesRepository.insertRole({
+      userId: user.id,
+      name: "user",
+    });
+
+    if (!role) {
+      return null;
+    }
+
+    return {
+      user,
+      role,
+    };
   }
 }

@@ -1,6 +1,5 @@
 import { relations } from "drizzle-orm";
 import {
-  boolean,
   index,
   integer,
   pgTable,
@@ -21,13 +20,14 @@ export const users = pgTable("user", {
     precision: 3,
   }).defaultNow(),
   emailCodeVerified: varchar("emailCodeVerified", { length: 80 }),
-  hasSendCertification: boolean("hasSendCertification").default(false),
   image: varchar("image", { length: 255 }),
-  roleId: integer("roleId")
-    .notNull()
-    .references(() => roles.id, { onDelete: "cascade" }),
   password: varchar("password", { length: 60 }).notNull(),
   resetPassword: varchar("resetPassword", { length: 60 }),
+});
+
+export const curriculums = pgTable("curriculum", {
+  id: serial("id").primaryKey(),
+  fullName: varchar("fullName", { length: 191 }),
   presentationName: varchar("presentationName", { length: 191 }),
   fathersName: varchar("fathersName", { length: 191 }),
   mothersName: varchar("mothersName", { length: 191 }),
@@ -36,9 +36,25 @@ export const users = pgTable("user", {
   CRM: varchar("CRM", { length: 80 }),
   CPF: varchar("CPF", { length: 80 }),
   phone: varchar("phone", { length: 80 }),
-  address: varchar("adress", { length: 80 }),
+  address: varchar("address", { length: 80 }),
+  email: varchar("email", { length: 80 }),
   lattes: varchar("lattes", { length: 80 }),
   selfDescription: varchar("selfDescription", { length: 500 }),
+  userId: varchar("userId", { length: 255 })
+    .unique()
+    .references(() => users.id),
+});
+
+export const certifications = pgTable("certification", {
+  id: serial("id").primaryKey(),
+  fileName: varchar("fileName", { length: 191 }).notNull(),
+  key: varchar("key", { length: 191 }).notNull(),
+  url: varchar("url", { length: 191 }).notNull(),
+  createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
+  updatedAt: timestamp("updatedAt", { mode: "date" }).notNull().defaultNow(),
+  curriculumId: integer("curriculumId").references(() => curriculums.id, {
+    onDelete: "cascade",
+  }),
 });
 
 export const accounts = pgTable(
@@ -101,37 +117,34 @@ export const roles = pgTable("role", {
   name: varchar("name", { enum: ["admin", "user"], length: 50 })
     .notNull()
     .default("user"),
+  userId: varchar("userId", { length: 255 }).references(() => users.id),
 });
 
-export const certifications = pgTable("certification", {
-  id: serial("id").primaryKey(),
-  fileName: varchar("fileName", { length: 191 }).notNull(),
-  key: varchar("key", { length: 191 }).notNull(),
-  url: varchar("url", { length: 191 }).notNull(),
-  userId: varchar("userId")
-    .notNull()
-    .references(() => users.id),
-  createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
-  updatedAt: timestamp("updatedAt", { mode: "date" }).notNull().defaultNow(),
-});
-
-export const rolesRelations = relations(roles, ({ many }) => ({
-  user: many(users),
+export const rolesRelations = relations(roles, ({ one }) => ({
+  user: one(users, {
+    fields: [roles.userId],
+    references: [users.id],
+  }),
 }));
 
 export const userRelations = relations(users, ({ one, many }) => ({
   accounts: many(accounts),
-  roles: one(roles, {
-    fields: [users.roleId],
-    references: [roles.id],
+  roles: many(roles),
+  curriculums: one(curriculums),
+}));
+
+export const curriculumsRelations = relations(curriculums, ({ one, many }) => ({
+  user: one(users, {
+    fields: [curriculums.userId],
+    references: [users.id],
   }),
   certifications: many(certifications),
 }));
 
 export const certificatesRelations = relations(certifications, ({ one }) => ({
-  user: one(users, {
-    fields: [certifications.userId],
-    references: [users.id],
+  curriculum: one(curriculums, {
+    fields: [certifications.curriculumId],
+    references: [curriculums.id],
   }),
 }));
 

@@ -1,7 +1,7 @@
 import { CurriculumFormInput } from "./type";
 
 export const DEFAULT_FORM: CurriculumFormInput = {
-  name: "",
+  fullName: "",
   fathersName: "",
   mothersName: "",
   birthday: new Date(),

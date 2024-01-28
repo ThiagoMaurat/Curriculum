@@ -10,7 +10,7 @@ export default async function FormsPage() {
   const data = await getServerSession(authOptions);
 
   if (!data?.user) {
-    return RedirectUnauthorized();
+    return <RedirectUnauthorized />;
   }
 
   if (data.user.hasSendCertification) {

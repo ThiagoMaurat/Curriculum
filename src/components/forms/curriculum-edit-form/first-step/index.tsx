@@ -23,7 +23,7 @@ export default function FirstStepEditForm() {
     <div className="grid gap-4">
       <FormField
         control={control}
-        name="name"
+        name="fullName"
         render={({ field }) => (
           <FormItem>
             <FormLabel>Nome Completo</FormLabel>
@@ -121,7 +121,7 @@ export default function FirstStepEditForm() {
         name="CRM"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>CRM</FormLabel>
+            <FormLabel>CRM (Opcional)</FormLabel>
             <FormControl>
               <Input
                 placeholder="Insira o CRM acompanhado do estado"

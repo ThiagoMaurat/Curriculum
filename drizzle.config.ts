@@ -12,7 +12,7 @@ import { env } from "./env.mjs";
 
 export default {
   driver: "pg",
-  schema: "./src/db/schema.ts",
+  schema: "./src/server/db/schema.ts",
   dbCredentials: {
     host: env.PGHOST,
     password: env.PGPASSWORD,

@@ -2,7 +2,7 @@ import { db } from "@/lib/drizzle";
 import { UsersRepository } from "../user-repository";
 import { and, eq } from "drizzle-orm";
 import { InsertSchemaUsersType, Roles, Users } from "@/server/db/types-schema";
-import { roles, users } from "@/server/db/schema";
+import { curriculums, roles, users } from "@/server/db/schema";
 
 export class DrizzleUsersRepository implements UsersRepository {
   async checkIfUserAndPasswordCodeMatch(
@@ -54,22 +54,26 @@ export class DrizzleUsersRepository implements UsersRepository {
     return user;
   }
 
-  async findByEmail(
-    email: string
-  ): Promise<{ user: Users; role: Roles } | null> {
+  async findByEmail(email: string): Promise<{
+    user: Users;
+    role: Roles | null;
+    hasSendCertification: boolean;
+  } | null> {
     const [user] = await db
       .select()
       .from(users)
       .where(eq(users.email, email))
-      .innerJoin(roles, eq(users.roleId, roles.id));
+      .leftJoin(roles, eq(users.id, roles.userId))
+      .leftJoin(curriculums, eq(users.id, curriculums.userId));
 
-    if (!user) {
+    if (!user.user) {
       return null;
     }
 
     return {
       user: user.user,
-      role: user.role,
+      role: user.role ?? null,
+      hasSendCertification: user?.curriculum?.userId ? true : false,
     };
   }
 
@@ -80,6 +84,10 @@ export class DrizzleUsersRepository implements UsersRepository {
         ...data,
       })
       .returning();
+
+    if (!user) {
+      return null;
+    }
 
     return user;
   }

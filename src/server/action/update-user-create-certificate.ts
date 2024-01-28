@@ -10,8 +10,8 @@ export const updateUserAndCreateCertificateAction = action(
     const updateUserAndCreateCertificate = makeUpdateUserAndCreateCertificate();
 
     await updateUserAndCreateCertificate.execute({
-      user: {
-        name: data.name,
+      curriculum: {
+        fullName: data.fullName,
         fathersName: data.fathersName,
         mothersName: data.mothersName,
         birthday: data.birthday,

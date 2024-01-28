@@ -38,7 +38,7 @@ export const schema = z.object({
     .string({
       required_error: "O CRM é obrigatório",
     })
-    .min(5, "Campo obrigatório"),
+    .optional(),
   CPF: z
     .string({
       required_error: "O CPF é obrigatório",

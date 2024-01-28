@@ -23,7 +23,7 @@ declare module "next-auth" {
     email: string;
     image: string | null;
     emailVerified: string;
-    roleName: Roles["name"];
+    roleName: Roles["name"] | null;
     hasSendCertification: boolean | null;
   }
 

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const sendUserCurriculumSchema = z.object({
-  name: z
+  fullName: z
     .string({ required_error: "O nome é obrigatório" })
     .min(3, { message: "O nome deve ter pelo menos 3 letras" })
     .refine(
@@ -52,7 +52,7 @@ export const sendUserCurriculumSchema = z.object({
     .string({
       required_error: "O CRM é obrigatório",
     })
-    .min(5, "Campo obrigatório"),
+    .optional(),
   CPF: z
     .string({
       required_error: "O CPF é obrigatório",

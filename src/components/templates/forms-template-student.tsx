@@ -78,7 +78,7 @@ export default function FormsTemplateStudent() {
     }
 
     const { serverError } = await updateUserAndCreateCertificateAction({
-      name: data.name,
+      fullName: data.fullName,
       fathersName: data.fathersName,
       mothersName: data.mothersName,
       birthday: data.birthday,

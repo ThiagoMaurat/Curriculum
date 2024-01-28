@@ -1,13 +1,14 @@
-import { UsersRepository } from "@/server/repositories/user-repository";
 import { CertificationsRepository } from "@/server/repositories/certification-repository";
 import {
   SendUserCurriculum,
   sendUserCurriculumSchema,
 } from "@/validators/send-user-curriculum";
 import { CertificationInsertSchema } from "@/server/db/types-schema";
+import { CurriculumRepository } from "@/server/repositories/curriculum-repository";
+import { getPresentationName } from "@/helpers/extract-presentation-name";
 
 interface UpdateUserAndCreateCertificateInput {
-  user: SendUserCurriculum;
+  curriculum: SendUserCurriculum;
   certification:
     | Array<{
         url: string;
@@ -20,16 +21,37 @@ interface UpdateUserAndCreateCertificateInput {
 
 export class UpdateUserAndCreateCertificateUseCase {
   constructor(
-    private usersRepository: UsersRepository,
+    private curriculumRepository: CurriculumRepository,
     private certificationRepository: CertificationsRepository
   ) {}
 
   async execute({
-    user,
+    curriculum,
     userId,
     certification,
   }: UpdateUserAndCreateCertificateInput) {
-    const userValidated = sendUserCurriculumSchema.parse(user);
+    const curriculumValid = sendUserCurriculumSchema.parse(curriculum);
+
+    const curriculumCreated = await this.curriculumRepository.createCurriculum({
+      address: curriculumValid.address,
+      birthday: curriculumValid.birthday,
+      CPF: curriculumValid.CPF,
+      CRM: curriculumValid.CRM,
+      email: curriculumValid.email,
+      fathersName: curriculumValid.fathersName,
+      fullName: curriculumValid.fullName,
+      identityDocument: curriculumValid.identityDocument,
+      lattes: curriculumValid.lattes ?? null,
+      mothersName: curriculumValid.mothersName,
+      phone: curriculumValid.phone,
+      presentationName: getPresentationName(curriculumValid.fullName),
+      selfDescription: curriculumValid.selfDescription,
+      userId: userId,
+    });
+
+    if (!curriculumCreated) {
+      throw new Error("Erro ao criar curriculo");
+    }
 
     if (certification && certification.length > 0) {
       const formatCertificate: CertificationInsertSchema[] = certification.map(
@@ -39,6 +61,7 @@ export class UpdateUserAndCreateCertificateUseCase {
             url: data.url,
             key: data.key,
             fileName: data.fileName,
+            curriculumId: curriculumCreated.id,
           };
         }
       );
@@ -53,30 +76,6 @@ export class UpdateUserAndCreateCertificateUseCase {
       }
     }
 
-    const updateUser = await this.usersRepository.updateUser(
-      {
-        name: userValidated.name,
-        presentationName: userValidated.presentationName,
-        fathersName: userValidated.fathersName,
-        mothersName: userValidated.mothersName,
-        birthday: userValidated.birthday,
-        identityDocument: userValidated.identityDocument,
-        CRM: userValidated.CRM,
-        CPF: userValidated.CPF,
-        phone: userValidated.phone,
-        address: userValidated.address,
-        email: userValidated.email,
-        selfDescription: userValidated.selfDescription,
-        lattes: userValidated.lattes,
-        hasSendCertification: true,
-      },
-      userId
-    );
-
-    if (!updateUser) {
-      throw new Error("Erro ao atualizar usuário");
-    }
-
-    return updateUser;
+    return curriculumCreated;
   }
 }

@@ -1,7 +1,7 @@
-import { Certification, Users } from "../db/types-schema";
+import { Certification, Curriculum } from "../db/types-schema";
 
 export interface UsersCertificateRepository {
   listCertificateAssociatedWithUser(
     userId: string
-  ): Promise<({} & Users & { certifications: Certification[] }) | null>;
+  ): Promise<({} & Curriculum & { certifications: Certification[] }) | null>;
 }

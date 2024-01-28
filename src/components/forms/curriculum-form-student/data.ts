@@ -1,7 +1,7 @@
 import { FormStudent } from "./schema";
 
 export const DEFAULT_FORM: FormStudent = {
-  name: "",
+  fullName: "",
   fathersName: "",
   mothersName: "",
   birthday: new Date(),
