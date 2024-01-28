@@ -1,7 +1,10 @@
-import { Certification, CertificationInsertSchema } from "@/db/types-schema";
+import {
+  Certification,
+  CertificationInsertSchema,
+} from "@/server/db/types-schema";
 import { CertificationsRepository } from "../certification-repository";
 import { db } from "@/lib/drizzle";
-import { certifications } from "@/db/schema";
+import { certifications } from "@/server/db/schema";
 
 export class DrizzleCertificationRepository
   implements CertificationsRepository

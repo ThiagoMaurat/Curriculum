@@ -1,4 +1,7 @@
-import { CertificationInsertSchema, Certification } from "@/db/types-schema";
+import {
+  CertificationInsertSchema,
+  Certification,
+} from "@/server/db/types-schema";
 
 export interface CertificationsRepository {
   createCertifications(

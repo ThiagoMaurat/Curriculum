@@ -2,7 +2,7 @@ import { compare } from "bcryptjs";
 import { InvalidCredentialsError } from "@/server/errors/invalid-credentials";
 import { UsersRepository } from "@/server/repositories/user-repository";
 import { UserDoesNotExistsError } from "@/server/errors/user-does-not-exists";
-import { Roles } from "@/db/types-schema";
+import { Roles } from "@/server/db/types-schema";
 
 interface AuthenticateUseCaseInput {
   email: string;

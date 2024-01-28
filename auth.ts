@@ -6,7 +6,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { db } from "@/lib/drizzle";
 import { Adapter, AdapterUser } from "next-auth/adapters";
 import { encode, decode, DefaultJWT } from "next-auth/jwt";
-import { Roles } from "@/db/types-schema";
+import { Roles } from "@/server/db/types-schema";
 import { makeAuthenticateFactory } from "@/server/factories/make-authenticate-factory";
 
 /**

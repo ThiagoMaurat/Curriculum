@@ -4,7 +4,7 @@ import {
   SendUserCurriculum,
   sendUserCurriculumSchema,
 } from "@/validators/send-user-curriculum";
-import { CertificationInsertSchema } from "@/db/types-schema";
+import { CertificationInsertSchema } from "@/server/db/types-schema";
 
 interface UpdateUserAndCreateCertificateInput {
   user: SendUserCurriculum;

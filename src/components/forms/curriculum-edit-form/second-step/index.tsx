@@ -1,7 +1,7 @@
 "use client";
 import { FileDialog, FileWithPreview } from "@/components/ui/file-upload";
 import { FormControl, FormItem, FormLabel } from "@/components/ui/form";
-import { Certification } from "@/db/types-schema";
+import { Certification } from "@/server/db/types-schema";
 import { GetFormAlreadySenteUserCaseOutput } from "@/server/use-cases/get-form-already-sent";
 import React, { useEffect } from "react";
 import { useFormContext } from "react-hook-form";

@@ -15,6 +15,19 @@ import type { AdapterAccount } from "@auth/core/adapters";
 export const users = pgTable("user", {
   id: varchar("id", { length: 255 }).notNull().primaryKey(),
   name: varchar("name", { length: 191 }),
+  email: varchar("email", { length: 80 }).notNull().unique(),
+  emailVerified: timestamp("emailVerified", {
+    mode: "date",
+    precision: 3,
+  }).defaultNow(),
+  emailCodeVerified: varchar("emailCodeVerified", { length: 80 }),
+  hasSendCertification: boolean("hasSendCertification").default(false),
+  image: varchar("image", { length: 255 }),
+  roleId: integer("roleId")
+    .notNull()
+    .references(() => roles.id, { onDelete: "cascade" }),
+  password: varchar("password", { length: 60 }).notNull(),
+  resetPassword: varchar("resetPassword", { length: 60 }),
   presentationName: varchar("presentationName", { length: 191 }),
   fathersName: varchar("fathersName", { length: 191 }),
   mothersName: varchar("mothersName", { length: 191 }),
@@ -26,19 +39,6 @@ export const users = pgTable("user", {
   address: varchar("adress", { length: 80 }),
   lattes: varchar("lattes", { length: 80 }),
   selfDescription: varchar("selfDescription", { length: 500 }),
-  email: varchar("email", { length: 80 }).notNull().unique(),
-  emailVerified: timestamp("emailVerified", {
-    mode: "date",
-    precision: 3,
-  }).defaultNow(),
-  emailCodeVerified: varchar("emailCodeVerified", { length: 80 }),
-  image: varchar("image", { length: 255 }),
-  password: varchar("password", { length: 60 }).notNull(),
-  resetPassword: varchar("resetPassword", { length: 60 }),
-  roleId: integer("roleId")
-    .notNull()
-    .references(() => roles.id, { onDelete: "cascade" }),
-  hasSendCertification: boolean("hasSendCertification").default(false),
 });
 
 export const accounts = pgTable(

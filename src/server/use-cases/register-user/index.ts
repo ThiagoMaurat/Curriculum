@@ -1,6 +1,6 @@
 import { hash } from "bcryptjs";
 import { InvalidCredentialsError } from "@/server/errors/invalid-credentials";
-import { Users } from "@/db/types-schema";
+import { Users } from "@/server/db/types-schema";
 import { randomUUID } from "node:crypto";
 import { render } from "@react-email/render";
 import { SendEmailUseCase } from "../send-email";

@@ -4,9 +4,6 @@ export const schema = z.object({
   name: z
     .string({ required_error: "O nome é obrigatório" })
     .min(3, { message: "O nome deve ter pelo menos 3 letras" }),
-  presentationName: z.string({
-    required_error: "O nome de apresentação é obrigatório",
-  }),
   fathersName: z.string({
     required_error: "O nome do pai é obrigatório",
   }),

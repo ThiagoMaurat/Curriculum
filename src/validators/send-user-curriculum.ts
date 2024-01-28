@@ -3,22 +3,27 @@ import { z } from "zod";
 export const sendUserCurriculumSchema = z.object({
   name: z
     .string({ required_error: "O nome é obrigatório" })
-    .min(3, { message: "O nome deve ter pelo menos 3 letras" }),
-  presentationName: z
-    .string({
-      required_error: "O nome de apresentação é obrigatório",
-    })
-    .min(1, { message: "O nome de apresentação é obrigatório" }),
+    .min(3, { message: "O nome deve ter pelo menos 3 letras" })
+    .refine(
+      (val) => {
+        if (val.length < 3) return false;
+
+        const name = val.trim().split(" ");
+
+        return name.length > 1;
+      },
+      { message: "O nome deve ser completo" }
+    ),
   fathersName: z
     .string({
       required_error: "O nome do pai é obrigatório",
     })
-    .min(1, { message: "O nome do pai é obrigatório" }),
+    .optional(),
   mothersName: z
     .string({
       required_error: "O nome da mão é obrigatório",
     })
-    .min(1, { message: "O nome da mão é obrigatório" }),
+    .optional(),
   birthday: z
     .date({
       required_error: "A data de nascimento é obrigatório",
@@ -105,7 +110,7 @@ export const sendUserCurriculumSchema = z.object({
     .string({
       required_error: "A descrição é obrigatória",
     })
-    .min(10, { message: "Deve ter pelo menos 10 letras" }),
+    .optional(),
 });
 
 export const studentCurriculumAction = sendUserCurriculumSchema.extend({

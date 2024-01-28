@@ -1,4 +1,4 @@
-import { Certification, Users } from "../../db/types-schema";
+import { Certification, Users } from "../db/types-schema";
 
 export interface UsersCertificateRepository {
   listCertificateAssociatedWithUser(

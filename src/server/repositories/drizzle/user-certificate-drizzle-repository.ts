@@ -1,4 +1,4 @@
-import { Certification, Users } from "@/db/types-schema";
+import { Certification, Users } from "@/server/db/types-schema";
 import { UsersCertificateRepository } from "../user-certificate-repository";
 import { db } from "@/lib/drizzle";
 

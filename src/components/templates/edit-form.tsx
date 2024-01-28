@@ -33,7 +33,6 @@ export default function EditFormTemplate(props: EditFormTemplateProps) {
       lattes: data.lattes ?? "",
       selfDescription: data.selfDescription ?? "",
       phone: data.phone ?? "",
-      presentationName: data.presentationName ?? "",
       mothersName: data.mothersName ?? "",
       identityDocument: data.identityDocument ?? "",
     },

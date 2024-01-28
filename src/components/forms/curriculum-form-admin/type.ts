@@ -20,7 +20,6 @@ type CertificateImages = {
 
 export type CurriculumFormInput = {
   name: string;
-  presentationName: string;
   fathersName: string;
   mothersName: string;
   birthday: Date;

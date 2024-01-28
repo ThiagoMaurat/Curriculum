@@ -35,7 +35,6 @@ export default function FirstStepStudent(props: FirstStepStudentProps) {
   const validateFirstStepStudent = async () => {
     const [
       name,
-      presentationName,
       fathersName,
       mothersName,
       birthday,
@@ -49,7 +48,6 @@ export default function FirstStepStudent(props: FirstStepStudentProps) {
       selfDescription,
     ] = await Promise.all([
       trigger("name"),
-      trigger("presentationName"),
       trigger("fathersName"),
       trigger("mothersName"),
       trigger("birthday"),
@@ -65,7 +63,6 @@ export default function FirstStepStudent(props: FirstStepStudentProps) {
 
     if (
       name &&
-      presentationName &&
       fathersName &&
       mothersName &&
       birthday &&
@@ -98,23 +95,9 @@ export default function FirstStepStudent(props: FirstStepStudentProps) {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Nome</FormLabel>
+              <FormLabel>Nome Completo</FormLabel>
               <FormControl>
-                <Input placeholder="Insira um nome" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={control}
-          name="presentationName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Nome de Apresentação</FormLabel>
-              <FormControl>
-                <Input placeholder="Insira um nome" {...field} />
+                <Input placeholder="Insira um nome completo" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -306,19 +289,24 @@ export default function FirstStepStudent(props: FirstStepStudentProps) {
           name={"selfDescription"}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Descreva sua carreira e trajetória</FormLabel>
+              <FormLabel>
+                Você possui algum item que gostaria de destacar na sua biografia
+                inicial? (Opcional)
+              </FormLabel>
               <FormControl>
                 <React.Fragment>
                   <Textarea
                     className="min-h-[90px]"
                     maxLength={400}
-                    placeholder="Insira uma descrição"
+                    placeholder="Destaque aqui algum cargo de
+                    representação, organização de evento ou alguma certificação que mereça destaque
+                    na biografia inicial"
                     {...field}
                   />
 
                   {watch("selfDescription") && (
                     <p className="text-xs text-muted-foreground w-full text-end">
-                      {watch("selfDescription").length}/ 400
+                      {watch("selfDescription")?.length}/ 400
                     </p>
                   )}
                 </React.Fragment>

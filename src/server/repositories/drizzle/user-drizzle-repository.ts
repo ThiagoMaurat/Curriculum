@@ -1,8 +1,8 @@
 import { db } from "@/lib/drizzle";
 import { UsersRepository } from "../user-repository";
 import { and, eq } from "drizzle-orm";
-import { InsertSchemaUsersType, Roles, Users } from "@/db/types-schema";
-import { roles, users } from "@/db/schema";
+import { InsertSchemaUsersType, Roles, Users } from "@/server/db/types-schema";
+import { roles, users } from "@/server/db/schema";
 
 export class DrizzleUsersRepository implements UsersRepository {
   async checkIfUserAndPasswordCodeMatch(

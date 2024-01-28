@@ -57,17 +57,6 @@ export default function PersonalData({ data }: PersonalDataProps) {
         </View>
       )}
 
-      {data?.presentationName && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>Nome de apresentação: </Text>
-            <Text style={commonStyles.descriptionTitle}>
-              {data?.presentationName}
-            </Text>
-          </>
-        </View>
-      )}
-
       {data?.fathersName && (
         <View style={commonStyles.commonCentralizedView}>
           <>
