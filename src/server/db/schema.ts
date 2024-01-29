@@ -40,6 +40,12 @@ export const curriculums = pgTable("curriculum", {
   email: varchar("email", { length: 80 }),
   lattes: varchar("lattes", { length: 80 }),
   selfDescription: varchar("selfDescription", { length: 500 }),
+  createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
+  updatedAt: timestamp("updatedAt", { mode: "date" }).notNull().defaultNow(),
+  initial_course_date: timestamp("initial_course_date", {
+    mode: "date",
+  }),
+  final_course_date: timestamp("final_course_date", { mode: "date" }),
   userId: varchar("userId", { length: 255 })
     .unique()
     .references(() => users.id),

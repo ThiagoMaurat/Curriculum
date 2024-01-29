@@ -23,6 +23,8 @@ export const updateUserAndCreateCertificateAction = action(
         email: data.email,
         selfDescription: data.selfDescription,
         lattes: data.lattes,
+        finalCourseDate: data.finalCourseDate,
+        initialCourseDate: data.initialCourseDate,
       },
       certification: data.certification,
       userId: data.userId,

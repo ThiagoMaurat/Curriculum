@@ -75,9 +75,11 @@ export default function SecondStepEditForm(props: SecondStepProps) {
         />
       </FormControl>
 
-      <p className="text-sm font-medium text-destructive">
-        {errors.certificate?.message}
-      </p>
+      {errors.certificate?.message && (
+        <p className="text-sm font-medium text-destructive">
+          {errors.certificate?.message}
+        </p>
+      )}
     </FormItem>
   );
 }

@@ -111,6 +111,8 @@ export const sendUserCurriculumSchema = z.object({
       required_error: "A descrição é obrigatória",
     })
     .optional(),
+  initialCourseDate: z.date().min(new Date(1900, 0, 1), "Insira uma data"),
+  finalCourseDate: z.date().min(new Date(1900, 0, 1), "Insira uma data"),
 });
 
 export const studentCurriculumAction = sendUserCurriculumSchema.extend({

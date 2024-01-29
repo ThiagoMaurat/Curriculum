@@ -100,6 +100,76 @@ export default function FirstStepEditForm() {
 
       <FormField
         control={control}
+        name="initialCourseDate"
+        render={({ field }) => (
+          <FormItem className="flex flex-col">
+            <FormLabel>Data de início do curso</FormLabel>
+            <FormControl>
+              <DatePicker
+                mode="single"
+                labels={{
+                  labelMonthDropdown: () => "Mês",
+                  labelYearDropdown: () => "Ano",
+                }}
+                onSelect={field.onChange as any}
+                selected={field.value}
+                label={field.value}
+                captionLayout="dropdown-buttons"
+                fromYear={1900}
+                toYear={new Date().getFullYear()}
+                classNames={{
+                  caption_label: "hidden",
+                  dropdown_icon: "hidden",
+                  dropdown_month: "flex gap-3",
+                  dropdown_year: "w-full flex justify-between gap-3",
+                  dropdown: "w-full",
+                  caption_dropdowns: "space-y-2 text-md",
+                }}
+                locale={ptBR}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={control}
+        name="finalCourseDate"
+        render={({ field }) => (
+          <FormItem className="flex flex-col">
+            <FormLabel>Data final do curso</FormLabel>
+            <FormControl>
+              <DatePicker
+                mode="single"
+                labels={{
+                  labelMonthDropdown: () => "Mês",
+                  labelYearDropdown: () => "Ano",
+                }}
+                onSelect={field.onChange as any}
+                selected={field.value}
+                label={field.value}
+                captionLayout="dropdown-buttons"
+                fromYear={1900}
+                toYear={new Date().getFullYear()}
+                classNames={{
+                  caption_label: "hidden",
+                  dropdown_icon: "hidden",
+                  dropdown_month: "flex gap-3",
+                  dropdown_year: "w-full flex justify-between gap-3",
+                  dropdown: "w-full",
+                  caption_dropdowns: "space-y-2 text-md",
+                }}
+                locale={ptBR}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={control}
         name="identityDocument"
         render={({ field }) => (
           <FormItem>

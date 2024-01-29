@@ -44,9 +44,11 @@ export default function SecondStepStudent() {
             />
           </FormControl>
 
-          <p className="text-sm font-medium text-destructive">
-            {form.formState.errors.certificate?.message}
-          </p>
+          {form.formState.errors.certificate && (
+            <p className="text-sm font-medium text-destructive">
+              {form.formState.errors.certificate?.message}
+            </p>
+          )}
         </FormItem>
 
         <Button

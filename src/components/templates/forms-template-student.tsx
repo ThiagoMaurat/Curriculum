@@ -92,6 +92,8 @@ export default function FormsTemplateStudent() {
       lattes: data.lattes,
       userId: session?.user.id,
       certification: uploadDedImages,
+      finalCourseDate: data.finalCourseDate,
+      initialCourseDate: data.initialCourseDate,
     });
 
     if (serverError) {
