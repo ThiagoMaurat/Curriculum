@@ -21,8 +21,10 @@ export const users = pgTable("user", {
   }).defaultNow(),
   image: varchar("image", { length: 255 }),
   password: varchar("password", { length: 60 }),
-  resetPassword: varchar("resetPassword", { length: 60 }),
+  resetPasswordToken: varchar("resetPassword", { length: 60 }),
   product: varchar("product", { length: 191 }),
+  createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
+  createPasswordToken: varchar("createPasswordToken", { length: 60 }),
 });
 
 export const curriculums = pgTable("curriculum", {

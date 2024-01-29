@@ -71,10 +71,6 @@ export const authOptions: NextAuthOptions = {
           password: credentials.password,
         });
 
-        if (user && !user?.emailVerified) {
-          throw new Error(`Email não verificado ${user.email}`);
-        }
-
         if (user) {
           return user as unknown as User;
         }
