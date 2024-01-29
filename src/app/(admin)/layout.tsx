@@ -1,3 +1,20 @@
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return <main className="container my-4">{children}</main>;
+import React from "react";
+import Header from "@/components/header";
+
+interface AuthLayoutProps {
+  children: React.ReactNode;
+}
+
+export default function layout(props: AuthLayoutProps) {
+  const { children } = props;
+
+  return (
+    <div className="bg-[#E7E2FF] dark:bg-card">
+      <Header />
+
+      <main className="w-full min-h-[600px] p-4 h-auto flex items-center justify-center mx-auto rounded-s-xl bg-card dark:bg-zinc-950">
+        {children}
+      </main>
+    </div>
+  );
 }
