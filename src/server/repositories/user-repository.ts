@@ -7,10 +7,6 @@ export interface UsersRepository {
     hasSendCertification: boolean;
   } | null>;
   createUser(data: InsertSchemaUsersType): Promise<Users | null>;
-  findUserAndCheckTheEmailCode(
-    code: string,
-    email: string
-  ): Promise<Users | null>;
   updateUser(
     field: Partial<InsertSchemaUsersType>,
     userId: string

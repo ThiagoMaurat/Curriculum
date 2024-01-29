@@ -3,7 +3,6 @@
 import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import {
   FormControl,
   FormField,
@@ -31,11 +30,9 @@ import {
 } from "@/components/ui/select";
 import { ProductsConst } from "@/const/products";
 import { RolesConstSelect } from "@/const/roles";
-import { useEffect } from "react";
 
 export function CreateUserAdminForm() {
   const [isPending, startTransition] = React.useTransition();
-  const router = useRouter();
   const { toast } = useToast();
   const { data: session } = useSession();
 
@@ -50,12 +47,12 @@ export function CreateUserAdminForm() {
     },
   });
 
-  console.log(form.formState.errors);
   function onSubmit(data: CreateUserAdminForm) {
     startTransition(async () => {
       if (!session?.user.roleName) {
         return;
       }
+
       const { serverError } = await registerUserByAdmin({
         email: data.email,
         name: data.name,
@@ -67,7 +64,7 @@ export function CreateUserAdminForm() {
       if (serverError) {
         toast({
           title: "Erro",
-          description: serverError,
+          description: serverError || "Erro ao criar conta.",
           duration: 4000,
         });
 
@@ -79,8 +76,6 @@ export function CreateUserAdminForm() {
         description: "Conta criada com sucesso.",
         duration: 4000,
       });
-
-      router.push(`/signup/verify-email/?email=${data?.email}`);
     });
   }
 

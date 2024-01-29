@@ -21,22 +21,6 @@ export class DrizzleUsersRepository implements UsersRepository {
     return user;
   }
 
-  async findUserAndCheckTheEmailCode(
-    code: string,
-    email: string
-  ): Promise<Users | null> {
-    const [user] = await db
-      .select()
-      .from(users)
-      .where(and(eq(users.email, email), eq(users.emailCodeVerified, code)));
-
-    if (!user) {
-      return null;
-    }
-
-    return user;
-  }
-
   async updateUser(
     field: Partial<Users>,
     userId: string

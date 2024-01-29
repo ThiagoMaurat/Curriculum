@@ -19,7 +19,6 @@ export const users = pgTable("user", {
     mode: "date",
     precision: 3,
   }).defaultNow(),
-  emailCodeVerified: varchar("emailCodeVerified", { length: 80 }),
   image: varchar("image", { length: 255 }),
   password: varchar("password", { length: 60 }),
   resetPassword: varchar("resetPassword", { length: 60 }),

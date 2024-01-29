@@ -82,9 +82,8 @@ export class CreateUserAdminUseCase {
       email: validData.email,
       name: validData.name,
       product: validData.product ?? null,
-      emailCodeVerified: null,
       password: null,
-      emailVerified: null,
+      emailVerified: new Date(),
     });
 
     if (!userCreated) {
