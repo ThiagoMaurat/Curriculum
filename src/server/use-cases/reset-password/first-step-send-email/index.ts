@@ -25,15 +25,15 @@ export class ResetPasswordSendEmailUseCase {
   }: ResetPasswordSendEmailUseCaseInput): Promise<ResetPasswordSendEmailUseCaseOutput | null> {
     const resetPasswordUUID = randomUUID();
 
-    const user = await this.usersRepository.findByEmail(email);
+    const user = await this.usersRepository.getUserData(email);
 
-    if (!user) {
+    if (!user?.user) {
       throw new UserDoesNotExistsError();
     }
 
-    await this.usersRepository.updateUser(
-      { resetPassword: resetPasswordUUID },
-      user.user.id
+    await this.usersRepository.updateUserByEmail(
+      { resetPasswordToken: resetPasswordUUID },
+      email
     );
 
     const emailHtml = render(

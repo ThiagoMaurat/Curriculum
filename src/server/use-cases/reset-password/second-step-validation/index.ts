@@ -36,9 +36,9 @@ export class ResetPasswordSecondStepUseCase {
 
     const newPassowrd = await hash(password, 6);
 
-    const resetPassword = await this.usersRepository.updateUser(
+    const resetPassword = await this.usersRepository.updateUserByEmail(
       { password: newPassowrd },
-      user.id
+      email
     );
 
     if (!resetPassword) {

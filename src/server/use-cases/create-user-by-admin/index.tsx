@@ -5,12 +5,12 @@ import {
   createUserAdmin,
 } from "@/validators/create-user-admin";
 import { render } from "@react-email/render";
-import AuthConfirmEmail from "@/email-templates/auth-confirm-email";
 import { ProductsConst } from "@/const/products";
 import { UserAlreadyExists } from "@/server/errors/user-already-exist";
 import { randomUUID } from "crypto";
 import { SendEmailUseCase } from "../send-email";
 import { RolesRepository } from "@/server/repositories/roles-repository";
+import CreatePassword from "@/email-templates/create-password";
 
 interface CreateUserAdminUseCaseInput extends CreateUserAdmin {
   userRole: CreateUserAdmin["role"];
@@ -42,7 +42,7 @@ export class CreateUserAdminUseCase {
       product,
     });
 
-    const emailCode = randomUUID();
+    const createPasswordToken = randomUUID();
 
     if (userRole !== "supervisor" && userRole !== "coordinator") {
       throw new Error("Não possui permissão de criar esse tipo de usuário");
@@ -65,7 +65,7 @@ export class CreateUserAdminUseCase {
       throw new UserAlreadyExists();
     }
 
-    const emailHtml = render(AuthConfirmEmail({ validationCode: emailCode }));
+    const emailHtml = render(CreatePassword({ createPasswordToken, email }));
 
     const emailSent = await this.sendEmailUseCase.execute({
       html: emailHtml,
@@ -84,6 +84,7 @@ export class CreateUserAdminUseCase {
       product: validData.product ?? null,
       password: null,
       emailVerified: new Date(),
+      createPasswordToken,
     });
 
     if (!userCreated) {

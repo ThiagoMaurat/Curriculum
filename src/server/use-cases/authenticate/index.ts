@@ -29,7 +29,7 @@ export class AuthenticateUseCase {
       throw new InvalidCredentialsError();
     }
 
-    const user = await this.userRepository.findByEmail(email);
+    const user = await this.userRepository.getUserData(email);
 
     if (!user?.user) {
       throw new UserDoesNotExistsError();
