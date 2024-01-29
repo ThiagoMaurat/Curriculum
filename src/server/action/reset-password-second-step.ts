@@ -1,6 +1,6 @@
 "use server";
 import { action } from "@/lib/safe-action";
-import { makeResetPasswordSecondStep } from "@/server/factories/make-reset-password-second-step";
+import { makeResetPasswordSecondStep } from "@/server/factories/make-reset-password-second-step-factory";
 import { resetPasswordSecondStepSchema } from "@/validators/reset-password-second-step";
 
 export const resetPasswordSecondStepAction = action(

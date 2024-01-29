@@ -5,6 +5,22 @@ import { InsertSchemaUsersType, Roles, Users } from "@/server/db/types-schema";
 import { curriculums, roles, users } from "@/server/db/schema";
 
 export class DrizzleUsersRepository implements UsersRepository {
+  async checkIfUserCanCreatePassword(
+    email: string,
+    code: string
+  ): Promise<boolean> {
+    const [user] = await db
+      .select()
+      .from(users)
+      .where(and(eq(users.email, email), eq(users.createPasswordToken, code)));
+
+    if (!user) {
+      return false;
+    }
+
+    return true;
+  }
+
   async checkIfUserAndPasswordCodeMatch(
     email: string,
     code: string
@@ -12,7 +28,7 @@ export class DrizzleUsersRepository implements UsersRepository {
     const [user] = await db
       .select()
       .from(users)
-      .where(and(eq(users.email, email), eq(users.resetPassword, code)));
+      .where(and(eq(users.email, email), eq(users.resetPasswordToken, code)));
 
     if (!user) {
       return null;
@@ -21,14 +37,14 @@ export class DrizzleUsersRepository implements UsersRepository {
     return user;
   }
 
-  async updateUser(
+  async updateUserByEmail(
     field: Partial<Users>,
-    userId: string
+    email: string
   ): Promise<Users | null> {
     const [user] = await db
       .update(users)
       .set(field)
-      .where(eq(users.id, userId))
+      .where(eq(users.email, email))
       .returning();
 
     if (!user) {
@@ -38,7 +54,7 @@ export class DrizzleUsersRepository implements UsersRepository {
     return user;
   }
 
-  async findByEmail(email: string): Promise<{
+  async getUserData(email: string): Promise<{
     user: Users;
     role: Roles | null;
     hasSendCertification: boolean;
@@ -55,6 +71,16 @@ export class DrizzleUsersRepository implements UsersRepository {
       role: user?.role ?? null,
       hasSendCertification: user?.curriculum?.userId ? true : false,
     };
+  }
+
+  async findByEmail(email: string): Promise<Users | null> {
+    const [user] = await db.select().from(users).where(eq(users.email, email));
+
+    if (!user) {
+      return null;
+    }
+
+    return user;
   }
 
   async createUser(data: InsertSchemaUsersType): Promise<Users | null> {

@@ -76,6 +76,8 @@ export function CreateUserAdminForm() {
         description: "Conta criada com sucesso.",
         duration: 4000,
       });
+
+      form.reset();
     });
   }
 

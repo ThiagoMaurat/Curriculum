@@ -15,13 +15,15 @@ import {
 import * as React from "react";
 import { env } from "../../env.mjs";
 
-interface AuthConfirmEmailProps {
-  validationCode?: string;
+interface CreatePasswordProps {
+  createPasswordToken?: string;
+  email: string;
 }
 
-export default function AuthConfirmEmail({
-  validationCode,
-}: AuthConfirmEmailProps) {
+export default function CreatePassword({
+  email,
+  createPasswordToken,
+}: CreatePasswordProps) {
   return (
     <Html>
       <Head />
@@ -35,16 +37,20 @@ export default function AuthConfirmEmail({
           />
           <Heading style={heading}>Seu código aqui!</Heading>
           <Text style={paragraph}>
-            Abaixo está seu código de verificação. Pode copiar e colar no seu
-            navegador.
+            Clique no link abaixo para ser direcionado e criar sua senha:
           </Text>
-          <code style={code}>{validationCode}</code>
           <Hr style={hr} />
-          <Link href={new URL(env.NEXT_PUBLIC_APP_URL).href} style={reportLink}>
-            Curriculun
+          <Link
+            href={`${env.NEXT_PUBLIC_APP_URL}/create-password?token=${createPasswordToken}&email=${email}`}
+            style={reportLink}
+          >
+            {`${env.NEXT_PUBLIC_APP_URL}/create-password?token=${createPasswordToken}&email=${email}`}
           </Link>
           <Section style={buttonContainer}>
-            <Button style={button} href={env.NEXT_PUBLIC_APP_URL}>
+            <Button
+              style={button}
+              href={`${env.NEXT_PUBLIC_APP_URL}/create-password?token=${createPasswordToken}&email=${email}`}
+            >
               Login
             </Button>
           </Section>

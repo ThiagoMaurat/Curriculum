@@ -28,23 +28,15 @@ export default function ResetPassword() {
 
       <CardFooter className="flex flex-wrap pb-4 px-4 items-center space-x-2">
         <div className="flex-1 text-sm text-muted-foreground">
-          Não possui uma conta?{" "}
+          Deseja resetar senha?{" "}
           <Link
             aria-label="Sign up"
             href="/signup"
             className="text-primary underline-offset-4 transition-colors hover:underline"
           >
-            Registre aqui
+            Clique aqui
           </Link>
         </div>
-
-        <Link
-          aria-label="Reset password"
-          href="/reset-password"
-          className="text-sm text-primary underline-offset-4 transition-colors hover:underline"
-        >
-          Resetar senha
-        </Link>
       </CardFooter>
     </Card>
   );
