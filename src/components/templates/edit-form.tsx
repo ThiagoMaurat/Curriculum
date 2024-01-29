@@ -35,8 +35,8 @@ export default function EditFormTemplate(props: EditFormTemplateProps) {
       phone: data.phone ?? "",
       mothersName: data.mothersName ?? "",
       identityDocument: data.identityDocument ?? "",
-      initialCourseDate: data.initial_course_date ?? undefined,
-      finalCourseDate: data.final_course_date ?? undefined,
+      initialCourseDate: data.initialCourseDate ?? undefined,
+      finalCourseDate: data.finalCourseDate ?? undefined,
     },
   });
 

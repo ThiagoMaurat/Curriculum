@@ -42,10 +42,10 @@ export const curriculums = pgTable("curriculum", {
   selfDescription: varchar("selfDescription", { length: 500 }),
   createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
   updatedAt: timestamp("updatedAt", { mode: "date" }).notNull().defaultNow(),
-  initial_course_date: timestamp("initial_course_date", {
+  initialCourseDate: timestamp("initialCourseDate", {
     mode: "date",
   }),
-  final_course_date: timestamp("final_course_date", { mode: "date" }),
+  finalCourseDate: timestamp("finalCourseDate", { mode: "date" }),
   userId: varchar("userId", { length: 255 })
     .unique()
     .references(() => users.id),
