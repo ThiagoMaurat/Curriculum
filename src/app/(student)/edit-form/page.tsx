@@ -1,7 +1,6 @@
 import { makeGetFormAlreadySentUserFactory } from "@/server/factories/make-get-form-already-sent-user-factory";
-import { getServerSession } from "next-auth";
 import React from "react";
-import { authOptions } from "../../../../auth";
+import { getServerAuthSession } from "../../../../auth";
 import RedirectUnauthorized from "@/components/redirect-unauthorized";
 import EditFormTemplate from "@/components/templates/edit-form";
 import { type Metadata } from "next";
@@ -14,10 +13,10 @@ export const metadata: Metadata = {
 };
 
 export default async function EditForm() {
-  const data = await getServerSession(authOptions);
+  const data = await getServerAuthSession();
 
   if (!data?.user) {
-    return RedirectUnauthorized();
+    return <RedirectUnauthorized />;
   }
 
   const userCertificateData = makeGetFormAlreadySentUserFactory();

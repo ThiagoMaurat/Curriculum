@@ -1,14 +1,13 @@
 import Link from "next/link";
-import { authOptions } from "../../auth";
-import { getServerSession } from "next-auth";
 import Header from "@/components/header";
+import { getServerAuthSession } from "../../auth";
 
 export default async function Home() {
-  const serverSession = await getServerSession(authOptions);
+  const data = await getServerAuthSession();
   return (
     <>
       <Header />
-      {JSON.stringify(serverSession?.user)}
+      {JSON.stringify(data?.user)}
       <Link href="/forms" className="underline">
         Página formulário
       </Link>

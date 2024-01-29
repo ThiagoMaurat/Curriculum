@@ -15,7 +15,7 @@ export default async function CreateUserSupervisor() {
   }
 
   return (
-    <Card className="max-w-[50%] w-full mx-auto md:mx-0">
+    <Card className="max-w-[700px] w-full mx-auto md:mx-0">
       <CardHeader className="p-4 space-y-1 ">
         <CardTitle className="text-2xl">Criar Usuário</CardTitle>
       </CardHeader>
