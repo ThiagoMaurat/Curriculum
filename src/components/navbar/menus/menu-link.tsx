@@ -54,19 +54,20 @@ export function MenuLinks({ isOpen }: MenuLinksProps) {
             </p>
           </Link>
 
-          {data?.user?.roleName === "admin" && (
-            <Link href="/admin">
-              <p
-                className={`${
-                  CheckRouterMatchesLabel("Home")
-                    ? "bottom-1 font-bold border-b-2 text-gray-300"
-                    : "hover:bottom-1 hover:font-bold hover:border-b-2 hover:text-gray-300 hover:transition-all font-medium"
-                }`}
-              >
-                Admin
-              </p>
-            </Link>
-          )}
+          {data?.user?.roleName === "coordinator" ||
+            (data?.user?.roleName === "supervisor" && (
+              <Link href="/create-user">
+                <p
+                  className={`${
+                    CheckRouterMatchesLabel("Home")
+                      ? "bottom-1 font-bold border-b-2 text-gray-300"
+                      : "hover:bottom-1 hover:font-bold hover:border-b-2 hover:text-gray-300 hover:transition-all font-medium"
+                  }`}
+                >
+                  Criar Usuário
+                </p>
+              </Link>
+            ))}
         </div>
 
         <div className="md:hidden flex items-center self-center">
