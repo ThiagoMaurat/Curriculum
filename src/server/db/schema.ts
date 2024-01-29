@@ -21,8 +21,9 @@ export const users = pgTable("user", {
   }).defaultNow(),
   emailCodeVerified: varchar("emailCodeVerified", { length: 80 }),
   image: varchar("image", { length: 255 }),
-  password: varchar("password", { length: 60 }).notNull(),
+  password: varchar("password", { length: 60 }),
   resetPassword: varchar("resetPassword", { length: 60 }),
+  product: varchar("product", { length: 191 }),
 });
 
 export const curriculums = pgTable("curriculum", {
@@ -48,7 +49,7 @@ export const curriculums = pgTable("curriculum", {
   finalCourseDate: timestamp("finalCourseDate", { mode: "date" }),
   userId: varchar("userId", { length: 255 })
     .unique()
-    .references(() => users.id),
+    .references(() => users.id, { onDelete: "cascade" }),
 });
 
 export const certifications = pgTable("certification", {
@@ -126,7 +127,9 @@ export const roles = pgTable("role", {
   })
     .notNull()
     .default("user"),
-  userId: varchar("userId", { length: 255 }).references(() => users.id),
+  userId: varchar("userId", { length: 255 }).references(() => users.id, {
+    onDelete: "cascade",
+  }),
 });
 
 export const rolesRelations = relations(roles, ({ one }) => ({
