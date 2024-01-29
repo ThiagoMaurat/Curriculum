@@ -10,7 +10,8 @@
     "generate": "drizzle-kit generate:pg --schema ./src/server/db/schema.ts",
     "up": "drizzle-kit up:pg",
     "push:pg": "drizzle-kit push:pg",
-    "migrate": "tsx src/lib/migrate.ts"
+    "migrate": "tsx src/server/db/migrate.ts",
+    "seed": "tsx src/server/db/seed.ts"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^0.3.12",

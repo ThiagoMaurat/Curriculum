@@ -3,7 +3,7 @@ import {
   CertificationInsertSchema,
 } from "@/server/db/types-schema";
 import { CertificationsRepository } from "../certification-repository";
-import { db } from "@/lib/drizzle";
+import { db } from "@/server/db/drizzle";
 import { certifications } from "@/server/db/schema";
 
 export class DrizzleCertificationRepository

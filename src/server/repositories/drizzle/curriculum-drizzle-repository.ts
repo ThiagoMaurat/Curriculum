@@ -1,7 +1,7 @@
 import { Curriculum } from "@/server/db/types-schema";
 
 import { CurriculumRepository } from "../curriculum-repository";
-import { db } from "@/lib/drizzle";
+import { db } from "@/server/db/drizzle";
 import { curriculums } from "@/server/db/schema";
 
 export class DrizzleCurriculumRepository implements CurriculumRepository {

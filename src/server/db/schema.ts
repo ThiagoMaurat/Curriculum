@@ -120,7 +120,10 @@ export const verificationTokens = pgTable(
 
 export const roles = pgTable("role", {
   id: serial("id").primaryKey(),
-  name: varchar("name", { enum: ["admin", "user"], length: 50 })
+  name: varchar("name", {
+    enum: ["supervisor", "collaborator", "coordinator", "user"],
+    length: 50,
+  })
     .notNull()
     .default("user"),
   userId: varchar("userId", { length: 255 }).references(() => users.id),

@@ -1,4 +1,4 @@
-import { db } from "@/lib/drizzle";
+import { db } from "@/server/db/drizzle";
 import { UsersRepository } from "../user-repository";
 import { and, eq } from "drizzle-orm";
 import { InsertSchemaUsersType, Roles, Users } from "@/server/db/types-schema";
@@ -66,13 +66,9 @@ export class DrizzleUsersRepository implements UsersRepository {
       .leftJoin(roles, eq(users.id, roles.userId))
       .leftJoin(curriculums, eq(users.id, curriculums.userId));
 
-    if (!user.user) {
-      return null;
-    }
-
     return {
-      user: user.user,
-      role: user.role ?? null,
+      user: user?.user ?? null,
+      role: user?.role ?? null,
       hasSendCertification: user?.curriculum?.userId ? true : false,
     };
   }

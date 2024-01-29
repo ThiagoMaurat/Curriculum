@@ -47,7 +47,7 @@ export class RegisterUseCaseInputAndSendEmail {
 
     const userWithSameEmail = await this.usersRepository.findByEmail(email);
 
-    if (userWithSameEmail) {
+    if (userWithSameEmail?.user) {
       throw new InvalidCredentialsError();
     }
 
@@ -70,7 +70,6 @@ export class RegisterUseCaseInputAndSendEmail {
       emailVerified: null,
       email,
       name,
-      hasSendCertification: false,
     });
 
     if (!user) {

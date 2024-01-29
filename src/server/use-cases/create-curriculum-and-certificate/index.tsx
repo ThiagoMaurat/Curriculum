@@ -46,8 +46,8 @@ export class UpdateUserAndCreateCertificateUseCase {
       phone: curriculumValid.phone,
       presentationName: getPresentationName(curriculumValid.fullName),
       selfDescription: curriculumValid.selfDescription,
-      initial_course_date: curriculumValid.initialCourseDate,
-      final_course_date: curriculumValid.finalCourseDate,
+      initialCourseDate: curriculumValid.initialCourseDate,
+      finalCourseDate: curriculumValid.finalCourseDate,
       userId: userId,
     });
 

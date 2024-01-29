@@ -3,7 +3,7 @@ import { getServerSession, User, type NextAuthOptions } from "next-auth";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { env } from "@/../env.mjs";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { db } from "@/lib/drizzle";
+import { db } from "@/server/db/drizzle";
 import { Adapter, AdapterUser } from "next-auth/adapters";
 import { encode, decode, DefaultJWT } from "next-auth/jwt";
 import { Roles } from "@/server/db/types-schema";
