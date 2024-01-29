@@ -2,7 +2,6 @@ import { compare } from "bcryptjs";
 import { InvalidCredentialsError } from "@/server/errors/invalid-credentials";
 import { UsersRepository } from "@/server/repositories/user-repository";
 import { UserDoesNotExistsError } from "@/server/errors/user-does-not-exists";
-import { Roles } from "@/server/db/types-schema";
 
 interface AuthenticateUseCaseInput {
   email: string;
@@ -15,7 +14,7 @@ type AuthenticateUserCaseOutput = Promise<{
   email: string;
   image: string | null;
   emailVerified: Date | null;
-  roleName: Roles["name"] | null;
+  roleName: "supervisor" | "collaborator" | "coordinator" | "user" | null;
   hasSendCertification: boolean | null;
 } | null>;
 
@@ -32,11 +31,11 @@ export class AuthenticateUseCase {
 
     const user = await this.userRepository.findByEmail(email);
 
-    if (!user) {
+    if (!user?.user) {
       throw new UserDoesNotExistsError();
     }
 
-    const doesPasswordMatches = await compare(password, user.user.password);
+    const doesPasswordMatches = await compare(password, user.user.password!);
 
     if (!doesPasswordMatches) {
       throw new InvalidCredentialsError();
