@@ -42,17 +42,19 @@ export function MenuLinks({ isOpen }: MenuLinksProps) {
             </p>
           </Link>
 
-          <Link prefetch={false} href={"/forms"}>
-            <p
-              className={`${
-                CheckRouterMatchesLabel("Home")
-                  ? "bottom-1 font-bold border-b-2 text-gray-300"
-                  : "hover:bottom-1 hover:font-bold hover:border-b-2 hover:text-gray-300 hover:transition-all font-medium"
-              }`}
-            >
-              Formulário
-            </p>
-          </Link>
+          {data?.user.roleName === "user" && (
+            <Link prefetch={false} href={"/forms"}>
+              <p
+                className={`${
+                  CheckRouterMatchesLabel("Home")
+                    ? "bottom-1 font-bold border-b-2 text-gray-300"
+                    : "hover:bottom-1 hover:font-bold hover:border-b-2 hover:text-gray-300 hover:transition-all font-medium"
+                }`}
+              >
+                Formulário
+              </p>
+            </Link>
+          )}
 
           {data?.user?.roleName === "coordinator" ||
             (data?.user?.roleName === "supervisor" && (

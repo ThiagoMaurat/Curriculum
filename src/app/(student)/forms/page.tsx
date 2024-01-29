@@ -12,6 +12,10 @@ export default async function FormsPage() {
     return <RedirectUnauthorized />;
   }
 
+  if (data.user.roleName !== "user") {
+    redirect("/");
+  }
+
   if (data.user.hasSendCertification) {
     redirect("/edit-form");
   }
