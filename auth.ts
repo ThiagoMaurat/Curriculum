@@ -1,4 +1,3 @@
-import { type GetServerSidePropsContext } from "next";
 import { getServerSession, User, type NextAuthOptions } from "next-auth";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { env } from "@/../env.mjs";
@@ -6,7 +5,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { db } from "@/server/db/drizzle";
 import { Adapter, AdapterUser } from "next-auth/adapters";
 import { encode, decode, DefaultJWT } from "next-auth/jwt";
-import { Roles } from "@/server/db/types-schema";
 import { makeAuthenticateFactory } from "@/server/factories/make-authenticate-factory";
 
 /**
@@ -23,7 +21,7 @@ declare module "next-auth" {
     email: string;
     image: string | null;
     emailVerified: string;
-    roleName: Roles["name"] | null;
+    roleName: "supervisor" | "collaborator" | "coordinator" | "user" | null;
     hasSendCertification: boolean | null;
   }
 
@@ -116,14 +114,6 @@ export const authOptions: NextAuthOptions = {
   secret: env.NEXTAUTH_SECRET,
 };
 
-/**
- * Wrapper for `getServerSession` so that you don't need to import the `authOptions` in every file.
- *
- * @see https://next-auth.js.org/configuration/nextjs
- */
-export const getServerAuthSession = (ctx: {
-  req: GetServerSidePropsContext["req"];
-  res: GetServerSidePropsContext["res"];
-}) => {
-  return getServerSession(ctx.req, ctx.res, authOptions);
+export const getServerAuthSession = () => {
+  return getServerSession(authOptions);
 };
