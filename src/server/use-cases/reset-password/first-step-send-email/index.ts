@@ -1,4 +1,4 @@
-import { UsersRepository } from "@/server/repositories/user-repository";
+import { UsersRepository } from "@/server/repositories/interfaces/user-repository";
 import { randomUUID } from "node:crypto";
 import { render } from "@react-email/render";
 import { UserDoesNotExistsError } from "@/server/errors/user-does-not-exists";

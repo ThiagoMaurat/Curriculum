@@ -1,6 +1,6 @@
 import { Curriculum } from "@/server/db/types-schema";
 
-import { CurriculumRepository } from "../curriculum-repository";
+import { CurriculumRepository } from "../interfaces/curriculum-repository";
 import { db } from "@/server/db/drizzle";
 import { curriculums } from "@/server/db/schema";
 

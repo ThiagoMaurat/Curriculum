@@ -1,6 +1,6 @@
 import { InsertSchemaRolesType, Roles } from "@/server/db/types-schema";
 
-import { RolesRepository } from "../roles-repository";
+import { RolesRepository } from "../interfaces/roles-repository";
 import { db } from "@/server/db/drizzle";
 import { roles } from "@/server/db/schema";
 

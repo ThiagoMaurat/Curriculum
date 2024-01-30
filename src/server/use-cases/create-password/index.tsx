@@ -1,5 +1,5 @@
 import { hash } from "bcryptjs";
-import { UsersRepository } from "@/server/repositories/user-repository";
+import { UsersRepository } from "@/server/repositories/interfaces/user-repository";
 import { Users } from "@/server/db/types-schema";
 import { createPasswordSchemaAction } from "@/validators/create-password";
 

@@ -1,4 +1,4 @@
-import { UsersRepository } from "@/server/repositories/user-repository";
+import { UsersRepository } from "@/server/repositories/interfaces/user-repository";
 import { hash } from "bcryptjs";
 
 interface ResetPasswordSecondStepUseCaseInput {

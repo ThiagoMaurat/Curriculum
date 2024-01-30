@@ -1,4 +1,4 @@
-import { UsersRepository } from "@/server/repositories/user-repository";
+import { UsersRepository } from "@/server/repositories/interfaces/user-repository";
 import { Roles, Users } from "@/server/db/types-schema";
 import {
   CreateUserAdmin,
@@ -9,7 +9,7 @@ import { ProductsConst } from "@/const/products";
 import { UserAlreadyExists } from "@/server/errors/user-already-exist";
 import { randomUUID } from "crypto";
 import { SendEmailUseCase } from "../send-email";
-import { RolesRepository } from "@/server/repositories/roles-repository";
+import { RolesRepository } from "@/server/repositories/interfaces/roles-repository";
 import CreatePassword from "@/email-templates/create-password";
 
 interface CreateUserAdminUseCaseInput extends CreateUserAdmin {

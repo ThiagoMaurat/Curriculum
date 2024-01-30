@@ -1,6 +1,6 @@
 import { compare } from "bcryptjs";
 import { InvalidCredentialsError } from "@/server/errors/invalid-credentials";
-import { UsersRepository } from "@/server/repositories/user-repository";
+import { UsersRepository } from "@/server/repositories/interfaces/user-repository";
 import { UserDoesNotExistsError } from "@/server/errors/user-does-not-exists";
 
 interface AuthenticateUseCaseInput {

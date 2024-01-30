@@ -2,7 +2,7 @@ import {
   Certification,
   CertificationInsertSchema,
 } from "@/server/db/types-schema";
-import { CertificationsRepository } from "../certification-repository";
+import { CertificationsRepository } from "../interfaces/certification-repository";
 import { db } from "@/server/db/drizzle";
 import { certifications } from "@/server/db/schema";
 

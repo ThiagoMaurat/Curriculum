@@ -1,10 +1,10 @@
-import { CertificationsRepository } from "@/server/repositories/certification-repository";
+import { CertificationsRepository } from "@/server/repositories/interfaces/certification-repository";
 import {
   SendUserCurriculum,
   sendUserCurriculumSchema,
 } from "@/validators/send-user-curriculum";
 import { CertificationInsertSchema } from "@/server/db/types-schema";
-import { CurriculumRepository } from "@/server/repositories/curriculum-repository";
+import { CurriculumRepository } from "@/server/repositories/interfaces/curriculum-repository";
 import { getPresentationName } from "@/helpers/extract-presentation-name";
 
 interface UpdateUserAndCreateCertificateInput {

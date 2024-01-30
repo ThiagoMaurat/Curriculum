@@ -1,7 +1,7 @@
 import { InvalidCredentialsError } from "@/server/errors/invalid-credentials";
 import { UserDoesNotExistsError } from "@/server/errors/user-does-not-exists";
 import { Certification, Curriculum } from "@/server/db/types-schema";
-import { UsersCertificateRepository } from "@/server/repositories/user-certificate-repository";
+import { UsersCertificateRepository } from "@/server/repositories/interfaces/user-certificate-repository";
 
 interface GetFormAlreadySenteUseCaseInput {
   userId: string;

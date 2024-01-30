@@ -1,5 +1,5 @@
 import { Certification, Curriculum } from "@/server/db/types-schema";
-import { UsersCertificateRepository } from "../user-certificate-repository";
+import { UsersCertificateRepository } from "../interfaces/user-certificate-repository";
 import { db } from "@/server/db/drizzle";
 
 export class DrizzleUsersCertificateDrizzleRepository

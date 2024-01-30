@@ -1,5 +1,5 @@
 import { db } from "@/server/db/drizzle";
-import { UsersRepository } from "../user-repository";
+import { UsersRepository } from "../interfaces/user-repository";
 import { and, eq } from "drizzle-orm";
 import { InsertSchemaUsersType, Roles, Users } from "@/server/db/types-schema";
 import { curriculums, roles, users } from "@/server/db/schema";

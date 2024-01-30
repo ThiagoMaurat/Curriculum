@@ -1,4 +1,4 @@
-import { Certification, Curriculum } from "../db/types-schema";
+import { Certification, Curriculum } from "../../db/types-schema";
 
 export interface UsersCertificateRepository {
   listCertificateAssociatedWithUser(

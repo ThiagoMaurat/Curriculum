@@ -1,4 +1,4 @@
-import { InsertSchemaUsersType, Roles, Users } from "../db/types-schema";
+import { InsertSchemaUsersType, Roles, Users } from "../../db/types-schema";
 
 export interface UsersRepository {
   findByEmail(email: string): Promise<Users | null>;
