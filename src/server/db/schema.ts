@@ -63,6 +63,9 @@ export const certifications = pgTable("certification", {
   curriculumId: integer("curriculumId").references(() => curriculums.id, {
     onDelete: "cascade",
   }),
+  userId: varchar("userId", { length: 255 }).references(() => users.id, {
+    onDelete: "cascade",
+  }),
 });
 
 export const accounts = pgTable(
@@ -144,6 +147,7 @@ export const userRelations = relations(users, ({ one, many }) => ({
   accounts: many(accounts),
   roles: many(roles),
   curriculums: one(curriculums),
+  certifications: many(certifications),
 }));
 
 export const curriculumsRelations = relations(curriculums, ({ one, many }) => ({
@@ -158,6 +162,10 @@ export const certificatesRelations = relations(certifications, ({ one }) => ({
   curriculum: one(curriculums, {
     fields: [certifications.curriculumId],
     references: [curriculums.id],
+  }),
+  user: one(users, {
+    fields: [certifications.userId],
+    references: [users.id],
   }),
 }));
 
