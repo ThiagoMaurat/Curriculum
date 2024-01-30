@@ -1,4 +1,10 @@
-import { InsertSchemaUsersType, Roles, Users } from "../../db/types-schema";
+import { ParamsType } from "@/validators/params-schema";
+import {
+  Certification,
+  InsertSchemaUsersType,
+  Roles,
+  Users,
+} from "../../db/types-schema";
 
 export interface UsersRepository {
   findByEmail(email: string): Promise<Users | null>;
@@ -17,4 +23,19 @@ export interface UsersRepository {
     field: Partial<InsertSchemaUsersType>,
     email: string
   ): Promise<Users | null>;
+  listUsers(params?: ParamsType): Promise<{
+    metadata: {
+      total: number;
+      page: number;
+    };
+    user: {
+      id: string;
+      email: string;
+      name: string | null;
+      product: string | null;
+      createdAt: Date;
+      certifications: Certification[];
+      roles: Array<{ name: string }>;
+    }[];
+  } | null>;
 }
