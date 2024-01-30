@@ -1,54 +1,47 @@
-import { compare } from "bcryptjs";
-import { InvalidCredentialsError } from "@/server/errors/invalid-credentials";
+import { Certification } from "@/server/db/types-schema";
 import { UsersRepository } from "@/server/repositories/interfaces/user-repository";
-import { UserDoesNotExistsError } from "@/server/errors/user-does-not-exists";
+import { ParamsType, paramsSchema } from "@/validators/params-schema";
 
-interface AuthenticateUseCaseInput {
-  email: string;
-  password: string;
-}
+interface ListUsersByAdminUseCaseInput extends ParamsType {}
 
-type AuthenticateUserCaseOutput = Promise<{
-  id: string;
-  name: string | null;
-  email: string;
-  image: string | null;
-  emailVerified: Date | null;
-  roleName: "supervisor" | "collaborator" | "coordinator" | "user" | null;
-  hasSendCertification: boolean | null;
-} | null>;
+export type ListUsersByAdminUserCaseOutput = {
+  metadata: {
+    total: number;
+    page: number;
+  };
+  user: {
+    id: string;
+    email: string;
+    name: string | null;
+    product: string | null;
+    createdAt: Date;
+    certifications: Certification[];
+    roles: Array<{ name: string }>;
+  }[];
+};
 
-export class AuthenticateUseCase {
+export class ListUsersByAdminUseCase {
   constructor(private userRepository: UsersRepository) {}
 
   async execute({
-    email,
-    password,
-  }: AuthenticateUseCaseInput): AuthenticateUserCaseOutput {
-    if (!password || !email) {
-      throw new InvalidCredentialsError();
+    limit,
+    page,
+    sort,
+  }: ListUsersByAdminUseCaseInput): Promise<ListUsersByAdminUserCaseOutput | null> {
+    const validInput = paramsSchema.parse({
+      limit,
+      page,
+      sort,
+    });
+
+    const users = await this.userRepository.listUsers({
+      ...validInput,
+    });
+
+    if (!users) {
+      return null;
     }
 
-    const user = await this.userRepository.getUserData(email);
-
-    if (!user?.user) {
-      throw new UserDoesNotExistsError();
-    }
-
-    const doesPasswordMatches = await compare(password, user.user.password!);
-
-    if (!doesPasswordMatches) {
-      throw new InvalidCredentialsError();
-    }
-
-    return {
-      id: user.user.id,
-      name: user.user.name,
-      email: user.user.email,
-      emailVerified: user.user.emailVerified,
-      roleName: user?.role?.name ?? null,
-      image: user.user.image,
-      hasSendCertification: user.hasSendCertification,
-    };
+    return users;
   }
 }
