@@ -1,7 +1,7 @@
 import { InvalidCredentialsError } from "@/server/errors/invalid-credentials";
 import { UserDoesNotExistsError } from "@/server/errors/user-does-not-exists";
 import { Certification, Curriculum } from "@/server/db/types-schema";
-import { UsersCertificateRepository } from "@/server/repositories/interfaces/user-certificate-repository";
+import { CurriculumRepository } from "@/server/repositories/interfaces/curriculum-repository";
 
 interface GetFormAlreadySenteUseCaseInput {
   userId: string;
@@ -12,7 +12,7 @@ export type GetFormAlreadySenteUserCaseOutput = {} & Curriculum & {
   };
 
 export class GetFormAlreadySentUseCase {
-  constructor(private userCertificateRepository: UsersCertificateRepository) {}
+  constructor(private curriculumRepository: CurriculumRepository) {}
 
   async execute({
     userId,
@@ -22,7 +22,7 @@ export class GetFormAlreadySentUseCase {
     }
 
     const user =
-      await this.userCertificateRepository.listCertificateAssociatedWithUser(
+      await this.curriculumRepository.listCurriculumAndCertificateAssociatedWithUser(
         userId
       );
 
