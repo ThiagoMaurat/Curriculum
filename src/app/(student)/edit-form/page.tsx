@@ -27,7 +27,7 @@ export default async function EditForm() {
 
   return (
     <Card className="max-w-2xl mx-auto">
-      <CardHeader className="p-4 space-y-1 ">
+      <CardHeader className="space-y-1">
         <CardTitle className="text-2xl">Editar Currículo</CardTitle>
       </CardHeader>
       <CardContent className="pb-4">

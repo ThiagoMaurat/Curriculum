@@ -2,7 +2,7 @@
 
 import { action } from "@/lib/safe-action";
 import { createPasswordSchemaAction } from "@/validators/create-password";
-import { makeRegistryCreatePassword } from "../factories/create-password-factory";
+import { makeRegistryCreatePassword } from "../factories/make-create-password-factory";
 import { unstable_noStore as noStore } from "next/cache";
 
 export const registerPasswordAction = action(

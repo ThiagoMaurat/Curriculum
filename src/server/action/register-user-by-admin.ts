@@ -1,7 +1,7 @@
 "use server";
 
 import { action } from "@/lib/safe-action";
-import { makeRegistryUserByAdmin } from "../factories/create-user-by-admin-factory";
+import { makeRegistryUserByAdmin } from "../factories/make-create-user-by-admin-factory";
 import { createUserAdminAction } from "@/validators/create-user-admin";
 import { unstable_noStore as noStore } from "next/cache";
 

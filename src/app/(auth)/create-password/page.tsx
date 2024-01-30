@@ -40,7 +40,7 @@ export default async function CreatePasswordPage({
 
   return (
     <Card className="max-w-[80%] w-full mx-auto md:mx-0">
-      <CardHeader className="p-4 space-y-1 ">
+      <CardHeader className="space-y-1">
         <CardTitle className="text-2xl">Criar Senha</CardTitle>
       </CardHeader>
 
