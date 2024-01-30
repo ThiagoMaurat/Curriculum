@@ -20,7 +20,6 @@ export default function ProfileAdminTemplate(props: ProfileAdminTemplateProps) {
 
   return (
     <Table>
-      <TableCaption>Lista de usuário pelo admin</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px] line-clamp-1">Nome</TableHead>
@@ -39,12 +38,6 @@ export default function ProfileAdminTemplate(props: ProfileAdminTemplateProps) {
           </TableRow>
         ))}
       </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">$2,500.00</TableCell>
-        </TableRow>
-      </TableFooter>
     </Table>
   );
 }

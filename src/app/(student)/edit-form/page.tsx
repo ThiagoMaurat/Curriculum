@@ -5,6 +5,7 @@ import RedirectUnauthorized from "@/components/redirect-unauthorized";
 import EditFormTemplate from "@/components/templates/edit-form";
 import { type Metadata } from "next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { unstable_noStore as noStore } from "next/cache";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? ""),
@@ -12,6 +13,8 @@ export const metadata: Metadata = {
   description: "Edição de formulário de envio de currículo",
 };
 
+noStore();
+export const revalidate = 0;
 export default async function EditForm() {
   const data = await getServerAuthSession();
 

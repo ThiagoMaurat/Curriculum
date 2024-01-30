@@ -58,7 +58,7 @@ export function MenuLinks({ isOpen }: MenuLinksProps) {
 
           {data?.user?.roleName === "coordinator" ||
             (data?.user?.roleName === "supervisor" && (
-              <Link href="/create-user">
+              <Link prefetch={false} href="/create-user">
                 <p
                   className={`${
                     CheckRouterMatchesLabel("Home")
@@ -72,7 +72,7 @@ export function MenuLinks({ isOpen }: MenuLinksProps) {
             ))}
 
           {data?.user?.roleName !== "user" && (
-            <Link href="/user-profile">
+            <Link prefetch={false} href="/user-profile">
               <p
                 className={`${
                   CheckRouterMatchesLabel("Home")

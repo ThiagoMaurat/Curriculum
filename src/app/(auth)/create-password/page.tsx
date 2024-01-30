@@ -19,6 +19,8 @@ interface CreatePasswordProps {
   };
 }
 
+noStore();
+export const revalidate = 0;
 export default async function CreatePasswordPage({
   searchParams,
 }: CreatePasswordProps) {
@@ -26,7 +28,6 @@ export default async function CreatePasswordPage({
     return redirect("/");
   }
 
-  noStore();
   const drizzleRepository = new DrizzleUsersRepository();
   const canCreatePassword =
     await drizzleRepository.checkIfUserCanCreatePassword(

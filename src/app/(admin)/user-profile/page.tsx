@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 };
 
 noStore();
+export const revalidate = 0;
 export default async function UserProfile({ searchParams }: UserProfileProps) {
   const { limit, page, sort } = searchParams;
   const listUser = makeListUserByAdminFactory();
