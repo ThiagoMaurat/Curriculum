@@ -4,11 +4,19 @@ import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./select";
 
 interface PaginationButtonProps extends React.HTMLAttributes<HTMLDivElement> {
   pageCount: number;
   page?: string;
-  per_page?: string;
+  limit?: string;
   sort?: string;
   createQueryString: (params: Record<string, string | number | null>) => string;
   siblingCount?: number;
@@ -17,7 +25,7 @@ interface PaginationButtonProps extends React.HTMLAttributes<HTMLDivElement> {
 export function PaginationButton({
   pageCount,
   page,
-  per_page,
+  limit,
   sort,
   createQueryString,
   siblingCount = 1,
@@ -74,7 +82,7 @@ export function PaginationButton({
             router.push(
               `${pathname}?${createQueryString({
                 page: 1,
-                per_page: per_page ?? null,
+                limit: limit ?? null,
                 sort: sort ?? null,
               })}`
             );
@@ -94,7 +102,7 @@ export function PaginationButton({
             router.push(
               `${pathname}?${createQueryString({
                 page: Number(page) - 1,
-                per_page: per_page ?? null,
+                limit: limit ?? null,
                 sort: sort ?? null,
               })}`
             );
@@ -128,7 +136,7 @@ export function PaginationButton({
                 router.push(
                   `${pathname}?${createQueryString({
                     page: pageNumber,
-                    per_page: per_page ?? null,
+                    limit: limit ?? null,
                     sort: sort ?? null,
                   })}`
                 );
@@ -150,7 +158,7 @@ export function PaginationButton({
             router.push(
               `${pathname}?${createQueryString({
                 page: Number(page) + 1,
-                per_page: per_page ?? null,
+                limit: limit ?? null,
                 sort: sort ?? null,
               })}`
             );
@@ -169,7 +177,7 @@ export function PaginationButton({
           router.push(
             `${pathname}?${createQueryString({
               page: pageCount ?? 10,
-              per_page: per_page ?? null,
+              limit: limit ?? null,
               sort: sort ?? null,
             })}`
           );
@@ -178,6 +186,33 @@ export function PaginationButton({
       >
         <ArrowRightIcon className="h-4 w-4" aria-hidden="true" />
       </Button>
+
+      <Select
+        onValueChange={(value) => {
+          startTransition(() => {
+            router.push(
+              `${pathname}?${createQueryString({
+                page: page ?? 1,
+                limit: value ?? null,
+                sort: sort ?? null,
+              })}`
+            );
+          });
+        }}
+      >
+        <SelectTrigger className="w-full max-w-32">
+          <SelectValue placeholder="Por página" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            {Array.from({ length: 3 }, (_, i) => (
+              <SelectItem value={`${i + 1}0`} key={i}>
+                {`${i + 1}0`}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
     </div>
   );
 }

@@ -121,6 +121,9 @@ export class DrizzleUsersRepository implements UsersRepository {
   } | null> {
     const { limit, page, sort } = paramsSchema.parse(params);
 
+    const limitInt = parseInt(limit) ?? 10;
+    const pageInt = parseInt(page) ?? 1;
+
     const usersFindMany = await db.query.users.findMany({
       with: {
         roles: {
@@ -130,8 +133,8 @@ export class DrizzleUsersRepository implements UsersRepository {
         },
         certifications: true,
       },
-      limit,
-      offset: limit * (page - 1),
+      limit: limitInt,
+      offset: limitInt * (pageInt - 1),
       orderBy(fields, operators) {
         if (sort === "desc") {
           return operators.desc(fields.createdAt);
@@ -161,7 +164,7 @@ export class DrizzleUsersRepository implements UsersRepository {
     return {
       user: usersFindMany,
       metadata: {
-        lastPage: Math.ceil(metadata.total / limit) ?? 1,
+        lastPage: Math.ceil(metadata.total / pageInt) ?? 1,
         total: metadata.total,
       },
     };

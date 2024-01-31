@@ -19,10 +19,8 @@ interface ProfileAdminTemplateProps {
 export default function ProfileAdminTemplate(props: ProfileAdminTemplateProps) {
   const { data } = props;
   const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
   const page = searchParams?.get("page") ?? "1";
-  const limit = searchParams?.get("limit") ?? "8";
+  const limit = searchParams?.get("limit") ?? "10";
   const sort = searchParams?.get("sort") ?? "asc";
 
   // Create query string
@@ -43,7 +41,6 @@ export default function ProfileAdminTemplate(props: ProfileAdminTemplateProps) {
     [searchParams]
   );
 
-  console.log(data);
   return (
     <React.Fragment>
       <Table>
@@ -76,7 +73,7 @@ export default function ProfileAdminTemplate(props: ProfileAdminTemplateProps) {
           createQueryString={createQueryString}
           page={page || "1"}
           sort={sort}
-          per_page={limit}
+          limit={limit}
           className="w-full flex justify-center"
         />
       </div>

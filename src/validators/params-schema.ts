@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 export const paramsSchema = z.object({
-  page: z.coerce.number().default(1),
-  limit: z.coerce.number().default(8),
+  page: z.string().default("1"),
+  limit: z.string().default("10"),
   sort: z.string().optional().nullable().default("desc"),
 });
 
