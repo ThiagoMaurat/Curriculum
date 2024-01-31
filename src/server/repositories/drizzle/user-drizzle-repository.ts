@@ -107,7 +107,7 @@ export class DrizzleUsersRepository implements UsersRepository {
   async listUsers(params?: ParamsType): Promise<{
     metadata: {
       total: number;
-      page: number;
+      lastPage: number;
     };
     user: {
       id: string;
@@ -161,7 +161,7 @@ export class DrizzleUsersRepository implements UsersRepository {
     return {
       user: usersFindMany,
       metadata: {
-        page: Math.ceil(metadata.total / limit) ?? 1,
+        lastPage: Math.ceil(metadata.total / limit) ?? 1,
         total: metadata.total,
       },
     };

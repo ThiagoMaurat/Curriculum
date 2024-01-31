@@ -1,3 +1,3 @@
 export const ProductsConst = [
-  ...new Set(["Lattes", "Vitae", "Vitae + Lattes"]),
+  ...new Set(["Lattes", "Vitae", "Adaptação e Avaliação Curricular"]),
 ];

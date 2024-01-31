@@ -6,6 +6,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import ProfileAdminTemplate from "@/components/templates/profile-admin-template";
 import RedirectUnauthorized from "@/components/redirect-unauthorized";
 import { type Metadata } from "next";
+import { NoSSRWrapper } from "@/hooks/no-ssr-wrapper";
 interface UserProfileProps {
   searchParams: {
     limit: string;
@@ -27,8 +28,8 @@ export default async function UserProfile({ searchParams }: UserProfileProps) {
   const listUser = makeListUserByAdminFactory();
 
   const params = paramsSchema.parse({
-    limit,
     page,
+    limit,
     sort,
   });
 
@@ -36,7 +37,7 @@ export default async function UserProfile({ searchParams }: UserProfileProps) {
     ...params,
   });
 
-  if (!dataListUser) {
+  if (!dataListUser?.user) {
     return (
       <RedirectUnauthorized message="Erro ao carregar os dados dos alunos" />
     );
@@ -49,7 +50,9 @@ export default async function UserProfile({ searchParams }: UserProfileProps) {
       </CardHeader>
 
       <CardContent>
-        <ProfileAdminTemplate data={dataListUser} />
+        <NoSSRWrapper>
+          <ProfileAdminTemplate data={dataListUser} />
+        </NoSSRWrapper>
       </CardContent>
     </Card>
   );

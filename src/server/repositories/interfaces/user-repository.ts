@@ -26,7 +26,7 @@ export interface UsersRepository {
   listUsers(params?: ParamsType): Promise<{
     metadata: {
       total: number;
-      page: number;
+      lastPage: number;
     };
     user: {
       id: string;

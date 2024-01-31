@@ -7,7 +7,7 @@ interface ListUsersByAdminUseCaseInput extends ParamsType {}
 export type ListUsersByAdminUserCaseOutput = {
   metadata: {
     total: number;
-    page: number;
+    lastPage: number;
   };
   user: {
     id: string;

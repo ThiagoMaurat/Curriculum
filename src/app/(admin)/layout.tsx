@@ -9,7 +9,7 @@ export default function layout(props: AuthLayoutProps) {
   const { children } = props;
 
   return (
-    <div className="bg-[#E7E2FF] dark:bg-card">
+    <div className="bg-card">
       <Header />
 
       <main className="w-full min-h-[600px] p-4 h-auto flex items-center justify-center mx-auto rounded-s-xl bg-card dark:bg-zinc-950">
