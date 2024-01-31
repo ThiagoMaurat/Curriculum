@@ -9,7 +9,7 @@ import {
   TableCell,
   Table,
 } from "../ui/table";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { PaginationButton } from "../ui/pagination-component";
 
 interface ProfileAdminTemplateProps {
@@ -22,6 +22,7 @@ export default function ProfileAdminTemplate(props: ProfileAdminTemplateProps) {
   const page = searchParams?.get("page") ?? "1";
   const limit = searchParams?.get("limit") ?? "10";
   const sort = searchParams?.get("sort") ?? "asc";
+  const router = useRouter();
 
   // Create query string
   const createQueryString = React.useCallback(
@@ -55,10 +56,17 @@ export default function ProfileAdminTemplate(props: ProfileAdminTemplateProps) {
 
         <TableBody>
           {data.user.map((user) => (
-            <TableRow key={user.id}>
+            <TableRow
+              key={user.id}
+              className="cursor-pointer"
+              onClick={() => {
+                router.refresh();
+                router.push(`/student/${user.id}`);
+              }}
+            >
               <TableCell className="font-medium">{user.name}</TableCell>
               <TableCell>{user.email}</TableCell>
-              <TableCell>{user.product}</TableCell>
+              <TableCell>{user.product ? user.product : "-"}</TableCell>
               <TableCell className="text-right">
                 {user.roles.length > 0 ? user.roles[0].name : "-"}
               </TableCell>

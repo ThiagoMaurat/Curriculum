@@ -1,10 +1,23 @@
 import { ParamsType } from "@/validators/params-schema";
 import {
   Certification,
+  Curriculum,
   InsertSchemaUsersType,
   Roles,
   Users,
 } from "../../db/types-schema";
+
+export interface ListByIdOutput {
+  id: string;
+  name: string | null;
+  email: string;
+  product: string | null;
+  createdAt: Date;
+  createPasswordToken: string | null;
+  curriculums: Curriculum | null;
+  certifications: Certification[] | null;
+  roles: Array<{ name: string }>;
+}
 
 export interface UsersRepository {
   findByEmail(email: string): Promise<Users | null>;
@@ -38,4 +51,5 @@ export interface UsersRepository {
       roles: Array<{ name: string }>;
     }[];
   } | null>;
+  listUserById(id: string): Promise<ListByIdOutput | null>;
 }

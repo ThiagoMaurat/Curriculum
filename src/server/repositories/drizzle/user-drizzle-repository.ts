@@ -1,8 +1,9 @@
 import { db } from "@/server/db/drizzle";
-import { UsersRepository } from "../interfaces/user-repository";
+import { ListByIdOutput, UsersRepository } from "../interfaces/user-repository";
 import { and, eq, sql } from "drizzle-orm";
 import {
   Certification,
+  Curriculum,
   InsertSchemaUsersType,
   Roles,
   Users,
@@ -168,5 +169,34 @@ export class DrizzleUsersRepository implements UsersRepository {
         total: metadata.total,
       },
     };
+  }
+
+  async listUserById(id: string): Promise<ListByIdOutput | null> {
+    const user = await db.query.users.findFirst({
+      where: eq(users.id, id),
+      with: {
+        curriculums: true,
+        certifications: true,
+        roles: {
+          columns: {
+            name: true,
+          },
+        },
+      },
+      columns: {
+        createdAt: true,
+        email: true,
+        id: true,
+        name: true,
+        product: true,
+        createPasswordToken: true,
+      },
+    });
+
+    if (!user) {
+      return null;
+    }
+
+    return user;
   }
 }

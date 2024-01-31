@@ -15,8 +15,9 @@ export default async function CreateUserSupervisor() {
   const data = await getServerAuthSession();
 
   if (
-    data?.user.roleName !== "supervisor" &&
-    data?.user.roleName !== "coordinator"
+    !data?.user ||
+    (data?.user.roleName !== "supervisor" &&
+      data?.user.roleName !== "coordinator")
   ) {
     return <RedirectUnauthorized message="Sem permissão" />;
   }
