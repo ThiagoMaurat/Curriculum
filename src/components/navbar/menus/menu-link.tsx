@@ -72,7 +72,10 @@ export function MenuLinks({ isOpen }: MenuLinksProps) {
             ))}
 
           {data?.user?.roleName !== "user" && (
-            <Link prefetch={false} href="/user-profile">
+            <Link
+              prefetch={false}
+              href="/user-profile?page=1&limit=10&sort=asc"
+            >
               <p
                 className={`${
                   CheckRouterMatchesLabel("Home")

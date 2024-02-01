@@ -6,6 +6,7 @@ import {
 import { CertificationInsertSchema } from "@/server/db/types-schema";
 import { CurriculumRepository } from "@/server/repositories/interfaces/curriculum-repository";
 import { getPresentationName } from "@/helpers/extract-presentation-name";
+import { InvalidCredentialsError } from "@/server/errors/invalid-credentials";
 
 interface UpdateUserAndCreateCertificateInput {
   curriculum: SendUserCurriculum;
@@ -31,6 +32,10 @@ export class UpdateUserAndCreateCertificateUseCase {
     certification,
   }: UpdateUserAndCreateCertificateInput) {
     const curriculumValid = sendUserCurriculumSchema.parse(curriculum);
+
+    if (!userId) {
+      throw new InvalidCredentialsError();
+    }
 
     const curriculumCreated = await this.curriculumRepository.createCurriculum({
       address: curriculumValid.address,

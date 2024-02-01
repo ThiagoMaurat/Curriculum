@@ -2,6 +2,8 @@ import { ListByIdOutput } from "@/server/repositories/interfaces/user-repository
 import { format } from "date-fns";
 import React from "react";
 import { env } from "../../../env.mjs";
+import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
+import { Button } from "../ui/button";
 
 interface ProfileByIdAdminProps {
   data: ListByIdOutput;
@@ -36,10 +38,14 @@ export default function ProfileByIdAdmin({ data }: ProfileByIdAdminProps) {
 
       <p className="text-muted-foreground text-lg font-bold">
         Link senha:{" "}
-        <a
-          href={`${env.NEXT_PUBLIC_APP_URL}/create-password?token=${data.createPasswordToken}&email=${data.email}`}
-          className="text-primary text-base underline"
-        >{`${env.NEXT_PUBLIC_APP_URL}/create-password?token=${data.createPasswordToken}&email=${data.email}`}</a>
+        {data.createPasswordToken ? (
+          <a
+            href={`${env.NEXT_PUBLIC_APP_URL}/create-password?token=${data.createPasswordToken}&email=${data.email}`}
+            className="text-primary text-base underline"
+          >{`${env.NEXT_PUBLIC_APP_URL}/create-password?token=${data.createPasswordToken}&email=${data.email}`}</a>
+        ) : (
+          <span className="text-primary text-base">Já criada</span>
+        )}
       </p>
 
       <p className="text-muted-foreground text-lg font-bold">
@@ -70,10 +76,23 @@ export default function ProfileByIdAdmin({ data }: ProfileByIdAdminProps) {
       </p>
 
       <p className="text-muted-foreground text-lg font-bold">
-        Currículo:{" "}
-        <span className="text-primary text-base ">
-          {data.product ? data.product : "-"}
-        </span>
+        Currículo:{"  "}
+        {data.curriculums ? (
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="ml-2 h-8" variant="destructive">
+                Visualizar
+                <span className="sr-only">Upload Images</span>
+              </Button>
+            </DialogTrigger>
+
+            <DialogContent className="sm:max-w-[480px] max-h-[600px] overflow-auto">
+              {/* TODO: show and edit the curriculum by admin */}
+            </DialogContent>
+          </Dialog>
+        ) : (
+          <span className="text-primary text-base">-</span>
+        )}
       </p>
     </section>
   );
