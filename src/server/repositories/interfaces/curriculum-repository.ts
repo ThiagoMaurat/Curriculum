@@ -9,4 +9,8 @@ export interface CurriculumRepository {
   listCurriculumAndCertificateAssociatedWithUser(
     userId: string
   ): Promise<({} & Curriculum & { certifications: Certification[] }) | null>;
+  updateCurriculum(
+    data: CurriculumsInsertSchema,
+    id: string
+  ): Promise<Curriculum | null>;
 }
