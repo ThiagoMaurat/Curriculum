@@ -6,7 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { FileDialog, FileWithPreview } from "@/components/ui/file-upload";
+import {
+  FileDialog,
+  FileWithPreview,
+} from "@/components/ui/file-upload-dialog";
 import { FormItem, FormLabel, FormControl } from "@/components/ui/form";
 import React from "react";
 import { useFormContext } from "react-hook-form";
