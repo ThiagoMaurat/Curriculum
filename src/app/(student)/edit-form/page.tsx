@@ -2,7 +2,7 @@ import { makeGetFormAlreadySentUserFactory } from "@/server/factories/make-get-f
 import React from "react";
 import { getServerAuthSession } from "../../../../auth";
 import RedirectUnauthorized from "@/components/redirect-unauthorized";
-import EditFormTemplate from "@/components/templates/edit-form";
+import EditFormTemplate from "@/components/templates/edit-student-curriculum";
 import { type Metadata } from "next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { unstable_noStore as noStore } from "next/cache";
