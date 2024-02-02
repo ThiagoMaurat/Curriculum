@@ -76,7 +76,7 @@ export class CreateUserAdminUseCase {
     if (emailSent.status !== "sent") {
       throw new Error("Erro ao enviar email");
     }
-    console.log(validData);
+
     const userCreated = await this.userRepository.createUser({
       id: randomUUID(),
       email: validData.email,
