@@ -4,7 +4,6 @@ export const secondStepSchema = z.object({
   certificate: z
     .unknown()
     .refine((val) => {
-      console.log(val);
       if (!Array.isArray(val) || val.length === 0) return false;
       if (val.some((file) => !(file instanceof File))) return false;
       return true;
