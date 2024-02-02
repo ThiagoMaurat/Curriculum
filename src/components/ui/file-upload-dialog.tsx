@@ -13,11 +13,15 @@ import type {
   UseFormSetValue,
 } from "react-hook-form";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "@/hooks/use-toast";
 import { ArrowUpRight, Trash, Upload, X } from "lucide-react";
 import { cn, formatBytes } from "@/lib/utils";
 import Link from "next/link";
-import { FileWithPreviewAndId } from "../forms/curriculum-edit-form/second-step";
+
+export type FileWithPreview = FileWithPath & {
+  preview: string;
+};
 
 interface FileDialogProps<
   TFieldValues extends FieldValues = FieldValues,
@@ -28,13 +32,13 @@ interface FileDialogProps<
   accept?: Accept;
   maxSize?: number;
   maxFiles?: number;
-  files: FileWithPreviewAndId[] | null;
-  setFiles: React.Dispatch<React.SetStateAction<FileWithPreviewAndId[] | null>>;
+  files: FileWithPreview[] | null;
+  setFiles: React.Dispatch<React.SetStateAction<FileWithPreview[] | null>>;
   isUploading?: boolean;
   disabled?: boolean;
 }
 
-export function FileUpload<TFieldValues extends FieldValues>({
+export function FileDialog<TFieldValues extends FieldValues>({
   name,
   setValue,
   accept = {
@@ -54,7 +58,6 @@ export function FileUpload<TFieldValues extends FieldValues>({
       acceptedFiles.forEach((file) => {
         const fileWithPreview = Object.assign(file, {
           preview: URL.createObjectURL(file),
-          key: undefined,
         });
 
         if (files?.length === maxFiles) return;
@@ -110,90 +113,104 @@ export function FileUpload<TFieldValues extends FieldValues>({
   }, []);
 
   return (
-    <div className="sm:max-w-[480px]">
-      <div
-        {...getRootProps()}
-        className={cn(
-          "group relative mt-8 grid h-48 w-full cursor-pointer place-items-center rounded-lg border-2 border-dashed border-muted-foreground/25 px-5 py-2.5 text-center transition hover:bg-muted/25",
-          "ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-          isDragActive && "border-muted-foreground/50",
-          disabled && "pointer-events-none opacity-60",
-          className
-        )}
-        {...props}
-      >
-        <input {...getInputProps()} />
-        {isUploading ? (
-          <div className="group grid w-full place-items-center gap-1 sm:px-10">
-            <Upload
-              className="h-9 w-9 animate-pulse text-muted-foreground"
-              aria-hidden="true"
-            />
-          </div>
-        ) : isDragActive ? (
-          <div className="grid place-items-center gap-2 text-muted-foreground sm:px-5">
-            <Upload
-              className={cn("h-8 w-8", isDragActive && "animate-bounce")}
-              aria-hidden="true"
-            />
-            <p className="text-base font-medium">Drop the file here</p>
-          </div>
-        ) : (
-          <div className="grid place-items-center gap-1 sm:px-5">
-            <Upload
-              className="h-8 w-8 text-muted-foreground"
-              aria-hidden="true"
-            />
-            <p className="mt-2 text-base font-medium text-muted-foreground">
-              Arraste o arquivo aqui ou clique para selecioná-lo!
-            </p>
-            <p className="text-sm text-slate-500">
-              Por favor, suba um arquivo inferior a {formatBytes(maxSize)}
-            </p>
-          </div>
-        )}
-      </div>
-
-      <p className="mt-2 text-center text-sm font-medium text-muted-foreground">
-        Você pode subir até {maxFiles} {maxFiles === 1 ? "arquivo" : "arquivos"}
-      </p>
-
-      {files?.length ? (
-        <div className="grid gap-5 max-h-52 overflow-y-auto">
-          {files?.map((file, i) => (
-            <FileCard
-              key={i}
-              i={i}
-              files={files}
-              setFiles={setFiles}
-              file={file}
-            />
-          ))}
-        </div>
-      ) : null}
-
-      {files?.length ? (
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          className="mt-2.5 w-full"
-          onClick={() => setFiles(null)}
-        >
-          <Trash className="mr-2 h-4 w-4" aria-hidden="true" />
-          Remove All
-          <span className="sr-only">Remove all</span>
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline" disabled={disabled}>
+          Upload Images
+          <span className="sr-only">Upload Images</span>
         </Button>
-      ) : null}
-    </div>
+      </DialogTrigger>
+
+      <DialogContent className="sm:max-w-[480px]">
+        <p className="absolute left-5 top-4 text-base font-medium text-muted-foreground">
+          Upload your images
+        </p>
+
+        <div
+          {...getRootProps()}
+          className={cn(
+            "group relative mt-8 grid h-48 w-full cursor-pointer place-items-center rounded-lg border-2 border-dashed border-muted-foreground/25 px-5 py-2.5 text-center transition hover:bg-muted/25",
+            "ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+            isDragActive && "border-muted-foreground/50",
+            disabled && "pointer-events-none opacity-60",
+            className
+          )}
+          {...props}
+        >
+          <input {...getInputProps()} />
+          {isUploading ? (
+            <div className="group grid w-full place-items-center gap-1 sm:px-10">
+              <Upload
+                className="h-9 w-9 animate-pulse text-muted-foreground"
+                aria-hidden="true"
+              />
+            </div>
+          ) : isDragActive ? (
+            <div className="grid place-items-center gap-2 text-muted-foreground sm:px-5">
+              <Upload
+                className={cn("h-8 w-8", isDragActive && "animate-bounce")}
+                aria-hidden="true"
+              />
+              <p className="text-base font-medium">Drop the file here</p>
+            </div>
+          ) : (
+            <div className="grid place-items-center gap-1 sm:px-5">
+              <Upload
+                className="h-8 w-8 text-muted-foreground"
+                aria-hidden="true"
+              />
+              <p className="mt-2 text-base font-medium text-muted-foreground">
+                Arraste o arquivo aqui ou clique para selecioná-lo!
+              </p>
+              <p className="text-sm text-slate-500">
+                Por favor, suba um arquivo inferior a {formatBytes(maxSize)}
+              </p>
+            </div>
+          )}
+        </div>
+
+        <p className="text-center text-sm font-medium text-muted-foreground">
+          Você pode subir até {maxFiles}{" "}
+          {maxFiles === 1 ? "arquivo" : "arquivos"}
+        </p>
+
+        {files?.length ? (
+          <div className="grid gap-5 max-h-52 overflow-y-auto">
+            {files?.map((file, i) => (
+              <FileCard
+                key={i}
+                i={i}
+                files={files}
+                setFiles={setFiles}
+                file={file}
+              />
+            ))}
+          </div>
+        ) : null}
+
+        {files?.length ? (
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="mt-2.5 w-full"
+            onClick={() => setFiles(null)}
+          >
+            <Trash className="mr-2 h-4 w-4" aria-hidden="true" />
+            Remove All
+            <span className="sr-only">Remove all</span>
+          </Button>
+        ) : null}
+      </DialogContent>
+    </Dialog>
   );
 }
 
 interface FileCardProps {
   i: number;
-  file: FileWithPreviewAndId;
-  files: FileWithPreviewAndId[] | null;
-  setFiles: React.Dispatch<React.SetStateAction<FileWithPreviewAndId[] | null>>;
+  file: FileWithPreview;
+  files: FileWithPreview[] | null;
+  setFiles: React.Dispatch<React.SetStateAction<FileWithPreview[] | null>>;
 }
 
 function FileCard({ i, file, files, setFiles }: FileCardProps) {
