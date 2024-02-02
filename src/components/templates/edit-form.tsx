@@ -41,32 +41,18 @@ export default function EditFormTemplate(props: EditFormTemplateProps) {
   });
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit((data) => {
-          console.log(data);
-        })}
-      >
-        <Accordion type="single" collapsible defaultValue="item-1">
-          <AccordionItem value="item-1">
-            <AccordionTrigger>Dados pessoais</AccordionTrigger>
-            <AccordionContent>
-              <FirstStepEditForm />
-            </AccordionContent>
-          </AccordionItem>
+    <Accordion type="single" collapsible defaultValue="item-1">
+      <AccordionItem value="item-1">
+        <AccordionTrigger>Dados pessoais</AccordionTrigger>
+        <AccordionContent>{/* <FirstStepEditForm /> */}</AccordionContent>
+      </AccordionItem>
 
-          <AccordionItem value="item-2">
-            <AccordionTrigger>Certificados</AccordionTrigger>
-            <AccordionContent>
-              <SecondStepEditForm data={data} />
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-
-        <Button className="w-full mt-4" type="submit">
-          Enviar
-        </Button>
-      </form>
-    </Form>
+      <AccordionItem value="item-2">
+        <AccordionTrigger>Certificados</AccordionTrigger>
+        <AccordionContent>
+          <SecondStepEditForm data={data} />
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
