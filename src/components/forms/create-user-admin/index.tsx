@@ -81,6 +81,24 @@ export function CreateUserAdminForm() {
     });
   }
 
+  const permissionCreateUser = React.useMemo(() => {
+    if (!session?.user.roleName) {
+      return [];
+    }
+
+    if (session?.user.roleName === "coordinator") {
+      return RolesConstSelect;
+    }
+
+    if (session?.user.roleName === "collaborator") {
+      return [];
+    }
+
+    if (session?.user.roleName === "supervisor") {
+      return RolesConstSelect.filter((item) => item.value === "user");
+    }
+  }, [session?.user.roleName]);
+
   return (
     <Form {...form}>
       <form
@@ -140,7 +158,7 @@ export function CreateUserAdminForm() {
 
                   <SelectContent>
                     <SelectGroup>
-                      {RolesConstSelect?.map((roles) => (
+                      {permissionCreateUser?.map((roles) => (
                         <SelectItem
                           key={`${field.name}-${roles.value}`}
                           value={String(roles.value)}

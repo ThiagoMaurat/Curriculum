@@ -31,8 +31,8 @@ export class AuthenticateUseCase {
 
     const user = await this.userRepository.getUserData(email);
 
-    if (!user?.user) {
-      throw new UserDoesNotExistsError();
+    if (!user?.user || !user.user.password) {
+      throw new InvalidCredentialsError();
     }
 
     const doesPasswordMatches = await compare(password, user.user.password!);

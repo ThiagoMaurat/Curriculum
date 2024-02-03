@@ -42,11 +42,40 @@ export class CreateUserAdminUseCase {
       product,
     });
 
-    const createPasswordToken = randomUUID();
+    const permittedRolesSupervisor = ["user"];
+    const permittedRolesCoordinator = [
+      "coordinator",
+      "user",
+      "supervisor",
+      "collaborator",
+    ];
+    const permittedRolesCollaborator = [""];
+    const permittedUserRoles = [""];
 
-    if (userRole !== "supervisor" && userRole !== "coordinator") {
-      throw new Error("Não possui permissão de criar esse tipo de usuário");
+    switch (userRole) {
+      case "supervisor":
+        if (!permittedRolesSupervisor.includes(role)) {
+          throw new Error("Não possui permissão de criar esse tipo de usuário");
+        }
+        break;
+      case "coordinator":
+        if (!permittedRolesCoordinator.includes(role)) {
+          throw new Error("Não possui permissão de criar esse tipo de usuário");
+        }
+        break;
+      case "collaborator":
+        if (!permittedRolesCollaborator.includes(role)) {
+          throw new Error("Não possui permissão de criar esse tipo de usuário");
+        }
+      case "user":
+        if (!permittedUserRoles.includes(role)) {
+          throw new Error("Não possui permissão de criar esse tipo de usuário");
+        }
+
+        break;
     }
+
+    const createPasswordToken = randomUUID();
 
     if (validData.role === "user" && !validData.product) {
       throw new Error("Obrigatório um produto para esse usuário");

@@ -108,7 +108,8 @@ export default function FormsTemplateStudent() {
 
     toast({
       title: "Sucesso.",
-      description: "Formulário enviado.",
+      description:
+        "Muito obrigado, já temos todas as informações necessárias para a confecção do seu currículo, caso haja alguma pendência te informaremos pelo WhatsApp. Caso precise enviar novos certificados clique em atualizar currículo.",
       duration: 4000,
     });
 
