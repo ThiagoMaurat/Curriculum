@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/select";
 import { ProductsConst } from "@/const/products";
 import { RolesConstSelect } from "@/const/roles";
+import { InputCurrencyField } from "@/components/ui/input-currency";
 
 export function CreateUserAdminForm() {
   const [isPending, startTransition] = React.useTransition();
@@ -44,12 +45,14 @@ export function CreateUserAdminForm() {
       name: "",
       email: "",
       product: null,
+      amount: undefined,
+      role: undefined,
     },
   });
 
   function onSubmit(data: CreateUserAdminForm) {
     startTransition(async () => {
-      if (!session?.user.roleName) {
+      if (!session?.user.roleName || !data.role) {
         return;
       }
 
@@ -59,6 +62,7 @@ export function CreateUserAdminForm() {
         product: data.product,
         userRole: session?.user.roleName,
         role: data.role,
+        amount: data.amount,
       });
 
       if (serverError) {
@@ -147,7 +151,7 @@ export function CreateUserAdminForm() {
                 <Select
                   onValueChange={(value) => field.onChange(value)}
                   name={field.name}
-                  value={field.value}
+                  value={field.value ?? ""}
                 >
                   <SelectTrigger className="w-full">
                     <SelectValue
@@ -208,6 +212,30 @@ export function CreateUserAdminForm() {
                       </SelectGroup>
                     </SelectContent>
                   </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
+
+        {form.watch("role") === "user" && (
+          <FormField
+            control={form.control}
+            name="amount"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Valor</FormLabel>
+                <FormControl>
+                  <InputCurrencyField
+                    placeholder="Insira o valor"
+                    value={field.value}
+                    onValueChange={field.onChange}
+                    onBlur={field.onBlur}
+                    ref={field.ref}
+                    name={field.name}
+                    disabled={field.disabled}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
