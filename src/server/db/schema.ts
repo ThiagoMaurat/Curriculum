@@ -1,5 +1,6 @@
 import { relations } from "drizzle-orm";
 import {
+  decimal,
   index,
   integer,
   pgTable,
@@ -23,6 +24,7 @@ export const users = pgTable("user", {
   password: varchar("password", { length: 60 }),
   resetPasswordToken: varchar("resetPassword", { length: 60 }),
   product: varchar("product", { length: 191 }),
+  amount: decimal("amount", { precision: 10, scale: 2 }).notNull().default("0"),
   createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
   createPasswordToken: varchar("createPasswordToken", { length: 60 }),
 });

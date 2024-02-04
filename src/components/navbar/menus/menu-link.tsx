@@ -74,7 +74,7 @@ export function MenuLinks({ isOpen }: MenuLinksProps) {
           {data?.user && data?.user?.roleName !== "user" && (
             <Link
               prefetch={false}
-              href="/user-profile?page=1&limit=10&sort=asc"
+              href="/user-profile?page=1&limit=10&sort=desc"
             >
               <p
                 className={`${
