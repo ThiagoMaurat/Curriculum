@@ -21,6 +21,7 @@ export const createUserAdmin = z.object({
     })
     .nullable()
     .optional(),
+  amount: z.string().optional(),
 });
 
 //form
@@ -46,10 +47,38 @@ export const createUserAdminForm = z
       })
       .nullable()
       .optional(),
+    amount: z
+      .string()
+      .optional()
+      .transform((value) => {
+        if (value) {
+          return value
+            .trim()
+            .replaceAll(" ", "")
+            .replace(/\./g, "")
+            .replaceAll(",", ".");
+        }
+
+        return "";
+      }),
   })
-  .refine((data) => data.role !== "user" || data.product, {
-    message: "Produto inválido",
-    path: ["product"],
+  .superRefine((data, ctx) => {
+    if (data.role === "user" && !data.product) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Produto é obrigatório",
+        path: ["product"],
+      });
+    }
+  })
+  .superRefine((data, ctx) => {
+    if (data.role === "user" && !data.amount) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Valor é obrigatório",
+        path: ["amount"],
+      });
+    }
   });
 
 //action
