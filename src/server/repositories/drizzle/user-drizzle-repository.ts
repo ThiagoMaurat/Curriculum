@@ -3,7 +3,6 @@ import { ListByIdOutput, UsersRepository } from "../interfaces/user-repository";
 import { and, eq, sql } from "drizzle-orm";
 import {
   Certification,
-  Curriculum,
   InsertSchemaUsersType,
   Roles,
   Users,
@@ -190,6 +189,7 @@ export class DrizzleUsersRepository implements UsersRepository {
         name: true,
         product: true,
         createPasswordToken: true,
+        amount: true,
       },
     });
 

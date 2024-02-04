@@ -34,12 +34,14 @@ export class CreateUserAdminUseCase {
     role,
     product,
     userRole,
+    amount,
   }: CreateUserAdminUseCaseInput): Promise<CreateUserAdminUserCaseOutput> {
     const validData = createUserAdmin.parse({
       email,
       name,
       role,
       product,
+      amount,
     });
 
     const permittedRolesSupervisor = ["user"];
@@ -114,6 +116,7 @@ export class CreateUserAdminUseCase {
       password: null,
       emailVerified: new Date(),
       createPasswordToken,
+      amount: validData.amount,
     });
 
     if (!userCreated) {
