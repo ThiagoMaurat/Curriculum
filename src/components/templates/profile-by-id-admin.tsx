@@ -94,6 +94,20 @@ export default function ProfileByIdAdmin({ data }: ProfileByIdAdminProps) {
           <span className="text-primary text-base">-</span>
         )}
       </p>
+
+      {data && data?.roles?.[0].name === "user" && (
+        <p className="text-muted-foreground text-lg font-bold">
+          Valor:{" "}
+          <span className="text-primary text-base ">
+            {data.amount
+              ? Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(Number(data.amount))
+              : "-"}
+          </span>
+        </p>
+      )}
     </section>
   );
 }
