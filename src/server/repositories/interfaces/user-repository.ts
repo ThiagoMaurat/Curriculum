@@ -17,6 +17,7 @@ export interface ListByIdOutput {
   curriculums: Curriculum | null;
   certifications: Certification[] | null;
   roles: Array<{ name: string }>;
+  amount: string;
 }
 
 export interface UsersRepository {
