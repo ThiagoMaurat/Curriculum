@@ -1,7 +1,6 @@
 "use client";
 import { Form, FormControl, FormItem, FormLabel } from "@/components/ui/form";
-import { Certification } from "@/server/db/types-schema";
-import { GetFormAlreadySenteUserCaseOutput } from "@/server/use-cases/get-form-already-sent";
+import { Certification, Curriculum } from "@/server/db/types-schema";
 import React, { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { SecondStepSchema, secondStepSchema } from "./schema";
@@ -24,7 +23,9 @@ export type FileWithPreviewAndId = FileWithPath & {
 };
 
 interface SecondStepProps {
-  data: GetFormAlreadySenteUserCaseOutput;
+  data: {} & Curriculum & {
+      certifications: Certification[];
+    };
 }
 
 export default function SecondStepEditForm(props: SecondStepProps) {

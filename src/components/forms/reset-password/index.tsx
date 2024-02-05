@@ -78,7 +78,7 @@ export function ResetPasswordForm() {
           )}
         />
 
-        <Button isLoading={isPending} disabled={isPending}>
+        <Button type="submit" isLoading={isPending} disabled={isPending}>
           Continuar
           <span className="sr-only">
             Continue to reset password verification

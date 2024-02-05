@@ -15,15 +15,17 @@ import { Textarea } from "@/components/ui/textarea";
 import { ptBR } from "date-fns/locale";
 import React from "react";
 import { EditFormStudent } from "./schema";
-import { GetFormAlreadySenteUserCaseOutput } from "@/server/use-cases/get-form-already-sent";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { updateCurriculumAction } from "@/server/action/update-curriculum";
 import { useSession } from "next-auth/react";
 import { useToast } from "@/hooks/use-toast";
+import { Curriculum, Certification } from "@/server/db/types-schema";
 
 interface EditFormTemplateProps {
-  data: GetFormAlreadySenteUserCaseOutput;
+  data: {} & Curriculum & {
+      certifications: Certification[];
+    };
 }
 
 export default function FirstStepEditForm(props: EditFormTemplateProps) {

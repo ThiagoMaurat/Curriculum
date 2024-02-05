@@ -87,6 +87,20 @@ export function MenuLinks({ isOpen }: MenuLinksProps) {
               </p>
             </Link>
           )}
+
+          {data?.user && data?.user?.roleName === "collaborator" && (
+            <Link prefetch={false} href="/collaborator/kanbam">
+              <p
+                className={`${
+                  CheckRouterMatchesLabel("Home")
+                    ? "bottom-1 font-bold border-b-2 text-gray-300"
+                    : "hover:bottom-1 hover:font-bold hover:border-b-2 hover:text-gray-300 hover:transition-all font-medium"
+                }`}
+              >
+                Kanbam
+              </p>
+            </Link>
+          )}
         </div>
 
         <div className="md:hidden flex items-center self-center">

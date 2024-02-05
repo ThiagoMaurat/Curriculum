@@ -3,10 +3,12 @@ import RedirectUnauthorized from "@/components/redirect-unauthorized";
 import { type Metadata } from "next";
 import { unstable_noStore as noStore } from "next/cache";
 import { getServerAuthSession } from "../../../../../auth";
-import { DrizzleUsersRepository } from "@/server/repositories/drizzle/user-drizzle-repository";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { notFound } from "next/navigation";
 import ProfileByIdAdmin from "@/components/templates/profile-by-id-admin";
+import { db } from "@/server/db/drizzle";
+import { users } from "@/server/db/schema";
+import { eq } from "drizzle-orm";
 
 interface StudentByIdProps {
   params: {
@@ -34,9 +36,27 @@ export default async function StudentById({ params }: StudentByIdProps) {
     );
   }
 
-  const userRepository = new DrizzleUsersRepository();
-  const listUserById = await userRepository.listUserById(paramsId);
-
+  const listUserById = await db.query.users.findFirst({
+    where: eq(users.id, paramsId),
+    with: {
+      curriculums: true,
+      certifications: true,
+      roles: {
+        columns: {
+          name: true,
+        },
+      },
+    },
+    columns: {
+      createdAt: true,
+      email: true,
+      id: true,
+      name: true,
+      product: true,
+      createPasswordToken: true,
+      amount: true,
+    },
+  });
   if (!listUserById) {
     notFound();
   }

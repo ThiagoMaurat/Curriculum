@@ -2,16 +2,30 @@
 
 import { action } from "@/lib/safe-action";
 import { unstable_noStore as noStore, revalidateTag } from "next/cache";
-import { makeUpdateCurriculumFactory } from "../factories/make-update-curriculum-factory";
 import { updateCurriculumActionSchema } from "@/validators/update-curriculum";
+import { getServerAuthSession } from "../../../auth";
+import { eq } from "drizzle-orm";
+import { db } from "../db/drizzle";
+import { curriculums } from "../db/schema";
 
 export const updateCurriculumAction = action(
   updateCurriculumActionSchema,
   async (data) => {
     noStore();
-    const updateCurriculumAction = makeUpdateCurriculumFactory();
+    const serverSession = await getServerAuthSession();
+    if (!serverSession) {
+      throw new Error("Unauthorized");
+    }
 
-    await updateCurriculumAction.execute(data);
+    const [curriculum] = await db
+      .update(curriculums)
+      .set(data)
+      .where(eq(curriculums.userId, serverSession.user.id))
+      .returning();
+
+    if (!curriculum) {
+      throw new Error("Failed to update curriculum");
+    }
 
     revalidateTag("");
 

@@ -1,4 +1,3 @@
-import { GetFormAlreadySenteUserCaseOutput } from "@/server/use-cases/get-form-already-sent";
 import React from "react";
 import {
   Accordion,
@@ -8,9 +7,12 @@ import {
 } from "../ui/accordion";
 import FirstStepEditForm from "../forms/curriculum-edit-form/first-step";
 import SecondStepEditForm from "../forms/curriculum-edit-form/second-step";
+import { Curriculum, Certification } from "@/server/db/types-schema";
 
 interface EditFormTemplateProps {
-  data: GetFormAlreadySenteUserCaseOutput;
+  data: {} & Curriculum & {
+      certifications: Certification[];
+    };
 }
 
 export default function EditFormTemplate(props: EditFormTemplateProps) {

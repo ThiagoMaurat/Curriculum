@@ -1,12 +1,23 @@
-import { ListByIdOutput } from "@/server/repositories/interfaces/user-repository";
 import { format } from "date-fns";
 import React from "react";
 import { env } from "../../../env.mjs";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
+import { Curriculum, Certification } from "@/server/db/types-schema";
 
 interface ProfileByIdAdminProps {
-  data: ListByIdOutput;
+  data: {
+    id: string;
+    name: string | null;
+    email: string;
+    product: string | null;
+    createdAt: Date;
+    createPasswordToken: string | null;
+    curriculums: Curriculum | null;
+    certifications: Certification[] | null;
+    roles: Array<{ name: string }>;
+    amount: string;
+  };
 }
 
 export default function ProfileByIdAdmin({ data }: ProfileByIdAdminProps) {

@@ -1,0 +1,1 @@
+ALTER TABLE "user" ADD COLUMN "status" varchar(191) DEFAULT 'waiting_docs';
