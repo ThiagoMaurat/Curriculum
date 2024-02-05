@@ -5,7 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { db } from "@/server/db/drizzle";
 import { Adapter, AdapterUser } from "next-auth/adapters";
 import { encode, decode, DefaultJWT } from "next-auth/jwt";
-import { makeAuthenticateFactory } from "@/server/factories/make-authenticate-factory";
+import { authenticateAction } from "@/server/action/authenticate";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -64,9 +64,7 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        const authenticateFactory = makeAuthenticateFactory();
-
-        const user = await authenticateFactory.execute({
+        const { data: user } = await authenticateAction({
           email: credentials.email,
           password: credentials.password,
         });

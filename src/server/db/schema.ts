@@ -12,6 +12,14 @@ import {
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "@auth/core/adapters";
 
+export type CurriculumStatus =
+  | "waiting_docs"
+  | "selection"
+  | "fabrication"
+  | "revision"
+  | "curriculum_send"
+  | null;
+
 export const users = pgTable("user", {
   id: varchar("id", { length: 255 }).notNull().primaryKey(),
   name: varchar("name", { length: 191 }),
@@ -27,6 +35,11 @@ export const users = pgTable("user", {
   amount: decimal("amount", { precision: 10, scale: 2 }).notNull().default("0"),
   createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
   createPasswordToken: varchar("createPasswordToken", { length: 60 }),
+  statusCurriculum: varchar("status", {
+    length: 191,
+  })
+    .$type<CurriculumStatus>()
+    .default(null),
 });
 
 export const curriculums = pgTable("curriculum", {

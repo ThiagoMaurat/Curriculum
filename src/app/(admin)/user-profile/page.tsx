@@ -1,7 +1,5 @@
 import React from "react";
 import { unstable_noStore as noStore } from "next/cache";
-import { makeListUserByAdminFactory } from "@/server/factories/make-list-user-by-admin";
-import { paramsSchema } from "@/validators/params-schema";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import ProfileAdminTemplate from "@/components/templates/profile-admin-template";
 import RedirectUnauthorized from "@/components/redirect-unauthorized";
@@ -9,6 +7,7 @@ import { type Metadata } from "next";
 import { NoSSRWrapper } from "@/hooks/no-ssr-wrapper";
 import { getServerAuthSession } from "../../../../auth";
 import { notFound } from "next/navigation";
+import { listUsersAction } from "@/server/action/list-users-by-admin";
 interface UserProfileProps {
   searchParams: {
     limit: string;
@@ -27,17 +26,12 @@ noStore();
 export const revalidate = 0;
 export default async function UserProfile({ searchParams }: UserProfileProps) {
   const { limit, page, sort } = searchParams;
-  const listUser = makeListUserByAdminFactory();
   const data = await getServerAuthSession();
 
-  const params = paramsSchema.parse({
-    page,
+  const { data: dataListUser } = await listUsersAction({
     limit,
+    page,
     sort,
-  });
-
-  const dataListUser = await listUser.execute({
-    ...params,
   });
 
   if (!data?.user || data?.user.roleName === "user") {

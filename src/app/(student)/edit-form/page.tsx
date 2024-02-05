@@ -1,4 +1,3 @@
-import { makeGetFormAlreadySentUserFactory } from "@/server/factories/make-get-form-already-sent-user-factory";
 import React from "react";
 import { getServerAuthSession } from "../../../../auth";
 import RedirectUnauthorized from "@/components/redirect-unauthorized";
@@ -6,6 +5,7 @@ import EditFormTemplate from "@/components/templates/edit-student-curriculum";
 import { type Metadata } from "next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { unstable_noStore as noStore } from "next/cache";
+import { db } from "@/server/db/drizzle";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? ""),
@@ -22,11 +22,20 @@ export default async function EditForm() {
     return <RedirectUnauthorized />;
   }
 
-  const userCertificateData = makeGetFormAlreadySentUserFactory();
-
-  const dataUserCertificate = await userCertificateData.execute({
-    userId: data?.user.id,
+  const [dataUserCertificate] = await db.query.curriculums.findMany({
+    where(fields, operators) {
+      return operators.eq(fields.userId, data?.user.id);
+    },
+    with: {
+      certifications: true,
+    },
   });
+
+  if (!dataUserCertificate) {
+    return (
+      <RedirectUnauthorized message="Não foi possível carregar os dados" />
+    );
+  }
 
   return (
     <Card className="max-w-2xl mx-auto">

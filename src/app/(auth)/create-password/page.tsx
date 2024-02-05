@@ -6,11 +6,13 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-import { DrizzleUsersRepository } from "@/server/repositories/drizzle/user-drizzle-repository";
 import { redirect } from "next/navigation";
 import React from "react";
 import { unstable_noStore as noStore } from "next/cache";
 import Link from "next/link";
+import { db } from "@/server/db/drizzle";
+import { users } from "@/server/db/schema";
+import { and, eq } from "drizzle-orm";
 
 interface CreatePasswordProps {
   searchParams: {
@@ -24,16 +26,15 @@ export const revalidate = 0;
 export default async function CreatePasswordPage({
   searchParams,
 }: CreatePasswordProps) {
-  if (!searchParams.token && !searchParams.email) {
+  const { email, token } = searchParams;
+  if (!token && !email) {
     return redirect("/");
   }
 
-  const drizzleRepository = new DrizzleUsersRepository();
-  const canCreatePassword =
-    await drizzleRepository.checkIfUserCanCreatePassword(
-      searchParams.email,
-      searchParams.token
-    );
+  const [canCreatePassword] = await db
+    .select()
+    .from(users)
+    .where(and(eq(users.email, email), eq(users.createPasswordToken, token)));
 
   if (!canCreatePassword) {
     return redirect("/");
@@ -54,7 +55,7 @@ export default async function CreatePasswordPage({
           Deseja resetar senha?{" "}
           <Link
             aria-label="Sign up"
-            href="/signup"
+            href="/reset-password"
             className="text-primary underline-offset-4 transition-colors hover:underline"
           >
             Clique aqui

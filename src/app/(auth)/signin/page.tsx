@@ -31,7 +31,7 @@ export default function SignInPage() {
           Deseja resetar senha?{" "}
           <Link
             aria-label="Sign up"
-            href="/signup"
+            href="/reset-password"
             className="text-primary underline-offset-4 transition-colors hover:underline"
           >
             Clique aqui
