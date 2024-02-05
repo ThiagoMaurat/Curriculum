@@ -14,4 +14,6 @@ export const DEFAULT_FORM: FormStudent = {
   lattes: "",
   selfDescription: "",
   certificate: [],
+  finalCourseDate: new Date(),
+  initialCourseDate: new Date(),
 };

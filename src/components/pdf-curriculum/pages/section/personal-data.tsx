@@ -16,9 +16,9 @@ export default function PersonalData({ data }: PersonalDataProps) {
         Curriculum Vitae
       </Text>
 
-      {data?.name && (
+      {data?.fullName && (
         <Text style={[commonStyles.title, { fontStyle: "italic" }]}>
-          {data?.name}
+          {data?.fullName}
         </Text>
       )}
 
@@ -48,11 +48,11 @@ export default function PersonalData({ data }: PersonalDataProps) {
         <Text style={commonStyles.chapter}>1. DADOS PESSOAIS</Text>
       </View>
 
-      {data?.name && (
+      {data?.fullName && (
         <View style={commonStyles.commonCentralizedView}>
           <>
             <Text style={commonStyles.title}>Nome: </Text>
-            <Text style={commonStyles.descriptionTitle}>{data?.name}</Text>
+            <Text style={commonStyles.descriptionTitle}>{data?.fullName}</Text>
           </>
         </View>
       )}

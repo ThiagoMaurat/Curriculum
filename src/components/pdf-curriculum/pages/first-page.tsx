@@ -19,7 +19,7 @@ interface FirstPageProps {
 }
 
 export default function FirstPage({ data }: FirstPageProps) {
-  const { name } = data;
+  const { fullName } = data;
 
   return (
     <Page size={"A4"} style={commonStyles.body}>
@@ -32,7 +32,7 @@ export default function FirstPage({ data }: FirstPageProps) {
             fontWeight: "bold",
           }}
         >
-          {name}
+          {fullName}
         </Text>
 
         <View

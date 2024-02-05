@@ -1,5 +1,4 @@
 "use client";
-import { ListUsersByAdminUserCaseOutput } from "@/server/use-cases/list-user-by-admin";
 import React from "react";
 import {
   TableHeader,
@@ -11,9 +10,24 @@ import {
 } from "../ui/table";
 import { useRouter, useSearchParams } from "next/navigation";
 import { PaginationButton } from "../ui/pagination-component";
+import { Certification } from "@/server/db/types-schema";
 
 interface ProfileAdminTemplateProps {
-  data: ListUsersByAdminUserCaseOutput;
+  data: {
+    metadata: {
+      total: number;
+      lastPage: number;
+    };
+    user: {
+      id: string;
+      email: string;
+      name: string | null;
+      product: string | null;
+      createdAt: Date;
+      certifications: Certification[];
+      roles: Array<{ name: string }>;
+    }[];
+  };
 }
 
 export default function ProfileAdminTemplate(props: ProfileAdminTemplateProps) {
