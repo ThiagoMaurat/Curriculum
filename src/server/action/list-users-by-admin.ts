@@ -4,12 +4,12 @@ import { action } from "@/lib/safe-action";
 import { unstable_noStore as noStore } from "next/cache";
 import { db } from "../db/drizzle";
 import { users } from "../db/schema";
-import { sql } from "drizzle-orm";
+import { ilike, or, sql } from "drizzle-orm";
 import { paramsSchema } from "@/validators/params-schema";
 
 export const listUsersAction = action(
   paramsSchema,
-  async ({ limit, page, sort }) => {
+  async ({ limit, page, sort, search }) => {
     noStore();
 
     const limitInt = parseInt(limit) ?? 10;
@@ -26,6 +26,14 @@ export const listUsersAction = action(
       },
       limit: limitInt,
       offset: limitInt * (pageInt - 1),
+      where(fields, operators) {
+        if (search) {
+          return operators.or(
+            operators.ilike(fields.name, `%${search}%`),
+            operators.ilike(fields.email, `%${search}%`)
+          );
+        }
+      },
       orderBy(fields, operators) {
         if (sort === "desc") {
           return operators.desc(fields.createdAt);
@@ -46,7 +54,10 @@ export const listUsersAction = action(
       .select({
         total: sql<number>`count(*)`,
       })
-      .from(users);
+      .from(users)
+      .where(
+        or(ilike(users.name, `%${search}%`), ilike(users.email, `%${search}%`))
+      );
 
     if (!usersFindMany) {
       return null;

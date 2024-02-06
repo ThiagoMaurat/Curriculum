@@ -8,12 +8,10 @@ import { NoSSRWrapper } from "@/hooks/no-ssr-wrapper";
 import { getServerAuthSession } from "../../../../auth";
 import { notFound } from "next/navigation";
 import { listUsersAction } from "@/server/action/list-users-by-admin";
+import { InputSearch } from "@/components/ui/field-search";
+import { ParamsType } from "@/validators/params-schema";
 interface UserProfileProps {
-  searchParams: {
-    limit: string;
-    page: string;
-    sort: string;
-  };
+  searchParams: ParamsType;
 }
 
 export const metadata: Metadata = {
@@ -25,13 +23,14 @@ export const metadata: Metadata = {
 noStore();
 export const revalidate = 0;
 export default async function UserProfile({ searchParams }: UserProfileProps) {
-  const { limit, page, sort } = searchParams;
+  const { limit, page, sort, search } = searchParams;
   const data = await getServerAuthSession();
 
   const { data: dataListUser } = await listUsersAction({
     limit,
     page,
     sort,
+    search,
   });
 
   if (!data?.user || data?.user.roleName === "user") {
@@ -44,8 +43,13 @@ export default async function UserProfile({ searchParams }: UserProfileProps) {
 
   return (
     <Card className="max-w-[1000px] w-full mx-auto md:mx-0">
-      <CardHeader className="space-y-1">
+      <CardHeader className="space-y-1 flex flex-row items-center justify-between gap-4">
         <CardTitle className="text-2xl">Perfil dos Alunos</CardTitle>
+
+        <InputSearch
+          className="max-w-64"
+          placeholder="Pesquisar (mínimo de 3 caracteres)"
+        />
       </CardHeader>
 
       <CardContent>
