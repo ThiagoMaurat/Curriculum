@@ -56,7 +56,12 @@ export const listUsersAction = action(
       })
       .from(users)
       .where(
-        or(ilike(users.name, `%${search}%`), ilike(users.email, `%${search}%`))
+        search
+          ? or(
+              ilike(users.name, `%${search}%`),
+              ilike(users.email, `%${search}%`)
+            )
+          : undefined
       );
 
     if (!usersFindMany) {
