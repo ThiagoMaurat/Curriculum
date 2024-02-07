@@ -4,8 +4,9 @@ import { action } from "@/lib/safe-action";
 import { studentCurriculumAction } from "@/validators/send-user-curriculum";
 import { getServerAuthSession } from "../../../auth";
 import { db } from "../db/drizzle";
-import { certifications, curriculums } from "../db/schema";
+import { certifications, curriculums, users } from "../db/schema";
 import { CertificationInsertSchema } from "../db/types-schema";
+import { eq } from "drizzle-orm";
 
 export const updateUserAndCreateCertificateAction = action(
   studentCurriculumAction,
@@ -16,7 +17,7 @@ export const updateUserAndCreateCertificateAction = action(
       throw new Error("Unauthorized");
     }
 
-    const updateUserAndCreateCertificate = db.transaction(async (tx) => {
+    await db.transaction(async (tx) => {
       const [curriculum] = await tx
         .insert(curriculums)
         .values(data)
@@ -47,11 +48,19 @@ export const updateUserAndCreateCertificateAction = action(
           throw new Error("Erro ao criar certificação");
         }
       }
-    });
 
-    if (!updateUserAndCreateCertificate) {
-      throw new Error("Failed to update curriculum");
-    }
+      const updateUserStatus = await tx
+        .update(users)
+        .set({
+          statusCurriculum: "selection",
+        })
+        .where(eq(users.id, serverSession.user.id))
+        .returning();
+
+      if (!updateUserStatus) {
+        throw new Error("Erro ao atualizar status");
+      }
+    });
 
     return { message: "Criado com sucesso" };
   }
