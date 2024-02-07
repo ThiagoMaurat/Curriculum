@@ -62,6 +62,9 @@ export const curriculums = pgTable("curriculum", {
   initialCourseDate: timestamp("initialCourseDate", {
     mode: "date",
   }),
+  collaboratorId: varchar("collaboratorId", { length: 255 }).references(
+    () => users.id
+  ),
   finalCourseDate: timestamp("finalCourseDate", { mode: "date" }),
   userId: varchar("userId", { length: 255 })
     .unique()

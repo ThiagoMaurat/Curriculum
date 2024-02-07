@@ -5,7 +5,7 @@ import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import { db } from "../db/drizzle";
 import { z } from "zod";
 
-export const listCollaboratorKanbamAction = action(
+export const listCoordinatorKanbamAction = action(
   z.object({
     roleName: z.enum(["supervisor", "collaborator", "coordinator", "user"], {
       required_error: "Cargo é obrigatório",
@@ -14,7 +14,7 @@ export const listCollaboratorKanbamAction = action(
   async ({ roleName }) => {
     noStore();
 
-    if (roleName !== "collaborator") {
+    if (roleName !== "coordinator") {
       throw new Error("Sem permissão");
     }
 

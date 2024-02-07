@@ -18,7 +18,7 @@ export type InsertSchemaRolesType = z.infer<typeof insertRoleSchema>;
 // CURRICULUM
 const curriculumsSchema = createSelectSchema(curriculums);
 export type Curriculum = z.infer<typeof curriculumsSchema>;
-const curriculumsInsertSchema = createInsertSchema(curriculums);
+export const curriculumsInsertSchema = createInsertSchema(curriculums);
 export type CurriculumsInsertSchema = z.infer<typeof curriculumsInsertSchema>;
 
 // CERTIFICATIONS

@@ -4,7 +4,7 @@ import RedirectUnauthorized from "@/components/redirect-unauthorized";
 import { ListContainer } from "@/components/kanbam/list-container";
 import { type Metadata } from "next";
 import { unstable_noStore as noStore } from "next/cache";
-import { listCollaboratorKanbamAction } from "@/server/action/list-collaborator-kanbam";
+import { listCoordinatorKanbamAction } from "@/server/action/list-collaborator-kanbam";
 import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
@@ -18,14 +18,14 @@ export const revalidate = 0;
 export default async function CollaboratorKanbam() {
   const data = await getServerAuthSession();
 
-  if (data?.user.roleName !== "collaborator") {
+  if (data?.user.roleName !== "coordinator") {
     return (
       <RedirectUnauthorized message="Sem permissão para acessar essa página" />
     );
   }
 
   const { data: listCollaboratorKanbam, serverError } =
-    await listCollaboratorKanbamAction({
+    await listCoordinatorKanbamAction({
       roleName: data?.user.roleName,
     });
 

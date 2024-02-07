@@ -13,7 +13,7 @@ export const updateCurriculumAction = action(
   async (data) => {
     noStore();
     const serverSession = await getServerAuthSession();
-    if (!serverSession) {
+    if (!serverSession?.user) {
       throw new Error("Unauthorized");
     }
 

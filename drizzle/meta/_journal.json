@@ -148,6 +148,13 @@
       "when": 1707167807761,
       "tag": "0020_giant_chimera",
       "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "5",
+      "when": 1707310299178,
+      "tag": "0021_black_beast",
+      "breakpoints": true
     }
   ]
 }

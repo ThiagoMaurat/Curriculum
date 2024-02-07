@@ -88,8 +88,8 @@ export function MenuLinks({ isOpen }: MenuLinksProps) {
             </Link>
           )}
 
-          {data?.user && data?.user?.roleName === "collaborator" && (
-            <Link prefetch={false} href="/collaborator/kanbam">
+          {data?.user && data?.user?.roleName === "coordinator" && (
+            <Link prefetch={false} href="/coordinator/kanbam">
               <p
                 className={`${
                   CheckRouterMatchesLabel("Home")

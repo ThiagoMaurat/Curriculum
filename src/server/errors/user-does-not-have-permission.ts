@@ -1,5 +1,5 @@
 export class UserDoesNotHavePermission extends Error {
   constructor() {
-    super("Usuário não possui essa informação");
+    super("Usuário não possui essa permissão");
   }
 }
