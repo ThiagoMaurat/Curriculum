@@ -1,7 +1,16 @@
+import { CurriculumStatus } from "@/server/db/schema";
+import { Curriculum, Certification } from "@/server/db/types-schema";
+
 export type Card = {
+  email: string;
+  name: string | null;
   id: string;
-  title: string;
-  description: string | null;
+  product: string | null;
+  amount: string;
+  createdAt: Date;
+  statusCurriculum: CurriculumStatus;
+  curriculums: Curriculum | null;
+  certifications: Certification[];
 };
 
 export type List = {
@@ -14,6 +23,6 @@ export type Board = {
   title: string;
 };
 
-export type ListWithCards = List & { cards: Card[] };
+export type ListWithCards = List & { cards: Card[] | undefined };
 
 export type CardWithList = Card & { list: List };
