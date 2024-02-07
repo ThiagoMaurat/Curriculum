@@ -48,7 +48,7 @@ export default async function UserProfile({ searchParams }: UserProfileProps) {
 
         <InputSearch
           className="max-w-64"
-          placeholder="Pesquisar (mínimo de 3 caracteres)"
+          placeholder="Pesquisar"
         />
       </CardHeader>
 
