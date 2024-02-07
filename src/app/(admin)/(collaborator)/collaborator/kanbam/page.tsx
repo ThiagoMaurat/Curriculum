@@ -4,6 +4,8 @@ import RedirectUnauthorized from "@/components/redirect-unauthorized";
 import { ListContainer } from "@/components/kanbam/list-container";
 import { type Metadata } from "next";
 import { unstable_noStore as noStore } from "next/cache";
+import { listCollaboratorKanbamAction } from "@/server/action/list-collaborator-kanbam";
+import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? ""),
@@ -22,57 +24,43 @@ export default async function CollaboratorKanbam() {
     );
   }
 
+  const { data: listCollaboratorKanbam, serverError } =
+    await listCollaboratorKanbamAction({
+      roleName: data?.user.roleName,
+    });
+
+  if (serverError) {
+    return notFound();
+  }
+
   return (
-    <div className="p-4 h-full overflow-x-auto">
+    <div className="h-[calc(100vh-104px)] w-full">
       <ListContainer
-        boardId={"1"}
         data={[
           {
-            cards: [
-              {
-                id: "1",
-                description: "Tarefas",
-                title: "Tarefas",
-              },
-              {
-                id: "2",
-                description: "Tarefas",
-                title: "Tarefas",
-              },
-            ],
+            cards: listCollaboratorKanbam?.studentsWaitingDocs,
             id: "1",
             title: "Aguardando documentação",
           },
           {
-            cards: [
-              {
-                id: "1",
-                description: "Tarefas",
-                title: "Tarefas",
-              },
-              {
-                id: "2",
-                description: "Tarefas",
-                title: "Tarefas",
-              },
-            ],
+            cards: listCollaboratorKanbam?.studentsSelection,
             id: "2",
             title: "Seleção",
           },
           {
             id: "3",
             title: "Fabricação",
-            cards: [],
+            cards: listCollaboratorKanbam?.studentsFabrication,
           },
           {
-            id: "3",
+            id: "4",
             title: "Revisão",
-            cards: [],
+            cards: listCollaboratorKanbam?.studentsRevision,
           },
           {
-            id: "3",
+            id: "5",
             title: "Envio do currículo",
-            cards: [],
+            cards: listCollaboratorKanbam?.studentsCurriculumSend,
           },
         ]}
       />

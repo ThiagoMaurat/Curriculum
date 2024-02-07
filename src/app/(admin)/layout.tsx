@@ -12,7 +12,7 @@ export default function layout(props: AuthLayoutProps) {
     <div className="bg-card">
       <Header />
 
-      <main className="w-full min-h-[600px] p-4 h-auto flex items-center justify-center mx-auto rounded-s-xl bg-card dark:bg-zinc-950">
+      <main className="w-full container min-h-[600px] p-4 h-auto flex items-center justify-center mx-auto rounded-s-xl bg-card dark:bg-zinc-950">
         {children}
       </main>
     </div>
