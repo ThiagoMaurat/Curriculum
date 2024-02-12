@@ -18,19 +18,34 @@ export const listCoordinatorKanbamAction = action(
       throw new Error("Sem permissão");
     }
 
-    const studentsWaitingDocs = await db.query.users
+    const studentsWaitingDocs = await db.query.curriculums
       .findMany({
         with: {
-          curriculums: true,
-          certifications: true,
-          roles: {
+          user: {
             columns: {
+              createdAt: true,
+              email: true,
+              id: true,
               name: true,
+              product: true,
+              amount: true,
             },
-            where(fields, { inArray }) {
-              return inArray(fields.name, ["user"]);
+            with: {
+              roles: {
+                columns: {
+                  name: true,
+                },
+                where(fields, { eq }) {
+                  return eq(fields.name, "user");
+                },
+              },
             },
           },
+          certifications: true,
+        },
+        columns: {
+          collaboratorId: true,
+          statusCurriculum: true,
         },
         where(fields, operators) {
           return operators.eq(fields.statusCurriculum, "waiting_docs");
@@ -38,30 +53,47 @@ export const listCoordinatorKanbamAction = action(
         orderBy(fields, operators) {
           return operators.desc(fields.createdAt);
         },
-        columns: {
-          createdAt: true,
-          email: true,
-          id: true,
-          name: true,
-          product: true,
-          amount: true,
-          statusCurriculum: true,
-        },
       })
       .then((res) => {
         return res.filter((item) => {
-          return item.roles.length > 0;
+          return item?.user?.roles?.[0]?.name === "user";
         });
       });
 
-    const studentsSelection = await db.query.users
+    const studentsSelection = await db.query.curriculums
       .findMany({
+        extras(fields, { sql }) {
+          return {
+            collaboratorName:
+              sql<string>`(SELECT "name" FROM "user" INNER JOIN "curriculum" ON "user".id = "curriculum"."collaboratorId" WHERE "user".id = ${fields.collaboratorId}) `.as(
+                "collaboratorName"
+              ),
+          };
+        },
+        columns: {
+          collaboratorId: true,
+          statusCurriculum: true,
+        },
         with: {
-          curriculums: true,
-          certifications: true,
-          roles: {
-            where(fields, { inArray }) {
-              return inArray(fields.name, ["user"]);
+          user: {
+            columns: {
+              createdAt: true,
+              email: true,
+              id: true,
+              name: true,
+              product: true,
+              amount: true,
+            },
+            with: {
+              roles: {
+                columns: {
+                  name: true,
+                },
+                where(fields, { eq }) {
+                  return eq(fields.name, "user");
+                },
+              },
+              certifications: true,
             },
           },
         },
@@ -71,30 +103,47 @@ export const listCoordinatorKanbamAction = action(
         orderBy(fields, operators) {
           return operators.desc(fields.createdAt);
         },
-        columns: {
-          createdAt: true,
-          email: true,
-          id: true,
-          name: true,
-          product: true,
-          amount: true,
-          statusCurriculum: true,
-        },
       })
       .then((res) => {
         return res.filter((item) => {
-          return item.roles.length > 0;
+          return item?.user?.roles?.[0]?.name === "user";
         });
       });
 
-    const studentsFabrication = await db.query.users
+    const studentsFabrication = await db.query.curriculums
       .findMany({
+        extras(fields, { sql }) {
+          return {
+            collaboratorName:
+              sql<string>`(SELECT "name" FROM "user" INNER JOIN "curriculum" ON "user".id = "curriculum"."collaboratorId" WHERE "user".id = ${fields.collaboratorId}) `.as(
+                "collaboratorName"
+              ),
+          };
+        },
+        columns: {
+          collaboratorId: true,
+          statusCurriculum: true,
+        },
         with: {
-          curriculums: true,
-          certifications: true,
-          roles: {
-            where(fields, { inArray }) {
-              return inArray(fields.name, ["user"]);
+          user: {
+            columns: {
+              createdAt: true,
+              email: true,
+              id: true,
+              name: true,
+              product: true,
+              amount: true,
+            },
+            with: {
+              roles: {
+                columns: {
+                  name: true,
+                },
+                where(fields, { eq }) {
+                  return eq(fields.name, "user");
+                },
+              },
+              certifications: true,
             },
           },
         },
@@ -104,30 +153,47 @@ export const listCoordinatorKanbamAction = action(
         orderBy(fields, operators) {
           return operators.desc(fields.createdAt);
         },
-        columns: {
-          createdAt: true,
-          email: true,
-          id: true,
-          name: true,
-          product: true,
-          amount: true,
-          statusCurriculum: true,
-        },
       })
       .then((res) => {
         return res.filter((item) => {
-          return item.roles.length > 0;
+          return item?.user?.roles?.[0]?.name === "user";
         });
       });
 
-    const studentsRevision = await db.query.users
+    const studentsRevision = await db.query.curriculums
       .findMany({
+        extras(fields, { sql }) {
+          return {
+            collaboratorName:
+              sql<string>`(SELECT "name" FROM "user" INNER JOIN "curriculum" ON "user".id = "curriculum"."collaboratorId" WHERE "user".id = ${fields.collaboratorId}) `.as(
+                "collaboratorName"
+              ),
+          };
+        },
+        columns: {
+          collaboratorId: true,
+          statusCurriculum: true,
+        },
         with: {
-          curriculums: true,
-          certifications: true,
-          roles: {
-            where(fields, { inArray }) {
-              return inArray(fields.name, ["user"]);
+          user: {
+            columns: {
+              createdAt: true,
+              email: true,
+              id: true,
+              name: true,
+              product: true,
+              amount: true,
+            },
+            with: {
+              roles: {
+                columns: {
+                  name: true,
+                },
+                where(fields, { eq }) {
+                  return eq(fields.name, "user");
+                },
+              },
+              certifications: true,
             },
           },
         },
@@ -137,52 +203,60 @@ export const listCoordinatorKanbamAction = action(
         orderBy(fields, operators) {
           return operators.desc(fields.createdAt);
         },
-        columns: {
-          createdAt: true,
-          email: true,
-          id: true,
-          name: true,
-          product: true,
-          amount: true,
-          statusCurriculum: true,
-        },
       })
       .then((res) => {
         return res.filter((item) => {
-          return item.roles.length > 0;
+          return item?.user?.roles?.[0]?.name === "user";
         });
       });
 
-    const studentsCurriculumSend = await db.query.users
+    const studentsCurriculumSend = await db.query.curriculums
       .findMany({
+        extras(fields, { sql }) {
+          return {
+            collaboratorName:
+              sql<string>`(SELECT "name" FROM "user" INNER JOIN "curriculum" ON "user".id = "curriculum"."collaboratorId" WHERE "user".id = ${fields.collaboratorId}) `.as(
+                "collaboratorName"
+              ),
+          };
+        },
+        columns: {
+          collaboratorId: true,
+          statusCurriculum: true,
+        },
         with: {
-          curriculums: true,
-          certifications: true,
-          roles: {
-            where(fields, { inArray }) {
-              return inArray(fields.name, ["user"]);
+          user: {
+            columns: {
+              createdAt: true,
+              email: true,
+              id: true,
+              name: true,
+              product: true,
+              amount: true,
+            },
+            with: {
+              roles: {
+                columns: {
+                  name: true,
+                },
+                where(fields, { eq }) {
+                  return eq(fields.name, "user");
+                },
+              },
+              certifications: true,
             },
           },
         },
         where(fields, operators) {
-          return operators.eq(fields.statusCurriculum, "curriculum_send");
+          return operators.eq(fields.statusCurriculum, "fabrication");
         },
         orderBy(fields, operators) {
           return operators.desc(fields.createdAt);
         },
-        columns: {
-          createdAt: true,
-          email: true,
-          id: true,
-          name: true,
-          product: true,
-          amount: true,
-          statusCurriculum: true,
-        },
       })
       .then((res) => {
         return res.filter((item) => {
-          return item.roles.length > 0;
+          return item?.user?.roles?.[0]?.name === "user";
         });
       });
 

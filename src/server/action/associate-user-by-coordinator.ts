@@ -1,7 +1,7 @@
 "use server";
 
 import { action } from "@/lib/safe-action";
-import { unstable_noStore as noStore } from "next/cache";
+import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import { db } from "../db/drizzle";
 import { curriculums } from "../db/schema";
 import { z } from "zod";
@@ -22,7 +22,7 @@ export const associateUserByCoordinator = action(
       throw new UserDoesNotHavePermission();
     }
 
-    const dbTransaction = await db.transaction(async (tx) => {
+    await db.transaction(async (tx) => {
       const checkStudentId = await tx.query.users
         .findFirst({
           with: {
@@ -83,6 +83,7 @@ export const associateUserByCoordinator = action(
         .update(curriculums)
         .set({
           collaboratorId: data.collaboratorId,
+          statusCurriculum: "fabrication",
         })
         .where(eq(curriculums.userId, data.studentId))
         .returning();
@@ -91,6 +92,8 @@ export const associateUserByCoordinator = action(
         throw new Error("Failed to update curriculum");
       }
     });
+
+    revalidatePath("/coordinator/kanbam");
 
     return {
       message: `Currículo atualizado com sucesso.`,

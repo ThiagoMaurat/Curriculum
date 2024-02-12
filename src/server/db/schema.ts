@@ -35,15 +35,10 @@ export const users = pgTable("user", {
   amount: decimal("amount", { precision: 10, scale: 2 }).notNull().default("0"),
   createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
   createPasswordToken: varchar("createPasswordToken", { length: 60 }),
-  statusCurriculum: varchar("status", {
-    length: 191,
-  })
-    .$type<CurriculumStatus>()
-    .default(null),
 });
 
 export const curriculums = pgTable("curriculum", {
-  id: serial("id").primaryKey(),
+  id: serial("id").primaryKey().notNull(),
   fullName: varchar("fullName", { length: 191 }),
   presentationName: varchar("presentationName", { length: 191 }),
   fathersName: varchar("fathersName", { length: 191 }),
@@ -62,13 +57,18 @@ export const curriculums = pgTable("curriculum", {
   initialCourseDate: timestamp("initialCourseDate", {
     mode: "date",
   }),
+  finalCourseDate: timestamp("finalCourseDate", { mode: "date" }),
   collaboratorId: varchar("collaboratorId", { length: 255 }).references(
     () => users.id
   ),
-  finalCourseDate: timestamp("finalCourseDate", { mode: "date" }),
   userId: varchar("userId", { length: 255 })
     .unique()
     .references(() => users.id, { onDelete: "cascade" }),
+  statusCurriculum: varchar("status", {
+    length: 191,
+  })
+    .$type<CurriculumStatus>()
+    .default(null),
 });
 
 export const certifications = pgTable("certification", {

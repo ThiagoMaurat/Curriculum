@@ -51,11 +51,11 @@ export default function ModalSelection(props: ModalSelectionProps) {
   const submitAssociateUserByCoordinator = async (
     dataForm: AssociateUserByCoordinatorType
   ) => {
-    if (!session?.user?.roleName) return;
+    if (!session?.user?.roleName || !data?.user?.id) return;
 
     const { serverError } = await associateUserByCoordinator({
       collaboratorId: dataForm.collaboratorId,
-      studentId: data.id,
+      studentId: data.user.id,
       userRole: session?.user.roleName,
     });
 
@@ -92,30 +92,34 @@ export default function ModalSelection(props: ModalSelectionProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[480px] max-h-[600px] overflow-auto">
         <p className="text-muted-foreground text-lg font-bold">
-          Nome: <span className="text-primary text-base">{data?.name}</span>
+          Nome:{" "}
+          <span className="text-primary text-base">{data?.user?.name}</span>
         </p>
 
         <p className="text-muted-foreground text-lg font-bold">
           Conta criada em:{" "}
           <span className="text-primary text-base">
-            {data?.createdAt && format(data?.createdAt, "dd/MM/yyyy HH:mm")}
+            {data?.user?.createdAt &&
+              format(data?.user?.createdAt, "dd/MM/yyyy HH:mm")}
           </span>
         </p>
 
         <p className="text-muted-foreground text-lg font-bold">
-          Email: <span className="text-primary text-base">{data?.email}</span>
+          Email:{" "}
+          <span className="text-primary text-base">{data?.user?.email}</span>
         </p>
 
         <p className="text-muted-foreground text-lg font-bold">
           Produto:{" "}
-          <span className="text-primary text-base">{data?.product}</span>
+          <span className="text-primary text-base">{data?.user?.product}</span>
         </p>
 
         <p className="text-muted-foreground text-lg font-bold">
           Certificados:{" "}
           <span className="text-primary text-base ">
-            {data?.certifications && data?.certifications?.length > 0
-              ? data.certifications.map((certification, index) => (
+            {data?.user?.certifications &&
+            data?.user?.certifications?.length > 0
+              ? data.user?.certifications.map((certification, index) => (
                   <React.Fragment key={certification.fileName}>
                     <a
                       href={`${certification.url}`}
@@ -124,7 +128,10 @@ export default function ModalSelection(props: ModalSelectionProps) {
                     >
                       {certification.fileName}
                     </a>
-                    {index !== data!.certifications!.length - 1 ? ", " : ""}
+                    {data?.user?.certifications?.length &&
+                    index !== data?.user?.certifications?.length - 1
+                      ? ", "
+                      : ""}
                   </React.Fragment>
                 ))
               : "-"}
@@ -134,20 +141,7 @@ export default function ModalSelection(props: ModalSelectionProps) {
         <p className="text-muted-foreground text-lg font-bold">
           Colaborador associado:{" "}
           <span className="text-primary text-base ">
-            {data?.certifications && data?.certifications?.length > 0
-              ? data.certifications.map((certification, index) => (
-                  <React.Fragment key={certification.fileName}>
-                    <a
-                      href={`${certification.url}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {certification.fileName}
-                    </a>
-                    {index !== data!.certifications!.length - 1 ? ", " : ""}
-                  </React.Fragment>
-                ))
-              : "-"}
+            {data?.collaboratorName && <span>{data?.collaboratorName}</span>}
           </span>
         </p>
 

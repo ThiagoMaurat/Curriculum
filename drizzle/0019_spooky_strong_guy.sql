@@ -1,1 +1,0 @@
-ALTER TABLE "user" ADD COLUMN "teste" varchar(191);

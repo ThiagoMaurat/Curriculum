@@ -24,7 +24,10 @@ export const authenticateAction = action(
         return {
           user: user?.user ?? null,
           role: user?.role ?? null,
-          hasSendCertification: user?.curriculum?.userId ? true : false,
+          hasSendCertification:
+            user?.curriculum?.statusCurriculum !== "waiting_docs"
+              ? true
+              : false,
         };
       });
 

@@ -1,1 +1,0 @@
-ALTER TABLE "curriculum_form" ADD CONSTRAINT "curriculum_form_userId_unique" UNIQUE("userId");

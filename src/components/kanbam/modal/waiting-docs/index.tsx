@@ -16,23 +16,26 @@ export default function ModalWaitingDocs(props: ModalWaitingDocsProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[480px] max-h-[600px] overflow-auto space-y-2">
         <p className="text-muted-foreground text-lg font-bold">
-          Nome: <span className="text-primary text-base">{data?.name}</span>
+          Nome:{" "}
+          <span className="text-primary text-base">{data?.user?.name}</span>
         </p>
 
         <p className="text-muted-foreground text-lg font-bold">
           Conta criada em:{" "}
           <span className="text-primary text-base">
-            {data?.createdAt && format(data?.createdAt, "dd/MM/yyyy HH:mm")}
+            {data?.user?.createdAt &&
+              format(data?.user?.createdAt, "dd/MM/yyyy HH:mm")}
           </span>
         </p>
 
         <p className="text-muted-foreground text-lg font-bold">
-          Email: <span className="text-primary text-base">{data?.email}</span>
+          Email:{" "}
+          <span className="text-primary text-base">{data?.user?.email}</span>
         </p>
 
         <p className="text-muted-foreground text-lg font-bold">
           Produto:{" "}
-          <span className="text-primary text-base">{data?.product}</span>
+          <span className="text-primary text-base">{data?.user?.product}</span>
         </p>
       </DialogContent>
     </Dialog>

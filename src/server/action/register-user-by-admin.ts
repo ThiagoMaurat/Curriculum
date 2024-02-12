@@ -6,7 +6,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import { randomUUID } from "node:crypto";
 import { ProductsConst } from "@/const/products";
 import { db } from "../db/drizzle";
-import { roles, users } from "../db/schema";
+import { curriculums, roles, users } from "../db/schema";
 import { getServerAuthSession } from "../../../auth";
 import { render } from "@react-email/render";
 import CreatePassword from "@/email-templates/create-password";
@@ -17,7 +17,6 @@ export const registerUserByAdmin = action(
   createUserAdminAction,
   async ({ email, name, role, userRole, amount, product }) => {
     noStore();
-
     const serverSession = getServerAuthSession();
 
     if (!serverSession) {
@@ -91,12 +90,25 @@ export const registerUserByAdmin = action(
           emailVerified: new Date(),
           createPasswordToken,
           amount: amount,
-          statusCurriculum: role === "user" ? "waiting_docs" : null,
         })
         .returning();
 
       if (!userCreated) {
         throw new Error("Erro ao criar usuário");
+      }
+
+      if (role === "user") {
+        const curriculumAssociated = await tx
+          .insert(curriculums)
+          .values({
+            userId: userCreated.id,
+            statusCurriculum: "waiting_docs",
+          })
+          .returning();
+
+        if (!curriculumAssociated) {
+          throw new Error("Erro ao criar curriculo");
+        }
       }
 
       const [roleCreated] = await tx

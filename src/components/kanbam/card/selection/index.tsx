@@ -27,17 +27,21 @@ export default function CardSelection(props: CardItemProps) {
           setWaitingDocsOpen(true);
         }}
       >
-        {data?.name}
+        {data?.user?.name}
 
         <div className="flex gap-1 justify-between">
           <div className="bg-green-600 text-white text-xs rounded-sm w-fit px-1">
-            {data?.createdAt && format(data?.createdAt, "dd/MM/yyyy HH:mm")}
+            {data?.user?.createdAt &&
+              format(data?.user?.createdAt, "dd/MM/yyyy HH:mm")}
           </div>
 
-          <div className="flex text-primary text-xs rounded-sm w-fit px-1">
-            <PaperclipIcon className="w-4 h-4 text-muted-foreground" />
-            {data?.certifications?.length}
-          </div>
+          {data?.user?.certifications &&
+            data?.user?.certifications?.length > 0 && (
+              <div className="flex text-primary text-xs rounded-sm w-fit px-1">
+                <PaperclipIcon className="w-4 h-4 text-muted-foreground" />
+                {data?.user?.certifications?.length}
+              </div>
+            )}
         </div>
       </div>
     </React.Fragment>

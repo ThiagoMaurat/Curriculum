@@ -59,10 +59,10 @@ export function CreateUserAdminForm() {
       const { serverError } = await registerUserByAdmin({
         email: data.email,
         name: data.name,
-        product: data.product,
+        product: data.role === "user" ? data.product : undefined,
         userRole: session?.user.roleName,
         role: data.role,
-        amount: data.amount,
+        amount: data.role === "user" ? data.amount : undefined,
       });
 
       if (serverError) {

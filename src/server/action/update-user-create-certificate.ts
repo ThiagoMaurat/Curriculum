@@ -6,9 +6,10 @@ import { getServerAuthSession } from "../../../auth";
 import { db } from "../db/drizzle";
 import { certifications, curriculums, users } from "../db/schema";
 import { CertificationInsertSchema } from "../db/types-schema";
+import { getPresentationName } from "@/helpers/extract-presentation-name";
 import { eq } from "drizzle-orm";
 
-export const updateUserAndCreateCertificateAction = action(
+export const updateCurriculumAndCreateCertificateAction = action(
   studentCurriculumAction,
   async (data) => {
     const serverSession = await getServerAuthSession();
@@ -19,8 +20,29 @@ export const updateUserAndCreateCertificateAction = action(
 
     await db.transaction(async (tx) => {
       const [curriculum] = await tx
-        .insert(curriculums)
-        .values(data)
+        .update(curriculums)
+        .set({
+          address: data.address,
+          birthday: data.birthday,
+          collaboratorId: null,
+          CPF: data.CPF,
+          email: data.email,
+          CRM: data.CRM,
+          fathersName: data.fathersName,
+          fullName: data.fullName,
+          createdAt: new Date(),
+          finalCourseDate: data.finalCourseDate,
+          identityDocument: data.identityDocument,
+          lattes: data.lattes,
+          phone: data.phone,
+          statusCurriculum: "selection",
+          selfDescription: data.selfDescription,
+          initialCourseDate: data.initialCourseDate,
+          mothersName: data.mothersName,
+          presentationName: getPresentationName(data.fullName),
+          updatedAt: new Date(),
+        })
+        .where(eq(curriculums.userId, serverSession.user.id))
         .returning();
 
       if (!curriculum) {
@@ -47,18 +69,6 @@ export const updateUserAndCreateCertificateAction = action(
         if (!certificationCreated) {
           throw new Error("Erro ao criar certificação");
         }
-      }
-
-      const updateUserStatus = await tx
-        .update(users)
-        .set({
-          statusCurriculum: "selection",
-        })
-        .where(eq(users.id, serverSession.user.id))
-        .returning();
-
-      if (!updateUserStatus) {
-        throw new Error("Erro ao atualizar status");
       }
     });
 

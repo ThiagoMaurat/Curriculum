@@ -26,11 +26,12 @@ export default function CardWaitingDocs(props: CardItemProps) {
           setWaitingDocsOpen(true);
         }}
       >
-        {data.name}
+        {data?.user?.name}
 
         <div className="flex gap-1 justify-between">
           <div className="bg-green-600 text-white text-xs rounded-sm w-fit px-1">
-            {format(data.createdAt, "dd/MM/yyyy HH:mm")}
+            {data?.user?.createdAt &&
+              format(data?.user?.createdAt, "dd/MM/yyyy HH:mm")}
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ import FirstStepStudent from "../forms/curriculum-form-student/first-step";
 import SecondStepStudent from "../forms/curriculum-form-student/second-step";
 import { generateReactHelpers } from "@uploadthing/react/hooks";
 import { OurFileRouter } from "@/app/api/uploadthing/core";
-import { updateUserAndCreateCertificateAction } from "@/server/action/update-user-create-certificate";
+import { updateCurriculumAndCreateCertificateAction } from "@/server/action/update-user-create-certificate";
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import {
@@ -32,7 +32,7 @@ export default function FormsTemplateStudent() {
 
   const { data: session, update } = useSession();
 
-  const { push, prefetch } = useRouter();
+  const { push, refresh } = useRouter();
 
   const { useUploadThing } = generateReactHelpers<OurFileRouter>();
 
@@ -77,7 +77,7 @@ export default function FormsTemplateStudent() {
       }
     }
 
-    const { serverError } = await updateUserAndCreateCertificateAction({
+    const { serverError } = await updateCurriculumAndCreateCertificateAction({
       fullName: data.fullName,
       fathersName: data.fathersName,
       mothersName: data.mothersName,
@@ -117,7 +117,7 @@ export default function FormsTemplateStudent() {
       hasSendCertification: true,
     });
 
-    prefetch("/");
+    refresh();
     push("/");
   };
 

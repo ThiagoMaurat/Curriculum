@@ -1,11 +1,9 @@
 import "dotenv/config";
-import { neonConfig } from "@neondatabase/serverless";
-import { db } from "./drizzle";
 import { roles, users } from "./schema";
 import { randomUUID } from "crypto";
+import { db } from "./drizzle";
 
 const main = async () => {
-  neonConfig.fetchConnectionCache = true;
 
   const user = await db
     .insert(users)
