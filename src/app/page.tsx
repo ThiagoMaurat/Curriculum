@@ -29,7 +29,7 @@ export default async function Home() {
             <div className="flex flex-col items-center justify-center space-y-5">
               <ComponentIcon className="w-20 h-20 p-4 rounded-full bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-50" />
               <h2 className="text-2xl font-bold text-center">
-                Customizable Templates
+                Personalize seu currículo
               </h2>
               <p className="text-gray-500 dark:text-gray-400">
                 Personalize seu currículo com nossa biblioteca de lindas modelos
@@ -40,7 +40,7 @@ export default async function Home() {
             <div className="flex flex-col items-center justify-center space-y-5">
               <MergeIcon className="w-20 h-20 p-4 rounded-full bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-50" />
               <h2 className="text-2xl font-bold text-center">
-                Real-time Collaboration
+                Colaboração entre equipe
               </h2>
               <p className="text-gray-500 dark:text-gray-400">
                 Envie os dados para nossa equipe e deixe por nossa parte a
@@ -51,7 +51,7 @@ export default async function Home() {
             <div className="flex flex-col items-center justify-center space-y-5">
               <BookOpenIcon className="w-20 h-20 p-4 rounded-full bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-50" />
               <h2 className="text-2xl font-bold text-center">
-                Subject-specific Content
+                Conteúdo específico do assunto
               </h2>
               <p className="text-gray-500 dark:text-gray-400">
                 Acesse uma variedade de recursos adaptados às suas necessidades
