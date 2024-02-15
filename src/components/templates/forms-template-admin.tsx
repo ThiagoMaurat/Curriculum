@@ -104,7 +104,11 @@ export default function FormsTemplateAdmin() {
           {currentStep === 4 && (
             <FifthStep>
               <BlobProvider
-                document={<PdfCurriculumTemplate data={methods.watch()} />}
+                document={
+                  <PdfCurriculumTemplate
+                    data={methods.watch() as CurriculumFormInput}
+                  />
+                }
               >
                 {({ blob, url, loading, error }) => {
                   if (blob) {
@@ -118,7 +122,9 @@ export default function FormsTemplateAdmin() {
               </BlobProvider>
 
               <PDFViewer className="w-full h-full min-h-96">
-                <PdfCurriculumTemplate data={methods.watch()} />
+                <PdfCurriculumTemplate
+                  data={methods.watch() as CurriculumFormInput}
+                />
               </PDFViewer>
             </FifthStep>
           )}
