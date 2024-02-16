@@ -1,5 +1,5 @@
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
-import { roles, users, certifications, curriculums } from "./schema";
+import { roles, users, certifications, curriculums, comments } from "./schema";
 import { z } from "zod";
 
 // USERS
@@ -28,3 +28,9 @@ export type Certification = z.infer<typeof certificationSchema>;
 export type CertificationInsertSchema = z.infer<
   typeof certificationInsertSchema
 >;
+
+//COMMENTS
+const commentsSchema = createSelectSchema(comments);
+export const commentsInsertSchema = createInsertSchema(comments);
+export type Comments = z.infer<typeof commentsSchema>;
+export type CommentsInsertSchema = z.infer<typeof commentsInsertSchema>;
