@@ -8,6 +8,20 @@
       "when": 1707485129747,
       "tag": "0000_faithful_starhawk",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1708097366490,
+      "tag": "0001_goofy_shiva",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1708108012839,
+      "tag": "0002_fine_exodus",
+      "breakpoints": true
     }
   ]
 }

@@ -86,6 +86,22 @@ export const certifications = pgTable("certification", {
   }),
 });
 
+export const comments = pgTable("comment", {
+  id: serial("id").primaryKey(),
+  message: text("content").notNull(),
+  createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
+  curriculumId: integer("curriculumId")
+    .references(() => curriculums.id, {
+      onDelete: "cascade",
+    })
+    .notNull(),
+  userId: varchar("userId", { length: 255 })
+    .references(() => users.id, {
+      onDelete: "cascade",
+    })
+    .notNull(),
+});
+
 export const accounts = pgTable(
   "account",
   {
@@ -164,16 +180,39 @@ export const rolesRelations = relations(roles, ({ one }) => ({
 export const userRelations = relations(users, ({ one, many }) => ({
   accounts: many(accounts),
   roles: many(roles),
-  curriculums: one(curriculums),
+  curriculums: one(curriculums, {
+    fields: [users.id],
+    references: [curriculums.userId],
+    relationName: "users-curriculums",
+  }),
   certifications: many(certifications),
+  comments: many(comments),
 }));
 
 export const curriculumsRelations = relations(curriculums, ({ one, many }) => ({
   user: one(users, {
     fields: [curriculums.userId],
     references: [users.id],
+    relationName: "users-curriculums",
   }),
+  collaborators: one(users, {
+    fields: [curriculums.collaboratorId],
+    references: [users.id],
+    relationName: "collaborators",
+  }),
+  comments: many(comments),
   certifications: many(certifications),
+}));
+
+export const commentRelations = relations(comments, ({ one, many }) => ({
+  curriculums: one(curriculums, {
+    fields: [comments.curriculumId],
+    references: [curriculums.id],
+  }),
+  users: one(users, {
+    fields: [comments.userId],
+    references: [users.id],
+  }),
 }));
 
 export const certificatesRelations = relations(certifications, ({ one }) => ({
