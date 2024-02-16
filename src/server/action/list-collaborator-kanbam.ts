@@ -20,6 +20,10 @@ export const listCoordinatorKanbamAction = action(
 
     const studentsWaitingDocs = await db.query.curriculums
       .findMany({
+        columns: {
+          statusCurriculum: true,
+          id: true,
+        },
         with: {
           user: {
             columns: {
@@ -42,11 +46,22 @@ export const listCoordinatorKanbamAction = action(
             },
           },
           certifications: true,
+          comments: {
+            with: {
+              users: {
+                columns: {
+                  name: true,
+                  email: true,
+                  image: true,
+                },
+              },
+            },
+            orderBy(fields, { desc }) {
+              return desc(fields.createdAt);
+            },
+          },
         },
-        columns: {
-          collaboratorId: true,
-          statusCurriculum: true,
-        },
+
         where(fields, operators) {
           return operators.eq(fields.statusCurriculum, "waiting_docs");
         },
@@ -62,19 +77,17 @@ export const listCoordinatorKanbamAction = action(
 
     const studentsSelection = await db.query.curriculums
       .findMany({
-        extras(fields, { sql }) {
-          return {
-            collaboratorName:
-              sql<string>`(SELECT "name" FROM "user" INNER JOIN "curriculum" ON "user".id = "curriculum"."collaboratorId" WHERE "user".id = ${fields.collaboratorId}) `.as(
-                "collaboratorName"
-              ),
-          };
-        },
         columns: {
-          collaboratorId: true,
           statusCurriculum: true,
+          id: true,
         },
         with: {
+          collaborators: {
+            columns: {
+              name: true,
+              email: true,
+            },
+          },
           user: {
             columns: {
               createdAt: true,
@@ -93,7 +106,21 @@ export const listCoordinatorKanbamAction = action(
                   return eq(fields.name, "user");
                 },
               },
-              certifications: true,
+            },
+          },
+          certifications: true,
+          comments: {
+            with: {
+              users: {
+                columns: {
+                  name: true,
+                  email: true,
+                  image: true,
+                },
+              },
+            },
+            orderBy(fields, { desc }) {
+              return desc(fields.createdAt);
             },
           },
         },
@@ -112,19 +139,12 @@ export const listCoordinatorKanbamAction = action(
 
     const studentsFabrication = await db.query.curriculums
       .findMany({
-        extras(fields, { sql }) {
-          return {
-            collaboratorName:
-              sql<string>`(SELECT "name" FROM "user" INNER JOIN "curriculum" ON "user".id = "curriculum"."collaboratorId" WHERE "user".id = ${fields.collaboratorId}) `.as(
-                "collaboratorName"
-              ),
-          };
-        },
         columns: {
-          collaboratorId: true,
           statusCurriculum: true,
+          id: true,
         },
         with: {
+          collaborators: true,
           user: {
             columns: {
               createdAt: true,
@@ -143,7 +163,21 @@ export const listCoordinatorKanbamAction = action(
                   return eq(fields.name, "user");
                 },
               },
-              certifications: true,
+            },
+          },
+          certifications: true,
+          comments: {
+            with: {
+              users: {
+                columns: {
+                  name: true,
+                  email: true,
+                  image: true,
+                },
+              },
+            },
+            orderBy(fields, { desc }) {
+              return desc(fields.createdAt);
             },
           },
         },
@@ -162,19 +196,12 @@ export const listCoordinatorKanbamAction = action(
 
     const studentsRevision = await db.query.curriculums
       .findMany({
-        extras(fields, { sql }) {
-          return {
-            collaboratorName:
-              sql<string>`(SELECT "name" FROM "user" INNER JOIN "curriculum" ON "user".id = "curriculum"."collaboratorId" WHERE "user".id = ${fields.collaboratorId}) `.as(
-                "collaboratorName"
-              ),
-          };
-        },
         columns: {
-          collaboratorId: true,
           statusCurriculum: true,
+          id: true,
         },
         with: {
+          collaborators: true,
           user: {
             columns: {
               createdAt: true,
@@ -193,7 +220,21 @@ export const listCoordinatorKanbamAction = action(
                   return eq(fields.name, "user");
                 },
               },
-              certifications: true,
+            },
+          },
+          certifications: true,
+          comments: {
+            with: {
+              users: {
+                columns: {
+                  name: true,
+                  email: true,
+                  image: true,
+                },
+              },
+            },
+            orderBy(fields, { desc }) {
+              return desc(fields.createdAt);
             },
           },
         },
@@ -212,19 +253,12 @@ export const listCoordinatorKanbamAction = action(
 
     const studentsCurriculumSend = await db.query.curriculums
       .findMany({
-        extras(fields, { sql }) {
-          return {
-            collaboratorName:
-              sql<string>`(SELECT "name" FROM "user" INNER JOIN "curriculum" ON "user".id = "curriculum"."collaboratorId" WHERE "user".id = ${fields.collaboratorId}) `.as(
-                "collaboratorName"
-              ),
-          };
-        },
         columns: {
-          collaboratorId: true,
           statusCurriculum: true,
+          id: true,
         },
         with: {
+          collaborators: true,
           user: {
             columns: {
               createdAt: true,
@@ -243,7 +277,21 @@ export const listCoordinatorKanbamAction = action(
                   return eq(fields.name, "user");
                 },
               },
-              certifications: true,
+            },
+          },
+          certifications: true,
+          comments: {
+            with: {
+              users: {
+                columns: {
+                  name: true,
+                  email: true,
+                  image: true,
+                },
+              },
+            },
+            orderBy(fields, { desc }) {
+              return desc(fields.createdAt);
             },
           },
         },
