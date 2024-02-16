@@ -2,21 +2,21 @@ import React from "react";
 import { Card } from "../../types";
 import { format } from "date-fns";
 import { PaperclipIcon } from "lucide-react";
-import ModalSelection from "../../modal/selection";
+import ModalFabrication from "../../modal/fabrication";
 
 interface CardItemProps {
   data: Card;
 }
 
-export default function CardSelection(props: CardItemProps) {
+export default function CardFabrication(props: CardItemProps) {
   const { data } = props;
-  const [waitingDocsOpen, setWaitingDocsOpen] = React.useState(false);
+  const [fabricationOpen, setfabricationOpen] = React.useState(false);
 
   return (
     <React.Fragment>
-      <ModalSelection
-        onOpenChange={() => setWaitingDocsOpen((state) => !state)}
-        open={waitingDocsOpen}
+      <ModalFabrication
+        onOpenChange={() => setfabricationOpen((state) => !state)}
+        open={fabricationOpen}
         data={data}
       />
 
@@ -24,7 +24,7 @@ export default function CardSelection(props: CardItemProps) {
         role="button"
         className="flex gap-1  flex-col truncate border-2 border-transparent hover:border-black py-2 px-3 text-xs bg-primary-foreground rounded-md shadow-sm"
         onClick={() => {
-          setWaitingDocsOpen(true);
+          setfabricationOpen(true);
         }}
       >
         {data?.user?.name}

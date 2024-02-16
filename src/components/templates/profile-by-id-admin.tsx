@@ -5,6 +5,13 @@ import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 import { Curriculum, Certification } from "@/server/db/types-schema";
 
+type CurriculumWithCollaborators = Curriculum & {
+  collaborators: {
+    name: string | null;
+    email: string | null;
+  } | null;
+};
+
 interface ProfileByIdAdminProps {
   data: {
     id: string;
@@ -13,10 +20,10 @@ interface ProfileByIdAdminProps {
     product: string | null;
     createdAt: Date;
     createPasswordToken: string | null;
-    curriculums: Curriculum | null;
+    amount: string;
+    curriculums: CurriculumWithCollaborators;
     certifications: Certification[] | null;
     roles: Array<{ name: string }>;
-    amount: string;
   };
 }
 
@@ -115,6 +122,17 @@ export default function ProfileByIdAdmin({ data }: ProfileByIdAdminProps) {
                   style: "currency",
                   currency: "BRL",
                 }).format(Number(data.amount))
+              : "-"}
+          </span>
+        </p>
+      )}
+
+      {data && data?.curriculums?.collaborators && (
+        <p className="text-muted-foreground text-lg font-bold">
+          Colaborador associado:{" "}
+          <span className="text-primary text-base ">
+            {data?.curriculums?.collaborators?.name
+              ? data?.curriculums?.collaborators?.name
               : "-"}
           </span>
         </p>

@@ -2,15 +2,14 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import React from "react";
 import { Card } from "../../types";
 import { format } from "date-fns";
-import CommentsComponent from "../../comments";
 
-interface ModalWaitingDocsProps {
+interface ModalFabricationProps {
   onOpenChange: () => void;
   open: boolean;
   data: Card;
 }
 
-export default function ModalWaitingDocs(props: ModalWaitingDocsProps) {
+export default function ModalFabrication(props: ModalFabricationProps) {
   const { onOpenChange, open, data } = props;
 
   return (
@@ -39,7 +38,18 @@ export default function ModalWaitingDocs(props: ModalWaitingDocsProps) {
           <span className="text-primary text-base">{data?.user?.product}</span>
         </p>
 
-        <CommentsComponent data={data} onOpenChange={onOpenChange} />
+        <p className="text-muted-foreground text-lg font-bold">
+          Colaborador associado:{" "}
+          {data?.collaborators?.name ? (
+            <span className="text-primary text-base ">
+              {data?.collaborators?.name && (
+                <span>{data?.collaborators?.name}</span>
+              )}
+            </span>
+          ) : (
+            <span>Não há colaborador associado</span>
+          )}
+        </p>
       </DialogContent>
     </Dialog>
   );

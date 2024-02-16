@@ -1,9 +1,16 @@
 import { CurriculumStatus } from "@/server/db/schema";
-import { Certification, Roles } from "@/server/db/types-schema";
+import { Certification, Comments, Roles } from "@/server/db/types-schema";
+
+export type CommentsWithUser = Comments & {
+  users: {
+    name: string | null;
+    email: string;
+    image: string | null;
+  } | null;
+};
 
 export type Card = {
-  collaboratorId: string | null;
-  collaboratorName?: string | null;
+  id: number;
   statusCurriculum: CurriculumStatus;
   user: {
     email: string;
@@ -15,7 +22,12 @@ export type Card = {
     roles: Array<{
       name: Roles["name"];
     }>;
-    certifications?: Certification[];
+  } | null;
+  certifications?: Certification[];
+  comments: CommentsWithUser[];
+  collaborators?: {
+    name: string | null;
+    email: string;
   } | null;
 };
 

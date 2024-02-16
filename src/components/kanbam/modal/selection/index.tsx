@@ -90,7 +90,7 @@ export default function ModalSelection(props: ModalSelectionProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[480px] max-h-[600px] overflow-auto">
+      <DialogContent className="sm:max-w-[550px] max-h-[600px] overflow-auto">
         <p className="text-muted-foreground text-lg font-bold">
           Nome:{" "}
           <span className="text-primary text-base">{data?.user?.name}</span>
@@ -117,9 +117,8 @@ export default function ModalSelection(props: ModalSelectionProps) {
         <p className="text-muted-foreground text-lg font-bold">
           Certificados:{" "}
           <span className="text-primary text-base ">
-            {data?.user?.certifications &&
-            data?.user?.certifications?.length > 0
-              ? data.user?.certifications.map((certification, index) => (
+            {data?.certifications && data?.certifications?.length > 0
+              ? data.certifications.map((certification, index) => (
                   <React.Fragment key={certification.fileName}>
                     <a
                       href={`${certification.url}`}
@@ -128,8 +127,8 @@ export default function ModalSelection(props: ModalSelectionProps) {
                     >
                       {certification.fileName}
                     </a>
-                    {data?.user?.certifications?.length &&
-                    index !== data?.user?.certifications?.length - 1
+                    {data?.certifications?.length &&
+                    index !== data?.certifications?.length - 1
                       ? ", "
                       : ""}
                   </React.Fragment>
@@ -140,9 +139,15 @@ export default function ModalSelection(props: ModalSelectionProps) {
 
         <p className="text-muted-foreground text-lg font-bold">
           Colaborador associado:{" "}
-          <span className="text-primary text-base ">
-            {data?.collaboratorName && <span>{data?.collaboratorName}</span>}
-          </span>
+          {data?.collaborators?.name ? (
+            <span className="text-primary text-base ">
+              {data?.collaborators?.name && (
+                <span>{data?.collaborators?.name}</span>
+              )}
+            </span>
+          ) : (
+            <span>Não há colaborador associado</span>
+          )}
         </p>
 
         {session?.user?.roleName === "coordinator" && (
