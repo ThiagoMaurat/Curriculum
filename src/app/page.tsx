@@ -32,7 +32,7 @@ export default async function Home() {
                 Personalize seu currículo
               </h2>
               <p className="text-gray-500 dark:text-gray-400">
-                Personalize seu currículo com nossa biblioteca de lindas modelos
+                Personalize seu currículo com nossa biblioteca de lindos modelos
                 projetados.
               </p>
             </div>

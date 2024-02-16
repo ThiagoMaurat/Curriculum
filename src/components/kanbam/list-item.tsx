@@ -7,6 +7,7 @@ import React from "react";
 import CardWaitingDocs from "./card/waiting-docs";
 import { notFound } from "next/navigation";
 import CardSelection from "./card/selection";
+import CardFabrication from "./card/fabrication";
 
 interface ListItemProps {
   data: ListWithCards;
@@ -39,6 +40,12 @@ export const ListItem = ({ data }: ListItemProps) => {
             if (list.title === "Seleção") {
               return list?.cards?.map((card, cardIndex) => (
                 <CardSelection key={cardIndex} data={card} />
+              ));
+            }
+
+            if (list.title === "Fabricação") {
+              return list?.cards?.map((card, cardIndex) => (
+                <CardFabrication key={cardIndex} data={card} />
               ));
             }
 

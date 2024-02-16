@@ -39,7 +39,16 @@ export default async function StudentById({ params }: StudentByIdProps) {
   const listUserById = await db.query.users.findFirst({
     where: eq(users.id, paramsId),
     with: {
-      curriculums: true,
+      curriculums: {
+        with: {
+          collaborators: {
+            columns: {
+              name: true,
+              email: true,
+            },
+          },
+        },
+      },
       certifications: true,
       roles: {
         columns: {
@@ -57,6 +66,7 @@ export default async function StudentById({ params }: StudentByIdProps) {
       amount: true,
     },
   });
+
   if (!listUserById) {
     notFound();
   }

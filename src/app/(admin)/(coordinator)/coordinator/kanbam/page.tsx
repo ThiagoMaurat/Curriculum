@@ -38,13 +38,13 @@ export default async function CollaboratorKanbam() {
       <ListContainer
         data={[
           {
-            cards: listCollaboratorKanbam?.studentsWaitingDocs,
             id: "1",
+            cards: listCollaboratorKanbam?.studentsWaitingDocs,
             title: "Aguardando documentação",
           },
           {
-            cards: listCollaboratorKanbam?.studentsSelection,
             id: "2",
+            cards: listCollaboratorKanbam?.studentsSelection,
             title: "Seleção",
           },
           {
