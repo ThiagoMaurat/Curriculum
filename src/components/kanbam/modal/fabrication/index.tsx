@@ -2,6 +2,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import React from "react";
 import { Card } from "../../types";
 import { format } from "date-fns";
+import CommentsComponent from "../../comments";
 
 interface ModalFabricationProps {
   onOpenChange: () => void;
@@ -50,6 +51,8 @@ export default function ModalFabrication(props: ModalFabricationProps) {
             <span>Não há colaborador associado</span>
           )}
         </p>
+
+        <CommentsComponent data={data} />
       </DialogContent>
     </Dialog>
   );
