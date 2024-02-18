@@ -4,19 +4,19 @@ import RedirectUnauthorized from "@/components/redirect-unauthorized";
 import { ListContainer } from "@/components/kanbam/list-container";
 import { type Metadata } from "next";
 import { unstable_noStore as noStore } from "next/cache";
-import { listCoordinatorKanbamAction } from "@/server/action/list-collaborator-kanbam";
 import { notFound } from "next/navigation";
+import { listCoordinatorKanbamAction } from "@/server/action/list-coordinator-kanbam";
 
 noStore();
 export const revalidate = 0;
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? ""),
-  title: "Admin - Kanbam Colaborador",
-  description: "Área do kanbam coladorador",
+  title: "Admin - Kanbam Coordenador",
+  description: "Área do kanbam Coordenador",
 };
 
-export default async function CollaboratorKanbam() {
+export default async function CoordinatorKanbam() {
   const data = await getServerAuthSession();
 
   if (data?.user.roleName !== "coordinator") {
@@ -25,7 +25,7 @@ export default async function CollaboratorKanbam() {
     );
   }
 
-  const { data: listCollaboratorKanbam, serverError } =
+  const { data: listCoordinatorKanbam, serverError } =
     await listCoordinatorKanbamAction({
       roleName: data?.user.roleName,
     });
@@ -40,28 +40,28 @@ export default async function CollaboratorKanbam() {
         data={[
           {
             id: "1",
-            cards: listCollaboratorKanbam?.studentsWaitingDocs,
+            cards: listCoordinatorKanbam?.studentsWaitingDocs,
             title: "Aguardando documentação",
           },
           {
             id: "2",
-            cards: listCollaboratorKanbam?.studentsSelection,
+            cards: listCoordinatorKanbam?.studentsSelection,
             title: "Seleção",
           },
           {
             id: "3",
             title: "Fabricação",
-            cards: listCollaboratorKanbam?.studentsFabrication,
+            cards: listCoordinatorKanbam?.studentsFabrication,
           },
           {
             id: "4",
             title: "Revisão",
-            cards: listCollaboratorKanbam?.studentsRevision,
+            cards: listCoordinatorKanbam?.studentsRevision,
           },
           {
             id: "5",
             title: "Envio do currículo",
-            cards: listCollaboratorKanbam?.studentsCurriculumSend,
+            cards: listCoordinatorKanbam?.studentsCurriculumSend,
           },
         ]}
       />
