@@ -10,8 +10,11 @@ export const listCollaboratorKanbamAction = action(
     roleName: z.enum(["supervisor", "collaborator", "coordinator", "user"], {
       required_error: "Cargo é obrigatório",
     }),
+    collaboratorId: z
+      .string()
+      .min(1, { message: "Id do coordenador obrigatoriedade" }),
   }),
-  async ({ roleName }) => {
+  async ({ roleName, collaboratorId }) => {
     noStore();
 
     if (roleName !== "collaborator") {
@@ -67,8 +70,11 @@ export const listCollaboratorKanbamAction = action(
             },
           },
         },
-        where(fields, operators) {
-          return operators.eq(fields.statusCurriculum, "fabrication");
+        where(fields, { eq, and }) {
+          return and(
+            eq(fields.statusCurriculum, "fabrication"),
+            eq(fields.collaboratorId, collaboratorId)
+          );
         },
         orderBy(fields, operators) {
           return operators.desc(fields.createdAt);
