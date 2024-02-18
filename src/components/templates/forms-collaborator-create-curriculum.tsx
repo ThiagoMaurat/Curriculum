@@ -17,7 +17,7 @@ import { BlobProvider, PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { Button } from "@/components/ui/button";
 import PDFMerger from "pdf-merger-js";
 
-export default function FormsTemplateAdmin() {
+export function FormsCollaboratorCreateCurriculum() {
   const [currentStep, setCurrentStep] = React.useState(0);
 
   const curriculumSteps: Array<{ title: string }> = [
@@ -75,7 +75,7 @@ export default function FormsTemplateAdmin() {
 
   return (
     <div className="w-full h-full pb-4 flex flex-col gap-12">
-      <div className="flex ring-1 ring-main-primary rounded-2xl py-5 px-4">
+      <div className="flex max-w-6xl mx-auto ring-1 ring-main-primary rounded-2xl py-5 px-4">
         {curriculumSteps.map((step, index) => {
           return (
             <Step

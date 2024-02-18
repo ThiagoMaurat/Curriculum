@@ -60,13 +60,11 @@ export default function ModalFabrication(props: ModalFabricationProps) {
         {/* if fabrication step and is collaborator should see the todo curriculum page */}
         {session?.user?.roleName === "collaborator" && (
           <>
-            <p className="text-muted-foreground text-lg font-bold">
-              Email:{" "}
-              <span className="text-primary text-base">
-                {data?.user?.email}
-              </span>
-            </p>
-            <Link href={`/fabrication/${data?.id}`}>
+            <Link
+              className="w-fit"
+              prefetch={false}
+              href={`/collaborator/todo-curriculum/${data?.id}`}
+            >
               <Button>
                 Fabricar Currículo
                 <Forward className="ml-2 h-4 w-4" />
