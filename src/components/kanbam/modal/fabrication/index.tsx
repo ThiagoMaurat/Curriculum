@@ -3,6 +3,10 @@ import React from "react";
 import { Card } from "../../types";
 import { format } from "date-fns";
 import CommentsComponent from "../../comments";
+import { useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Forward } from "lucide-react";
 
 interface ModalFabricationProps {
   onOpenChange: () => void;
@@ -12,6 +16,7 @@ interface ModalFabricationProps {
 
 export default function ModalFabrication(props: ModalFabricationProps) {
   const { onOpenChange, open, data } = props;
+  const { data: session } = useSession();
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -51,6 +56,24 @@ export default function ModalFabrication(props: ModalFabricationProps) {
             <span>Não há colaborador associado</span>
           )}
         </p>
+
+        {/* if fabrication step and is collaborator should see the todo curriculum page */}
+        {session?.user?.roleName === "collaborator" && (
+          <>
+            <p className="text-muted-foreground text-lg font-bold">
+              Email:{" "}
+              <span className="text-primary text-base">
+                {data?.user?.email}
+              </span>
+            </p>
+            <Link href={`/fabrication/${data?.id}`}>
+              <Button>
+                Fabricar Currículo
+                <Forward className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </>
+        )}
 
         <CommentsComponent data={data} />
       </DialogContent>

@@ -28,6 +28,7 @@ export default async function CollaboratorKanbam() {
   const { data: listCollaboratorKanbam, serverError } =
     await listCollaboratorKanbamAction({
       roleName: data?.user.roleName,
+      collaboratorId: data?.user.id,
     });
 
   if (serverError) {
