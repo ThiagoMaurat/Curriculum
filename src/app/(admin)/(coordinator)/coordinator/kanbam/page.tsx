@@ -7,13 +7,14 @@ import { unstable_noStore as noStore } from "next/cache";
 import { listCoordinatorKanbamAction } from "@/server/action/list-collaborator-kanbam";
 import { notFound } from "next/navigation";
 
+noStore();
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? ""),
   title: "Admin - Kanbam Colaborador",
   description: "Área do kanbam coladorador",
 };
-noStore();
-export const revalidate = 0;
 
 export default async function CollaboratorKanbam() {
   const data = await getServerAuthSession();

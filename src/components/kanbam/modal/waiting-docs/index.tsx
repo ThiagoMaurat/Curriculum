@@ -39,7 +39,7 @@ export default function ModalWaitingDocs(props: ModalWaitingDocsProps) {
           <span className="text-primary text-base">{data?.user?.product}</span>
         </p>
 
-        <CommentsComponent data={data} onOpenChange={onOpenChange} />
+        <CommentsComponent data={data} />
       </DialogContent>
     </Dialog>
   );

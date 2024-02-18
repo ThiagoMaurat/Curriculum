@@ -144,7 +144,12 @@ export const listCoordinatorKanbamAction = action(
           id: true,
         },
         with: {
-          collaborators: true,
+          collaborators: {
+            columns: {
+              name: true,
+              email: true,
+            },
+          },
           user: {
             columns: {
               createdAt: true,
@@ -201,7 +206,12 @@ export const listCoordinatorKanbamAction = action(
           id: true,
         },
         with: {
-          collaborators: true,
+          collaborators: {
+            columns: {
+              name: true,
+              email: true,
+            },
+          },
           user: {
             columns: {
               createdAt: true,
@@ -258,7 +268,12 @@ export const listCoordinatorKanbamAction = action(
           id: true,
         },
         with: {
-          collaborators: true,
+          collaborators: {
+            columns: {
+              name: true,
+              email: true,
+            },
+          },
           user: {
             columns: {
               createdAt: true,

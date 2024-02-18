@@ -17,7 +17,7 @@ export const createCommentAction = action(
       throw new Error("Erro ao criar comentário");
     }
 
-    revalidatePath("/coordinator/kanbam", "page");
+    revalidatePath("/coordinator/kanbam");
 
     return { message: `Comentário criado.` };
   }

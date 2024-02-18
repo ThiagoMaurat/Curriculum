@@ -30,6 +30,7 @@ import {
 import { associateUserByCoordinator } from "@/server/action/associate-user-by-coordinator";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
+import CommentsComponent from "../../comments";
 
 interface ModalSelectionProps {
   onOpenChange: () => void;
@@ -219,6 +220,8 @@ export default function ModalSelection(props: ModalSelectionProps) {
             </CardContent>
           </Card>
         )}
+
+        <CommentsComponent data={data} />
       </DialogContent>
     </Dialog>
   );

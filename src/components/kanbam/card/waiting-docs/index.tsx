@@ -10,13 +10,13 @@ interface CardItemProps {
 export default function CardWaitingDocs(props: CardItemProps) {
   const { data } = props;
   const [waitingDocsOpen, setWaitingDocsOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState<Card | null>(null);
+
   return (
-    <div onClick={() => setSelected(data)}>
+    <div>
       <ModalWaitingDocs
         onOpenChange={() => setWaitingDocsOpen((state) => !state)}
         open={waitingDocsOpen}
-        data={selected!}
+        data={data!}
       />
 
       <div

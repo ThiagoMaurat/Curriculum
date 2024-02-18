@@ -24,19 +24,16 @@ import {
 import { Card } from "../types";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { useRouter } from "next/navigation";
 
 interface CommentsComponentProps {
   data: Card;
-  onOpenChange: () => void;
 }
 
-export default function CommentsComponent({
-  data,
-  onOpenChange,
-}: CommentsComponentProps) {
+export default function CommentsComponent({ data }: CommentsComponentProps) {
   const { data: session } = useSession();
   const { toast } = useToast();
-  const divRef = React.useRef<HTMLDivElement>(null);
+  const router = useRouter();
   const [isPending, startTransition] = React.useTransition();
 
   const commentsForm = useForm<{ message: string }>({
@@ -83,12 +80,12 @@ export default function CommentsComponent({
       });
 
       commentsForm.reset();
-      onOpenChange();
+      router.refresh();
     });
   };
 
   return (
-    <section className="space-y-4" ref={divRef}>
+    <section className="space-y-4">
       <div className="flex items-center gap-2">
         <List className="w-4 h-4 text-primary" />
         <h3 className="text-xl font-bold text-primary">Comentários</h3>
@@ -130,7 +127,7 @@ export default function CommentsComponent({
             </CardHeader>
 
             <CardContent className="pb-3 px-3">
-              <p className="text-sm">{comment.message}</p>
+              <p className="text-sm break-all">{comment.message}</p>
             </CardContent>
           </CardComponent>
         ))}
