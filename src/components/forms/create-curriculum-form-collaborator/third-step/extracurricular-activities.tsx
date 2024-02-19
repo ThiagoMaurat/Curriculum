@@ -29,8 +29,15 @@ import {
 import { ExtracurricularActivitiesConst } from "@/const/extracurricular-activities";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import ModalViewCertificates from "../ModalViewCertificates";
+import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
 
-export default function ExtracurricularActivities() {
+interface ExtracurricularActivitiesProps {
+  data: ListTodoCurriculumByCollaborator;
+}
+export default function ExtracurricularActivities({
+  data,
+}: ExtracurricularActivitiesProps) {
   const { control, watch } = useFormContext<CurriculumFormInput>();
 
   const fieldExtracurricularActivities = useFieldArray<
@@ -44,7 +51,10 @@ export default function ExtracurricularActivities() {
   return (
     <Card className="max-w-2xl w-full">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl">Atividades Extracurriculares</CardTitle>
+        <CardTitle className="text-2xl flex items-center gap-2">
+          Atividades Extracurriculares
+          <ModalViewCertificates data={data?.certifications} />
+        </CardTitle>
         <CardDescription>
           Insira sua atividade extracurricular e informações adicionais.
         </CardDescription>
@@ -59,13 +69,13 @@ export default function ExtracurricularActivities() {
             <div className="w-full flex flex-col sm:flex-row gap-4">
               <FormField
                 control={control}
-                name={`extracurricularActivities.${index}.year` as const}
+                name={`extracurricularActivities.${index}.initialYear` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Ano</FormLabel>
+                    <FormLabel>Ano Inicial</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Insira o ano do evneto"
+                        placeholder="Insira o ano inicial"
                         {...field}
                         type="number"
                       />
@@ -77,7 +87,27 @@ export default function ExtracurricularActivities() {
 
               <FormField
                 control={control}
-                name={`extracurricularActivities.${index}.type` as const}
+                name={`extracurricularActivities.${index}.finalYear` as const}
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>Ano Final</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Insira o ano final"
+                        {...field}
+                        type="number"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className="w-full flex flex-col sm:flex-row gap-4">
+              <FormField
+                control={control}
+                name={`extracurricularActivities.${index}.subcategory` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>Categoria</FormLabel>
@@ -102,6 +132,47 @@ export default function ExtracurricularActivities() {
                                 value={String(category)}
                               >
                                 {category}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={control}
+                name={
+                  `extracurricularActivities.${index}.certifications` as const
+                }
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>Certificados</FormLabel>
+
+                    <FormControl>
+                      <Select
+                        onValueChange={(value) => field.onChange(value)}
+                        name={field.name}
+                        value={field.value}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue
+                            placeholder="Insira os certificados associados"
+                            onChange={field.onChange}
+                          />
+                        </SelectTrigger>
+
+                        <SelectContent>
+                          <SelectGroup>
+                            {data?.certifications?.map((certifications) => (
+                              <SelectItem
+                                key={`${certifications.fileName}-${certifications.userId}`}
+                                value={String(certifications?.url)}
+                              >
+                                {certifications.fileName}
                               </SelectItem>
                             ))}
                           </SelectGroup>
@@ -160,8 +231,10 @@ export default function ExtracurricularActivities() {
             onClick={() =>
               fieldExtracurricularActivities.append({
                 description: "",
-                type: "",
-                year: new Date().getFullYear(),
+                subcategory: "",
+                initialYear: new Date().getFullYear(),
+                finalYear: new Date().getFullYear(),
+                certifications: "",
               })
             }
             type="button"
