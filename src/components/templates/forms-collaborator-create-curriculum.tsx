@@ -115,7 +115,9 @@ export function FormsCollaboratorCreateCurriculum(
           {currentStep === 0 && (
             <FirstStep setCurrentStep={setCurrentStep} data={data} />
           )}
-          {currentStep === 1 && <SecondStep setCurrentStep={setCurrentStep} />}
+          {currentStep === 1 && (
+            <SecondStep setCurrentStep={setCurrentStep} data={data} />
+          )}
           {currentStep === 2 && <ThirdStep setCurrentStep={setCurrentStep} />}
           {currentStep === 3 && (
             <FourthStep>

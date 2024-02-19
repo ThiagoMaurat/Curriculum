@@ -3,19 +3,21 @@ import React from "react";
 import Congress from "./congress";
 import { Card, CardContent } from "@/components/ui/card";
 import Events from "./events";
+import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
 
 interface ThirdStepProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
+  data: ListTodoCurriculumByCollaborator;
 }
 
 export default function SecondSep(props: ThirdStepProps) {
-  const { setCurrentStep } = props;
+  const { data, setCurrentStep } = props;
 
   return (
     <React.Fragment>
       <div className="flex flex-col md:flex-row gap-4">
-        <Congress />
-        <Events />
+        <Congress data={data} />
+        <Events data={data} />
       </div>
 
       <Card className="mt-4 max-w-xl w-full mx-auto">
