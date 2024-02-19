@@ -67,7 +67,7 @@ export default function BibliographyCard({ data }: BibliographyCardProps) {
                 name={`bibliography.${index}.initialYear` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Ano</FormLabel>
+                    <FormLabel>Ano Inicial</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Insira o ano inicial"
@@ -85,7 +85,7 @@ export default function BibliographyCard({ data }: BibliographyCardProps) {
                 name={`bibliography.${index}.finalYear` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Ano</FormLabel>
+                    <FormLabel>Ano Final</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Insira o ano final"
