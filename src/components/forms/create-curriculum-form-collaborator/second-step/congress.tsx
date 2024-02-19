@@ -29,8 +29,14 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { CongressConst } from "@/const/congress";
+import ModalViewCertificates from "../ModalViewCertificates";
+import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
 
-export default function Congress() {
+interface CongressProps {
+  data: ListTodoCurriculumByCollaborator;
+}
+
+export default function Congress({ data }: CongressProps) {
   const { control, watch } = useFormContext<CurriculumFormInput>();
 
   const fieldCongress = useFieldArray<CurriculumFormInput, "congress">({
@@ -41,7 +47,10 @@ export default function Congress() {
   return (
     <Card className="max-w-2xl w-full">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl">Congressos Acadêmicos</CardTitle>
+        <CardTitle className="text-2xl flex items-center gap-2">
+          Congressos Acadêmicos
+          <ModalViewCertificates data={data?.certifications} />
+        </CardTitle>
         <CardDescription>
           Insira seus congressos acadêmicos realizados.
         </CardDescription>
@@ -56,13 +65,13 @@ export default function Congress() {
             <div className="w-full flex flex-col sm:flex-row gap-4">
               <FormField
                 control={control}
-                name={`congress.${index}.year` as const}
+                name={`congress.${index}.initialYear` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Ano</FormLabel>
+                    <FormLabel>Ano Inicial</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Insira o ano do evneto"
+                        placeholder="Insira o ano inicial"
                         {...field}
                         type="number"
                       />
@@ -74,7 +83,27 @@ export default function Congress() {
 
               <FormField
                 control={control}
-                name={`congress.${index}.type` as const}
+                name={`congress.${index}.finalYear` as const}
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>Ano Final</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Insira o ano final"
+                        {...field}
+                        type="number"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className="w-full flex flex-col sm:flex-row gap-4">
+              <FormField
+                control={control}
+                name={`congress.${index}.subcategory` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>Categoria</FormLabel>
@@ -99,6 +128,44 @@ export default function Congress() {
                                 value={String(category)}
                               >
                                 {category}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={control}
+                name={`congress.${index}.certifications` as const}
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>Certificados</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={(value) => field.onChange(value)}
+                        name={field.name}
+                        value={field.value}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue
+                            placeholder="Insira os certificados associados"
+                            onChange={field.onChange}
+                          />
+                        </SelectTrigger>
+
+                        <SelectContent>
+                          <SelectGroup>
+                            {data?.certifications?.map((certifications) => (
+                              <SelectItem
+                                key={`${certifications.fileName}-${certifications.userId}`}
+                                value={String(certifications?.url)}
+                              >
+                                {certifications.fileName}
                               </SelectItem>
                             ))}
                           </SelectGroup>
@@ -154,8 +221,10 @@ export default function Congress() {
             onClick={() =>
               fieldCongress.append({
                 description: "",
-                type: "",
-                year: new Date().getFullYear(),
+                subcategory: "",
+                initialYear: new Date().getFullYear(),
+                finalYear: new Date().getFullYear(),
+                certifications: "",
               })
             }
             type="button"
