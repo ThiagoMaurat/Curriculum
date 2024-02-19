@@ -32,7 +32,7 @@ export default async function TodoCurriculumByCollaborator({
     return <RedirectUnauthorized message="Usuário sem permissão" />;
   }
 
-  if (!params.id || !data.user.roleName) {
+  if (!params.id || isNaN(+paramsId) || !data.user.roleName) {
     return <RedirectUnauthorized message="Parâmetros inválidos" />;
   }
 
@@ -43,17 +43,17 @@ export default async function TodoCurriculumByCollaborator({
       roleName: data.user.roleName,
     });
 
-  if (serverError) {
+  if (serverError || !listTodoCurriculum?.collaboratorCurriculum) {
     return (
       <RedirectUnauthorized message="Erro ao carregar os dados do currículo" />
     );
   }
 
-  console.log(listTodoCurriculum);
-
   return (
     <NoSSRWrapper>
-      <FormsCollaboratorCreateCurriculum />
+      <FormsCollaboratorCreateCurriculum
+        data={listTodoCurriculum.collaboratorCurriculum}
+      />
     </NoSSRWrapper>
   );
 }
