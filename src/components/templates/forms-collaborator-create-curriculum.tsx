@@ -15,8 +15,27 @@ import FirstStep from "../forms/create-curriculum-form-collaborator/first-step";
 import SecondStep from "../forms/create-curriculum-form-collaborator/second-step";
 import ThirdStep from "../forms/create-curriculum-form-collaborator/third-step";
 import FourthStep from "../forms/create-curriculum-form-collaborator/fourth-step";
+import { Certification, Curriculum } from "@/server/db/types-schema";
+import { CurriculumStatus } from "@/server/db/schema";
 
-export function FormsCollaboratorCreateCurriculum() {
+export type ListTodoCurriculumByCollaborator = {
+  statusCurriculum: CurriculumStatus;
+  certifications: Array<Certification>;
+  collaborators: {
+    id: string;
+    name: string | null;
+    email: string;
+  } | null;
+} & Curriculum;
+
+interface FormsCollaboratorCreateCurriculumProps {
+  data: ListTodoCurriculumByCollaborator;
+}
+
+export function FormsCollaboratorCreateCurriculum(
+  props: FormsCollaboratorCreateCurriculumProps
+) {
+  const { data } = props;
   const [currentStep, setCurrentStep] = React.useState(0);
 
   const curriculumSteps: Array<{ title: string }> = [
@@ -93,7 +112,9 @@ export function FormsCollaboratorCreateCurriculum() {
             void methods.handleSubmit(submitHandler)(...args)
           }
         >
-          {currentStep === 0 && <FirstStep setCurrentStep={setCurrentStep} />}
+          {currentStep === 0 && (
+            <FirstStep setCurrentStep={setCurrentStep} data={data} />
+          )}
           {currentStep === 1 && <SecondStep setCurrentStep={setCurrentStep} />}
           {currentStep === 2 && <ThirdStep setCurrentStep={setCurrentStep} />}
           {currentStep === 3 && (

@@ -29,9 +29,14 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Trash } from "lucide-react";
 import { BibliographyConst } from "@/const/bibliography";
-import { watch } from "fs";
+import ModalViewCertificates from "../ModalViewCertificates";
+import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
 
-export default function BibliographyCard() {
+interface BibliographyCardProps {
+  data: ListTodoCurriculumByCollaborator;
+}
+
+export default function BibliographyCard({ data }: BibliographyCardProps) {
   const { control, watch } = useFormContext<CurriculumFormInput>();
 
   const fieldBibliography = useFieldArray<CurriculumFormInput, "bibliography">({
@@ -42,7 +47,9 @@ export default function BibliographyCard() {
   return (
     <Card className="max-w-2xl w-full">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl">Bibliografia</CardTitle>
+        <CardTitle className="text-2xl flex items-center gap-2">
+          Bibliografia <ModalViewCertificates data={data?.certifications} />
+        </CardTitle>
         <CardDescription>
           Insira sua bibliografia e informações adicionais.
         </CardDescription>
@@ -57,13 +64,13 @@ export default function BibliographyCard() {
             <div className="w-full flex flex-col sm:flex-row gap-4">
               <FormField
                 control={control}
-                name={`bibliography.${index}.year` as const}
+                name={`bibliography.${index}.initialYear` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>Ano</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Insira o ano do evneto"
+                        placeholder="Insira o ano inicial"
                         {...field}
                         type="number"
                       />
@@ -75,7 +82,27 @@ export default function BibliographyCard() {
 
               <FormField
                 control={control}
-                name={`bibliography.${index}.type` as const}
+                name={`bibliography.${index}.finalYear` as const}
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>Ano</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Insira o ano final"
+                        {...field}
+                        type="number"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className="w-full flex flex-col sm:flex-row gap-4">
+              <FormField
+                control={control}
+                name={`bibliography.${index}.subcategory` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>Categoria</FormLabel>
@@ -100,6 +127,44 @@ export default function BibliographyCard() {
                                 value={String(category)}
                               >
                                 {category}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={control}
+                name={`bibliography.${index}.certifications` as const}
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>Certificados</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={(value) => field.onChange(value)}
+                        name={field.name}
+                        value={field.value}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue
+                            placeholder="Insira os certificados associados"
+                            onChange={field.onChange}
+                          />
+                        </SelectTrigger>
+
+                        <SelectContent>
+                          <SelectGroup>
+                            {data?.certifications?.map((certifications) => (
+                              <SelectItem
+                                key={`${certifications.fileName}-${certifications.userId}`}
+                                value={String(certifications?.url)}
+                              >
+                                {certifications.fileName}
                               </SelectItem>
                             ))}
                           </SelectGroup>
@@ -155,8 +220,10 @@ export default function BibliographyCard() {
             onClick={() =>
               fieldBibliography.append({
                 description: "",
-                type: "",
-                year: new Date().getFullYear(),
+                subcategory: "",
+                initialYear: new Date().getFullYear(),
+                finalYear: new Date().getFullYear(),
+                certifications: "",
               })
             }
             type="button"

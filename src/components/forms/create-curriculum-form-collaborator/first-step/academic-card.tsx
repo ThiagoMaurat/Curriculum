@@ -29,9 +29,14 @@ import {
 import { AcademicEducationConst } from "@/const/academic-education-category";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { watch } from "fs";
+import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
+import ModalViewCertificates from "../ModalViewCertificates";
 
-export default function AcademicCard() {
+interface AcademicCardProps {
+  data: ListTodoCurriculumByCollaborator;
+}
+
+export default function AcademicCard({ data }: AcademicCardProps) {
   const { control, watch } = useFormContext<CurriculumFormInput>();
 
   const fieldAcademicEducation = useFieldArray<
@@ -45,7 +50,10 @@ export default function AcademicCard() {
   return (
     <Card className="max-w-2xl w-full">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl">Formação Acadêmica</CardTitle>
+        <CardTitle className="text-2xl flex items-center gap-2">
+          Formação Acadêmica
+          <ModalViewCertificates data={data?.certifications} />
+        </CardTitle>
         <CardDescription>
           Insira sua formação acadêmica e informações adicionais.
         </CardDescription>
@@ -60,13 +68,13 @@ export default function AcademicCard() {
             <div className="w-full flex flex-col sm:flex-row gap-4">
               <FormField
                 control={control}
-                name={`academicEducation.${index}.year` as const}
+                name={`academicEducation.${index}.initialYear` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Ano</FormLabel>
+                    <FormLabel>Ano Inicial</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Insira o ano do evneto"
+                        placeholder="Insira o ano inicial"
                         {...field}
                         type="number"
                       />
@@ -78,7 +86,27 @@ export default function AcademicCard() {
 
               <FormField
                 control={control}
-                name={`academicEducation.${index}.type` as const}
+                name={`academicEducation.${index}.finalYear` as const}
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>Ano Final</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Insira o ano final"
+                        {...field}
+                        type="number"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className="w-full flex flex-col sm:flex-row gap-4">
+              <FormField
+                control={control}
+                name={`academicEducation.${index}.subcategory` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>Categoria</FormLabel>
@@ -103,6 +131,44 @@ export default function AcademicCard() {
                                 value={String(category)}
                               >
                                 {category}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={control}
+                name={`academicEducation.${index}.certifications` as const}
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>Certificados</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={(value) => field.onChange(value)}
+                        name={field.name}
+                        value={field.value}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue
+                            placeholder="Insira os certificados associados"
+                            onChange={field.onChange}
+                          />
+                        </SelectTrigger>
+
+                        <SelectContent>
+                          <SelectGroup>
+                            {data?.certifications?.map((certifications) => (
+                              <SelectItem
+                                key={`${certifications.fileName}-${certifications.userId}`}
+                                value={String(certifications?.url)}
+                              >
+                                {certifications.fileName}
                               </SelectItem>
                             ))}
                           </SelectGroup>
@@ -161,8 +227,10 @@ export default function AcademicCard() {
             onClick={() =>
               fieldAcademicEducation.append({
                 description: "",
-                type: "",
-                year: new Date().getFullYear(),
+                subcategory: "",
+                initialYear: new Date().getFullYear(),
+                finalYear: new Date().getFullYear(),
+                certifications: "",
               })
             }
             type="button"

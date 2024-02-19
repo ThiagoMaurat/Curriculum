@@ -16,43 +16,55 @@ export const DEFAULT_FORM: CurriculumFormInput = {
   academicEducation: [
     {
       description: "",
-      type: "",
-      year: new Date().getFullYear(),
+      subcategory: "",
+      finalYear: new Date().getFullYear(),
+      initialYear: new Date().getFullYear(),
+      certifications: "",
     },
   ],
   bibliography: [
     {
       description: "",
-      type: "",
-      year: new Date().getFullYear(),
+      subcategory: "",
+      finalYear: new Date().getFullYear(),
+      initialYear: new Date().getFullYear(),
+      certifications: "",
     },
   ],
   congress: [
     {
       description: "",
-      type: "",
-      year: new Date().getFullYear(),
+      subcategory: "",
+      finalYear: new Date().getFullYear(),
+      initialYear: new Date().getFullYear(),
+      certifications: "",
     },
   ],
   events: [
     {
       description: "",
-      type: "",
-      year: new Date().getFullYear(),
+      subcategory: "",
+      finalYear: new Date().getFullYear(),
+      initialYear: new Date().getFullYear(),
+      certifications: "",
     },
   ],
   extracurricularActivities: [
     {
       description: "",
-      type: "",
-      year: new Date().getFullYear(),
+      subcategory: "",
+      finalYear: new Date().getFullYear(),
+      initialYear: new Date().getFullYear(),
+      certifications: "",
     },
   ],
   professionalExperience: [
     {
       description: "",
-      type: "",
-      year: new Date().getFullYear(),
+      subcategory: "",
+      finalYear: new Date().getFullYear(),
+      initialYear: new Date().getFullYear(),
+      certifications: "",
     },
   ],
   certificateImages: [

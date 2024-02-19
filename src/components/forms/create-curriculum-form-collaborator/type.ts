@@ -1,6 +1,8 @@
 type AcademicEducation = {
-  year: number;
-  type: string;
+  initialYear: number;
+  finalYear: number;
+  subcategory: string;
+  certifications: string;
   description: string;
 };
 
