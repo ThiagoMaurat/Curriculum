@@ -1,4 +1,4 @@
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import React from "react";
 import { Card } from "../../types";
 import { format } from "date-fns";
@@ -9,17 +9,17 @@ import Link from "next/link";
 import { Forward } from "lucide-react";
 
 interface ModalFabricationProps {
-  onOpenChange: () => void;
-  open: boolean;
   data: Card;
+  children: React.ReactNode;
 }
 
 export default function ModalFabrication(props: ModalFabricationProps) {
-  const { onOpenChange, open, data } = props;
+  const { data, children } = props;
   const { data: session } = useSession();
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[550px] max-h-[600px] overflow-auto space-y-2">
         <p className="text-muted-foreground text-lg font-bold">
           Nome:{" "}
@@ -42,6 +42,29 @@ export default function ModalFabrication(props: ModalFabricationProps) {
         <p className="text-muted-foreground text-lg font-bold">
           Produto:{" "}
           <span className="text-primary text-base">{data?.user?.product}</span>
+        </p>
+
+        <p className="text-muted-foreground text-lg font-bold">
+          Certificados:{" "}
+          <span className="text-primary text-base ">
+            {data?.certifications && data?.certifications?.length > 0
+              ? data.certifications.map((certification, index) => (
+                  <React.Fragment key={certification.fileName}>
+                    <a
+                      href={`${certification.url}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {certification.fileName}
+                    </a>
+                    {data?.certifications?.length &&
+                    index !== data?.certifications?.length - 1
+                      ? ", "
+                      : ""}
+                  </React.Fragment>
+                ))
+              : "-"}
+          </span>
         </p>
 
         <p className="text-muted-foreground text-lg font-bold">

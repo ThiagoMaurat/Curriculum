@@ -1,4 +1,4 @@
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import React, { useEffect } from "react";
 import { Card as CardType } from "../../types";
 import { format } from "date-fns";
@@ -33,13 +33,12 @@ import { Button } from "@/components/ui/button";
 import CommentsComponent from "../../comments";
 
 interface ModalSelectionProps {
-  onOpenChange: () => void;
-  open: boolean;
+  children: React.ReactNode;
   data: CardType;
 }
 
 export default function ModalSelection(props: ModalSelectionProps) {
-  const { onOpenChange, open, data } = props;
+  const { data, children } = props;
   const { data: session } = useSession();
   const { toast } = useToast();
   const [coordinators, setCoordinators] = React.useState<
@@ -90,7 +89,8 @@ export default function ModalSelection(props: ModalSelectionProps) {
   }, []);
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[550px] max-h-[600px] overflow-auto">
         <p className="text-muted-foreground text-lg font-bold">
           Nome:{" "}

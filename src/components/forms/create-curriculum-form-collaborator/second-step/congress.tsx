@@ -29,7 +29,6 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { CongressConst } from "@/const/congress";
-import { watch } from "fs";
 
 export default function Congress() {
   const { control, watch } = useFormContext<CurriculumFormInput>();
