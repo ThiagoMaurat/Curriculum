@@ -1,4 +1,4 @@
-import { CurriculumFormInput } from "@/components/forms/curriculum-form-admin/type";
+import { CurriculumFormInput } from "@/components/forms/create-curriculum-form-collaborator/type";
 import { View, Text } from "@react-pdf/renderer";
 import React, { useEffect } from "react";
 import { commonStyles } from "../../common-style";

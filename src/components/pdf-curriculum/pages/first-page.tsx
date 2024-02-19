@@ -1,7 +1,7 @@
 import React from "react";
 import { Page, Text, StyleSheet, View } from "@react-pdf/renderer";
 import { commonStyles } from "../common-style";
-import { CurriculumFormInput } from "../../forms/curriculum-form-admin/type";
+import { CurriculumFormInput } from "../../forms/create-curriculum-form-collaborator/type";
 
 const firstPageStyles = StyleSheet.create({
   view: {

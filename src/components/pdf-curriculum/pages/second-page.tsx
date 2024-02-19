@@ -1,7 +1,7 @@
 import React from "react";
 import { commonStyles } from "../common-style";
 import { Page } from "@react-pdf/renderer";
-import { CurriculumFormInput } from "@/components/forms/curriculum-form-admin/type";
+import { CurriculumFormInput } from "@/components/forms/create-curriculum-form-collaborator/type";
 import PersonalData from "./section/personal-data";
 import AcademicEducation from "./section/academic-education";
 import Bibliography from "./section/bibliography";

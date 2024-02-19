@@ -23,7 +23,7 @@ interface FifthStepProps {
   children?: React.ReactNode;
 }
 
-export default function FifthStep({ children }: FifthStepProps) {
+export default function FourthStep({ children }: FifthStepProps) {
   const { control } = useFormContext<CurriculumFormInput>();
 
   const fieldCertificateImages = useFieldArray<

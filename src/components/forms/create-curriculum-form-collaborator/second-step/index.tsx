@@ -1,21 +1,21 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
-import AcademicCard from "./academic-card";
-import BibliographyCard from "./bibliography-card";
+import Congress from "./congress";
 import { Card, CardContent } from "@/components/ui/card";
+import Events from "./events";
 
-interface SecondStepProps {
+interface ThirdStepProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function SecondStep(props: SecondStepProps) {
+export default function SecondSep(props: ThirdStepProps) {
   const { setCurrentStep } = props;
 
   return (
     <React.Fragment>
       <div className="flex flex-col md:flex-row gap-4">
-        <AcademicCard />
-        <BibliographyCard />
+        <Congress />
+        <Events />
       </div>
 
       <Card className="mt-4 max-w-xl w-full mx-auto">

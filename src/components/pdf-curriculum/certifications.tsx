@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { Image, Page, View, Text } from "@react-pdf/renderer";
 import React from "react";
-import { CurriculumFormInput } from "../forms/curriculum-form-admin/type";
+import { CurriculumFormInput } from "../forms/create-curriculum-form-collaborator/type";
 import { commonStyles } from "./common-style";
 
 interface CertificationsProps {

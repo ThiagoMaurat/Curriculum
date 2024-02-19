@@ -2,28 +2,24 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import FirstStep from "@/components/forms/curriculum-form-admin/first-step";
-import SecondStep from "@/components/forms/curriculum-form-admin/second-step";
-import ThirdStep from "@/components/forms/curriculum-form-admin/third-step";
-import FourthStep from "@/components/forms/curriculum-form-admin/fourth-step";
-import FifthStep from "@/components/forms/curriculum-form-admin/fifth-step";
 import { Step } from "@/components/steper/step";
 import { Form } from "@/components/ui/form";
-import { schema } from "@/components/forms/curriculum-form-admin/schema";
-import { CurriculumFormInput } from "@/components/forms/curriculum-form-admin/type";
-import { DEFAULT_FORM } from "@/components/forms/curriculum-form-admin/data";
+import { schema } from "@/components/forms/create-curriculum-form-collaborator/schema";
+import { CurriculumFormInput } from "@/components/forms/create-curriculum-form-collaborator/type";
+import { DEFAULT_FORM } from "@/components/forms/create-curriculum-form-collaborator/data";
 import { PdfCurriculumTemplate } from "./pdf-curriculum-template-admin";
 import { BlobProvider, PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { Button } from "@/components/ui/button";
 import PDFMerger from "pdf-merger-js";
+import FirstStep from "../forms/create-curriculum-form-collaborator/first-step";
+import SecondStep from "../forms/create-curriculum-form-collaborator/second-step";
+import ThirdStep from "../forms/create-curriculum-form-collaborator/third-step";
+import FourthStep from "../forms/create-curriculum-form-collaborator/fourth-step";
 
 export function FormsCollaboratorCreateCurriculum() {
   const [currentStep, setCurrentStep] = React.useState(0);
 
   const curriculumSteps: Array<{ title: string }> = [
-    {
-      title: "Dados pessoais",
-    },
     {
       title: "Formação e Bibliografia",
     },
@@ -100,9 +96,8 @@ export function FormsCollaboratorCreateCurriculum() {
           {currentStep === 0 && <FirstStep setCurrentStep={setCurrentStep} />}
           {currentStep === 1 && <SecondStep setCurrentStep={setCurrentStep} />}
           {currentStep === 2 && <ThirdStep setCurrentStep={setCurrentStep} />}
-          {currentStep === 3 && <FourthStep setCurrentStep={setCurrentStep} />}
-          {currentStep === 4 && (
-            <FifthStep>
+          {currentStep === 3 && (
+            <FourthStep>
               <BlobProvider
                 document={
                   <PdfCurriculumTemplate
@@ -126,7 +121,7 @@ export function FormsCollaboratorCreateCurriculum() {
                   data={methods.watch() as CurriculumFormInput}
                 />
               </PDFViewer>
-            </FifthStep>
+            </FourthStep>
           )}
         </form>
       </Form>
