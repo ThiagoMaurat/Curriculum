@@ -2,11 +2,11 @@ import React from "react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Text, View } from "@react-pdf/renderer";
-import { CurriculumFormInput } from "@/components/forms/create-curriculum-form-collaborator/type";
 import { commonStyles } from "../../common-style";
+import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
 
 interface PersonalDataProps {
-  data: CurriculumFormInput;
+  data: ListTodoCurriculumByCollaborator;
 }
 
 export default function PersonalData({ data }: PersonalDataProps) {

@@ -2,12 +2,17 @@ import { CurriculumFormInput } from "@/components/forms/create-curriculum-form-c
 import { View, Text } from "@react-pdf/renderer";
 import React from "react";
 import { commonStyles } from "../../common-style";
+import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
 
 interface AcademicEducationProps {
   data: CurriculumFormInput;
+  secondStepData: ListTodoCurriculumByCollaborator;
 }
 
-export default function AcademicEducation({ data }: AcademicEducationProps) {
+export default function AcademicEducation({
+  data,
+  secondStepData,
+}: AcademicEducationProps) {
   if (!data.academicEducation || data.academicEducation.length === 0) {
     return null;
   }
@@ -34,7 +39,7 @@ export default function AcademicEducation({ data }: AcademicEducationProps) {
         {data.academicEducation.map((item, index) => (
           <View key={`academic-education-${index}`}>
             <Text style={[commonStyles.subChapter]}>
-              {`2.${index + 1} ${item.type}`}
+              {`2.${index + 1} ${item.subcategory}`}
             </Text>
 
             <View
@@ -46,7 +51,9 @@ export default function AcademicEducation({ data }: AcademicEducationProps) {
                 marginTop: 10,
               }}
             >
-              <Text style={commonStyles.descriptionTitle}>{item.year}</Text>
+              <Text style={commonStyles.descriptionTitle}>
+                {item.initialYear}
+              </Text>
               <Text style={commonStyles.subtitle}>{item.description}</Text>
             </View>
           </View>

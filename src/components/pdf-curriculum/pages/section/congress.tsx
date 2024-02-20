@@ -30,7 +30,7 @@ export default function Congress({ data }: CongressProps) {
         {data.congress.map((item, index) => (
           <View key={`academic-education-${index}`}>
             <Text style={[commonStyles.subChapter]}>
-              {`${3}.${index + 1} ${item.type}`}
+              {`${3}.${index + 1} ${item.subcategory}`}
             </Text>
 
             <View
@@ -42,7 +42,9 @@ export default function Congress({ data }: CongressProps) {
                 marginTop: 10,
               }}
             >
-              <Text style={commonStyles.descriptionTitle}>{item.year}</Text>
+              <Text style={commonStyles.descriptionTitle}>
+                {item.initialYear}
+              </Text>
               <Text style={commonStyles.subtitle}>{item.description}</Text>
             </View>
           </View>

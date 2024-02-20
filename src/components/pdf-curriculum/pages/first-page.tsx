@@ -1,7 +1,7 @@
 import React from "react";
 import { Page, Text, StyleSheet, View } from "@react-pdf/renderer";
 import { commonStyles } from "../common-style";
-import { CurriculumFormInput } from "../../forms/create-curriculum-form-collaborator/type";
+import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
 
 const firstPageStyles = StyleSheet.create({
   view: {
@@ -15,7 +15,7 @@ const firstPageStyles = StyleSheet.create({
 });
 
 interface FirstPageProps {
-  data: CurriculumFormInput;
+  data: ListTodoCurriculumByCollaborator;
 }
 
 export default function FirstPage({ data }: FirstPageProps) {

@@ -34,7 +34,7 @@ export default function Bibliography({ data }: BibliographyProps) {
         {data.bibliography.map((item, index) => (
           <View key={`academic-education-${index}`}>
             <Text style={[commonStyles.subChapter]}>
-              {`2.${index + 1} ${item.type}`}
+              {`2.${index + 1} ${item.subcategory}`}
             </Text>
 
             <View
@@ -46,7 +46,9 @@ export default function Bibliography({ data }: BibliographyProps) {
                 marginTop: 10,
               }}
             >
-              <Text style={commonStyles.descriptionTitle}>{item.year}</Text>
+              <Text style={commonStyles.descriptionTitle}>
+                {item.initialYear}
+              </Text>
               <Text style={commonStyles.subtitle}>{item.description}</Text>
             </View>
           </View>

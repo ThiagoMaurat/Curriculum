@@ -10,6 +10,7 @@ export const commonStyles = StyleSheet.create({
   title: {
     fontSize: 14,
     fontWeight: "bold",
+    fontFamily: "Times-Roman",
   },
   subtitle: {
     fontSize: 12,

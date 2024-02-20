@@ -126,6 +126,7 @@ export function FormsCollaboratorCreateCurriculum(
               <BlobProvider
                 document={
                   <PdfCurriculumTemplate
+                    formsFilledByStudent={data}
                     data={methods.watch() as CurriculumFormInput}
                   />
                 }
@@ -143,6 +144,7 @@ export function FormsCollaboratorCreateCurriculum(
 
               <PDFViewer className="w-full h-full min-h-96">
                 <PdfCurriculumTemplate
+                  formsFilledByStudent={data}
                   data={methods.watch() as CurriculumFormInput}
                 />
               </PDFViewer>

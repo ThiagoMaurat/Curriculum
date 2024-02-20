@@ -3,9 +3,11 @@ import FirstPage from "@/components/pdf-curriculum/pages/first-page";
 import Certifications from "@/components/pdf-curriculum/certifications";
 import { Document, Font } from "@react-pdf/renderer";
 import SecondPage from "@/components/pdf-curriculum/pages/second-page";
+import { ListTodoCurriculumByCollaborator } from "./forms-collaborator-create-curriculum";
 
 interface PdfCurriculumTemplateProps {
   data: CurriculumFormInput;
+  formsFilledByStudent: ListTodoCurriculumByCollaborator;
 }
 
 Font.register({
@@ -31,12 +33,38 @@ Font.register({
   ],
 });
 
-export const PdfCurriculumTemplate = ({ data }: PdfCurriculumTemplateProps) => {
+Font.register({
+  family: "Times-Roman",
+  fonts: [
+    {
+      src: "/Times-Roman.ttf",
+    },
+    {
+      src: "/Times-Roman-Bold.ttf",
+      fontWeight: "bold",
+    },
+    {
+      src: "/Times-Roman-Italic.ttf",
+      fontWeight: "normal",
+      fontStyle: "italic",
+    },
+    {
+      src: "/Times-Roman-Bold-Italic.ttf",
+      fontWeight: "bold",
+      fontStyle: "italic",
+    },
+  ],
+});
+
+export const PdfCurriculumTemplate = ({
+  data,
+  formsFilledByStudent,
+}: PdfCurriculumTemplateProps) => {
   return (
     <Document style={{ fontFamily: "Ubuntu" }}>
-      <FirstPage data={data} />
-      <SecondPage data={data} />
-      <Certifications data={data} />
+      <FirstPage data={formsFilledByStudent} />
+      <SecondPage secondStepData={formsFilledByStudent} data={data} />
+      {/* <Certifications data={data} /> */}
     </Document>
   );
 };
