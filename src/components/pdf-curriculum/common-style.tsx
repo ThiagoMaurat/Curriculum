@@ -2,32 +2,31 @@ import { StyleSheet } from "@react-pdf/renderer";
 
 export const commonStyles = StyleSheet.create({
   body: {
-    paddingTop: 55,
+    paddingTop: 35,
     paddingBottom: 65,
-    paddingLeft: 40,
-    paddingRight: 65,
+    paddingHorizontal: 35,
   },
   title: {
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: "bold",
-    fontFamily: "Times-Roman",
-  },
-  subtitle: {
-    fontSize: 12,
-    fontWeight: "bold",
-  },
-  descriptionTitle: {
-    fontWeight: "normal",
-    fontSize: 10,
+    fontFamily: "Times New Roman",
   },
   chapter: {
-    marginVertical: 6,
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 18,
+    fontFamily: "Calibri",
   },
-  subChapter: {
-    marginVertical: 6,
+  fieldText: {
     fontSize: 12,
+    fontWeight: "bold",
+    fontFamily: "Times New Roman",
+  },
+  fieldAdditionalText: {
+    fontWeight: "normal",
+    fontSize: 12,
+    fontFamily: "Times New Roman",
+  },
+  subtitle: {
+    fontSize: 18,
     fontWeight: "bold",
   },
   author: {

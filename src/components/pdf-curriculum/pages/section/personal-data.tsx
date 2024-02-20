@@ -1,7 +1,7 @@
 import React from "react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { Text, View } from "@react-pdf/renderer";
+import { Text, View, Tspan } from "@react-pdf/renderer";
 import { commonStyles } from "../../common-style";
 import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
 
@@ -12,17 +12,25 @@ interface PersonalDataProps {
 export default function PersonalData({ data }: PersonalDataProps) {
   return (
     <React.Fragment>
+      <Text style={[commonStyles.title]}>Sumário</Text>
+
       <Text style={[commonStyles.title, { fontStyle: "italic" }]}>
         Curriculum Vitae
       </Text>
 
       {data?.fullName && (
-        <Text style={[commonStyles.title, { fontStyle: "italic" }]}>
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: "bold",
+            fontFamily: "Times New Roman",
+          }}
+        >
           {data?.fullName}
         </Text>
       )}
 
-      {data.selfDescription && (
+      {/* {data.selfDescription && (
         <View
           style={{
             display: "flex",
@@ -42,116 +50,120 @@ export default function PersonalData({ data }: PersonalDataProps) {
             {data.selfDescription}
           </Text>
         </View>
-      )}
+      )} */}
 
-      <View style={[commonStyles.commonCentralizedView, { marginVertical: 8 }]}>
-        <Text style={commonStyles.chapter}>1. DADOS PESSOAIS</Text>
+      <View style={[commonStyles.commonCentralizedView, { marginTop: 32 }]}>
+        <Text style={[commonStyles.chapter]}>1. DADOS PESSOAIS</Text>
       </View>
 
       {data?.fullName && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>Nome: </Text>
-            <Text style={commonStyles.descriptionTitle}>{data?.fullName}</Text>
-          </>
+        <View>
+          <Text style={commonStyles.fieldText}>
+            Nome:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>
+              {data?.fullName}
+            </Text>
+          </Text>
         </View>
       )}
 
       {data?.fathersName && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>Nome do Pai: </Text>
-            <Text style={commonStyles.descriptionTitle}>
+        <View>
+          <Text style={commonStyles.fieldText}>
+            Nome do Pai:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>
               {data?.fathersName}
             </Text>
-          </>
+          </Text>
         </View>
       )}
 
       {data?.mothersName && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>Nome da Mae: </Text>
-            <Text style={commonStyles.descriptionTitle}>
+        <View>
+          <Text style={commonStyles.fieldText}>
+            Nome da Mae:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>
               {data?.mothersName}
             </Text>
-          </>
+          </Text>
         </View>
       )}
 
       {data?.birthday && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>Data de Nascimento: </Text>
-            <Text style={commonStyles.descriptionTitle}>
+        <View>
+          <Text style={commonStyles.fieldText}>
+            Data de Nascimento:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>
               {format(data?.birthday, "dd/MM/yyyy", { locale: ptBR })}
             </Text>
-          </>
+          </Text>
         </View>
       )}
 
       {data?.identityDocument && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>Documento de identidade: </Text>
-            <Text style={commonStyles.descriptionTitle}>
+        <View>
+          <Text style={commonStyles.fieldText}>
+            Documento de identidade:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>
               {data?.identityDocument}
             </Text>
-          </>
+          </Text>
         </View>
       )}
 
       {data?.CRM && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>CRM: </Text>
-            <Text style={commonStyles.descriptionTitle}>{data?.CRM}</Text>
-          </>
+        <View>
+          <Text style={commonStyles.fieldText}>
+            CRM:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>{data?.CRM}</Text>
+          </Text>
         </View>
       )}
 
       {data?.CPF && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>CPF: </Text>
-            <Text style={commonStyles.descriptionTitle}>{data?.CPF}</Text>
-          </>
+        <View>
+          <Text style={commonStyles.fieldText}>
+            CPF:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>{data?.CPF}</Text>
+          </Text>
         </View>
       )}
 
       {data?.phone && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>Telefone: </Text>
-            <Text style={commonStyles.descriptionTitle}>{data?.phone}</Text>
-          </>
+        <View>
+          <Text style={commonStyles.fieldText}>
+            Telefone:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>{data?.phone}</Text>
+          </Text>
         </View>
       )}
 
       {data?.address && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>Endereço: </Text>
-            <Text style={commonStyles.descriptionTitle}>{data?.address}</Text>
-          </>
+        <View>
+          <Text style={commonStyles.fieldText}>
+            Endereço:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>
+              {data?.address}
+            </Text>
+          </Text>
         </View>
       )}
 
       {data?.email && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>E-mail: </Text>
-            <Text style={commonStyles.descriptionTitle}>{data?.email}</Text>
-          </>
+        <View>
+          <Text style={commonStyles.fieldText}>
+            E-mail:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>{data?.email}</Text>
+          </Text>
         </View>
       )}
 
       {data?.lattes && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>Lattes: </Text>
-            <Text style={commonStyles.descriptionTitle}>{data?.lattes}</Text>
-          </>
+        <View>
+          <Text style={commonStyles.fieldText}>
+            Lattes:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>{data?.lattes}</Text>
+          </Text>
         </View>
       )}
 

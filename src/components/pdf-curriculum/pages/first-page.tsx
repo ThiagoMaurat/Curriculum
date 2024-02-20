@@ -28,8 +28,9 @@ export default function FirstPage({ data }: FirstPageProps) {
           style={{
             fontStyle: "italic",
             textAlign: "center",
-            fontSize: 22,
+            fontSize: 18,
             fontWeight: "bold",
+            fontFamily: "Times New Roman",
           }}
         >
           {fullName}
@@ -47,8 +48,9 @@ export default function FirstPage({ data }: FirstPageProps) {
             style={{
               textAlign: "center",
               fontStyle: "italic",
-              fontSize: 22,
+              fontSize: 18,
               fontWeight: "bold",
+              fontFamily: "Times New Roman",
             }}
           >
             CURRICULUM VITAE
@@ -56,10 +58,10 @@ export default function FirstPage({ data }: FirstPageProps) {
           <Text
             style={{
               textAlign: "center",
-              fontStyle: "italic",
-              fontSize: 22,
+              fontSize: 16,
               fontWeight: "bold",
-              marginTop: 10,
+              marginTop: 20,
+              fontFamily: "Times New Roman",
             }}
           >
             Medicina

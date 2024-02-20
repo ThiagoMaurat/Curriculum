@@ -19,12 +19,7 @@ export default function AcademicEducation({
 
   return (
     <React.Fragment>
-      <View
-        style={[
-          commonStyles.commonCentralizedView,
-          { marginTop: 4, marginBottom: 4 },
-        ]}
-      >
+      <View style={[commonStyles.commonCentralizedView, { marginTop: 32 }]}>
         <Text style={commonStyles.chapter}>2. FORMAÇÃO ACADÊMICA</Text>
       </View>
 
@@ -38,7 +33,7 @@ export default function AcademicEducation({
       >
         {data.academicEducation.map((item, index) => (
           <View key={`academic-education-${index}`}>
-            <Text style={[commonStyles.subChapter]}>
+            <Text style={[commonStyles.fieldText]}>
               {`2.${index + 1} ${item.subcategory}`}
             </Text>
 
@@ -51,7 +46,7 @@ export default function AcademicEducation({
                 marginTop: 10,
               }}
             >
-              <Text style={commonStyles.descriptionTitle}>
+              <Text style={commonStyles.fieldAdditionalText}>
                 {item.initialYear}
               </Text>
               <Text style={commonStyles.subtitle}>{item.description}</Text>
