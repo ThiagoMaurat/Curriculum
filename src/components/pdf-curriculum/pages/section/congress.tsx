@@ -1,22 +1,26 @@
 import { CurriculumFormInput } from "@/components/forms/create-curriculum-form-collaborator/type";
 import { View, Text } from "@react-pdf/renderer";
-import React, { useEffect } from "react";
+import React from "react";
 import { commonStyles } from "../../common-style";
+import { formatBySequenceForms } from "../../helpers/format-by-sequence-forms";
 
 interface CongressProps {
   data: CurriculumFormInput;
 }
 
 export default function Congress({ data }: CongressProps) {
+  if (!data.congress || !data.congress?.[0].description) {
+    return null;
+  }
+
   return (
     <React.Fragment>
-      <View
-        style={[
-          commonStyles.commonCentralizedView,
-          { marginTop: 4, marginBottom: 4 },
-        ]}
-      >
-        <Text style={commonStyles.chapter}>{`${3}. Congresso Acadêmico`}</Text>
+      <View style={[commonStyles.commonCentralizedView, { marginTop: 32 }]}>
+        <Text style={commonStyles.chapter}>
+          {`${
+            formatBySequenceForms(data).congress
+          }. CONGRESSOS E EVENTOS CIENTÍFICOS`}
+        </Text>
       </View>
 
       <View
@@ -28,24 +32,43 @@ export default function Congress({ data }: CongressProps) {
         }}
       >
         {data.congress.map((item, index) => (
-          <View key={`academic-education-${index}`}>
-            <Text style={[commonStyles.fieldText]}>
-              {`${3}.${index + 1} ${item.subcategory}`}
+          <View
+            key={`academic-education-${index}`}
+            style={index > 0 ? { paddingTop: 30 } : undefined}
+          >
+            <Text style={[commonStyles.subtitle]}>
+              {`${formatBySequenceForms(data).congress}. ${index + 1} ${
+                item.subcategory
+              }`}
             </Text>
 
             <View
               style={{
                 display: "flex",
                 flexDirection: "row",
-                textAlign: "justify",
-                gap: 10,
+                alignItems: "center",
                 marginTop: 10,
+                gap: 25,
               }}
             >
-              <Text style={commonStyles.fieldAdditionalText}>
-                {item.initialYear}
+              <Text
+                style={[
+                  commonStyles.yearsText,
+                  { alignSelf: "flex-start", paddingTop: 3 },
+                ]}
+              >
+                {`${item.initialYear} ${
+                  item.finalYear ? `- ${item.finalYear}` : ""
+                }`}
               </Text>
-              <Text style={commonStyles.subtitle}>{item.description}</Text>
+              <Text
+                style={[
+                  commonStyles.yearsAdditionalText,
+                  { textAlign: "justify", flex: 1 },
+                ]}
+              >
+                {item.description}
+              </Text>
             </View>
           </View>
         ))}

@@ -2,9 +2,10 @@ import { StyleSheet } from "@react-pdf/renderer";
 
 export const commonStyles = StyleSheet.create({
   body: {
-    paddingTop: 35,
+    paddingTop: 55,
     paddingBottom: 65,
-    paddingHorizontal: 35,
+    paddingLeft: 55,
+    paddingRight: 65,
   },
   title: {
     fontSize: 18,
@@ -26,8 +27,19 @@ export const commonStyles = StyleSheet.create({
     fontFamily: "Times New Roman",
   },
   subtitle: {
-    fontSize: 18,
+    fontSize: 14,
+    fontFamily: "Calibri",
+  },
+  yearsText: {
+    fontSize: 10,
+    fontFamily: "Cambria",
     fontWeight: "bold",
+  },
+  yearsAdditionalText: {
+    fontSize: 10,
+    fontFamily: "Cambria",
+    textDecoration: "underline",
+    fontWeight: "normal",
   },
   author: {
     fontSize: 8,

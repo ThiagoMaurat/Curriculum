@@ -13,7 +13,7 @@ export default function AcademicEducation({
   data,
   secondStepData,
 }: AcademicEducationProps) {
-  if (!data.academicEducation || data.academicEducation.length === 0) {
+  if (!data.academicEducation || !data.academicEducation?.[0].description) {
     return null;
   }
 
@@ -32,8 +32,11 @@ export default function AcademicEducation({
         }}
       >
         {data.academicEducation.map((item, index) => (
-          <View key={`academic-education-${index}`}>
-            <Text style={[commonStyles.fieldText]}>
+          <View
+            key={`academic-education-${index}`}
+            style={index > 0 ? { paddingTop: 30 } : undefined}
+          >
+            <Text style={[commonStyles.subtitle]}>
               {`2.${index + 1} ${item.subcategory}`}
             </Text>
 
@@ -41,15 +44,29 @@ export default function AcademicEducation({
               style={{
                 display: "flex",
                 flexDirection: "row",
-                textAlign: "justify",
-                gap: 10,
+                alignItems: "center",
                 marginTop: 10,
+                gap: 25,
               }}
             >
-              <Text style={commonStyles.fieldAdditionalText}>
-                {item.initialYear}
+              <Text
+                style={[
+                  commonStyles.yearsText,
+                  { alignSelf: "flex-start", paddingTop: 3 },
+                ]}
+              >
+                {`${item.initialYear} ${
+                  item.finalYear ? `- ${item.finalYear}` : ""
+                }`}
               </Text>
-              <Text style={commonStyles.subtitle}>{item.description}</Text>
+              <Text
+                style={[
+                  commonStyles.yearsAdditionalText,
+                  { textAlign: "justify", flex: 1 },
+                ]}
+              >
+                {item.description}
+              </Text>
             </View>
           </View>
         ))}
