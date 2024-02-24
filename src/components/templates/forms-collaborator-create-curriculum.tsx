@@ -54,7 +54,7 @@ export function FormsCollaboratorCreateCurriculum(
   ];
 
   const methods = useForm<CurriculumFormInput>({
-    /* resolver: zodResolver(schema), */
+    resolver: zodResolver(schema),
     mode: "onChange",
     defaultValues: DEFAULT_FORM,
   });

@@ -4,6 +4,8 @@ import Congress from "./congress-events";
 import { Card, CardContent } from "@/components/ui/card";
 import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
 import ExtracurricularActivities from "./extracurricular-activities";
+import { useFormContext } from "react-hook-form";
+import { CurriculumFormInput } from "../type";
 
 interface ThirdStepProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
@@ -12,6 +14,18 @@ interface ThirdStepProps {
 
 export default function SecondSep(props: ThirdStepProps) {
   const { data, setCurrentStep } = props;
+  const { trigger } = useFormContext<CurriculumFormInput>();
+
+  const validateSecondStepStudent = async () => {
+    const [eventsCongress, extracurricularActivities] = await Promise.all([
+      trigger("eventsCongress"),
+      trigger("extracurricularActivities"),
+    ]);
+
+    if (eventsCongress && extracurricularActivities) {
+      setCurrentStep(2);
+    }
+  };
 
   return (
     <React.Fragment>
@@ -26,7 +40,7 @@ export default function SecondSep(props: ThirdStepProps) {
             type="button"
             className="self-center align-middle w-full"
             variant="default"
-            onClick={() => setCurrentStep(2)}
+            onClick={() => validateSecondStepStudent()}
           >
             Próximo passo
           </Button>

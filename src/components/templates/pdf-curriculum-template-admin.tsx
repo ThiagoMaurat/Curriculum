@@ -1,7 +1,6 @@
 "use client";
 import { CurriculumFormInput } from "@/components/forms/create-curriculum-form-collaborator/type";
 import FirstPage from "@/components/pdf-curriculum/pages/first-page";
-import Certifications from "@/components/pdf-curriculum/certifications";
 import { Document, Font } from "@react-pdf/renderer";
 import SecondPage from "@/components/pdf-curriculum/pages/second-page";
 import { ListTodoCurriculumByCollaborator } from "./forms-collaborator-create-curriculum";
@@ -71,7 +70,6 @@ export const PdfCurriculumTemplate = ({
     <Document>
       <FirstPage data={formsFilledByStudent} />
       <SecondPage userApiData={formsFilledByStudent} data={data} />
-      {/* <Certifications data={data} /> */}
     </Document>
   );
 };

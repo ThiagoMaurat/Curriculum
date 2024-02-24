@@ -3,6 +3,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ProfessionalExperience from "./professional-experience";
 import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
+import { useFormContext } from "react-hook-form";
+import { CurriculumFormInput } from "../type";
 
 interface FourthStepProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
@@ -11,6 +13,15 @@ interface FourthStepProps {
 
 export default function ThirdStep(props: FourthStepProps) {
   const { data, setCurrentStep } = props;
+  const { trigger } = useFormContext<CurriculumFormInput>();
+
+  const validateSecondStepStudent = async () => {
+    const professionalExperience = await trigger("professionalExperience");
+
+    if (professionalExperience) {
+      setCurrentStep(3);
+    }
+  };
 
   return (
     <React.Fragment>
@@ -24,7 +35,7 @@ export default function ThirdStep(props: FourthStepProps) {
             type="button"
             className="self-center align-middle w-full"
             variant="default"
-            onClick={() => setCurrentStep(3)}
+            onClick={() => validateSecondStepStudent()}
           >
             Próximo passo
           </Button>
