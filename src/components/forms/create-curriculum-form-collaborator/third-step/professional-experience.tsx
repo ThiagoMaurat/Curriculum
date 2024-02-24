@@ -29,43 +29,54 @@ import {
 import { ExtracurricularActivitiesConst } from "@/const/extracurricular-activities";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import ModalViewCertificates from "../ModalViewCertificates";
+import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
 
-export default function ExtracurricularActivities() {
+interface ProfessionalExperienceProps {
+  data: ListTodoCurriculumByCollaborator;
+}
+
+export default function ProfessionalExperience({
+  data,
+}: ProfessionalExperienceProps) {
   const { control, watch } = useFormContext<CurriculumFormInput>();
 
-  const fieldExtracurricularActivities = useFieldArray<
+  const fieldProfessionalExperience = useFieldArray<
     CurriculumFormInput,
-    "extracurricularActivities"
+    "professionalExperience"
   >({
     control: control,
-    name: "extracurricularActivities",
+    name: "professionalExperience",
   });
 
   return (
     <Card className="max-w-2xl w-full">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl">Atividades Extracurriculares</CardTitle>
+        <CardTitle className="text-2xl flex items-center gap-2">
+          Atuação Profissional{" "}
+          <ModalViewCertificates data={data?.certifications} />
+        </CardTitle>
         <CardDescription>
-          Insira sua atividade extracurricular e informações adicionais.
+          Insira sua experiência profissional e informações adicionais.
         </CardDescription>
       </CardHeader>
 
       <CardContent className="w-full">
-        {fieldExtracurricularActivities.fields.map((field, index) => (
+        {fieldProfessionalExperience.fields.map((field, index) => (
           <div
             className="w-full flex flex-col gap-2"
-            key={`fieldExtracurricularActivities-${index}`}
+            key={`fieldProfessionalExperience-${index}`}
           >
             <div className="w-full flex flex-col sm:flex-row gap-4">
               <FormField
                 control={control}
-                name={`extracurricularActivities.${index}.year` as const}
+                name={`professionalExperience.${index}.initialYear` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Ano</FormLabel>
+                    <FormLabel>Ano Inicial</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Insira o ano do evneto"
+                        placeholder="Insira o ano inicial"
                         {...field}
                         type="number"
                       />
@@ -77,7 +88,27 @@ export default function ExtracurricularActivities() {
 
               <FormField
                 control={control}
-                name={`extracurricularActivities.${index}.type` as const}
+                name={`professionalExperience.${index}.finalYear` as const}
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>Ano Final</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Insira o ano final"
+                        {...field}
+                        type="number"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className="w-full flex flex-col sm:flex-row gap-4">
+              <FormField
+                control={control}
+                name={`professionalExperience.${index}.subcategory` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>Categoria</FormLabel>
@@ -112,11 +143,49 @@ export default function ExtracurricularActivities() {
                   </FormItem>
                 )}
               />
+
+              <FormField
+                control={control}
+                name={`professionalExperience.${index}.certifications` as const}
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>Certificados</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={(value) => field.onChange(value)}
+                        name={field.name}
+                        value={field.value}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue
+                            placeholder="Insira os certificados associados"
+                            onChange={field.onChange}
+                          />
+                        </SelectTrigger>
+
+                        <SelectContent>
+                          <SelectGroup>
+                            {data?.certifications?.map((certifications) => (
+                              <SelectItem
+                                key={`${certifications.key}-${certifications.userId}-professionalExperience`}
+                                value={String(certifications?.url)}
+                              >
+                                {certifications.fileName}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
 
             <FormField
               control={control}
-              name={`extracurricularActivities.${index}.description` as const}
+              name={`professionalExperience.${index}.description` as const}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Descrição</FormLabel>
@@ -130,12 +199,12 @@ export default function ExtracurricularActivities() {
                       />
 
                       {watch(
-                        `extracurricularActivities.${index}.description` as const
+                        `professionalExperience.${index}.description` as const
                       ) && (
                         <p className="text-xs text-muted-foreground w-full text-end">
                           {
                             watch(
-                              `extracurricularActivities.${index}.description` as const
+                              `professionalExperience.${index}.description` as const
                             ).length
                           }
                           / 400
@@ -148,8 +217,8 @@ export default function ExtracurricularActivities() {
               )}
             />
 
-            {fieldExtracurricularActivities.fields.length > 1 &&
-              fieldExtracurricularActivities.fields.length - 1 !== index && (
+            {fieldProfessionalExperience.fields.length > 1 &&
+              fieldProfessionalExperience.fields.length - 1 !== index && (
                 <Separator orientation="horizontal" className="my-3" />
               )}
           </div>
@@ -158,10 +227,12 @@ export default function ExtracurricularActivities() {
         <div className="w-full mt-4 flex sm:flex-row flex-col gap-2">
           <Button
             onClick={() =>
-              fieldExtracurricularActivities.append({
+              fieldProfessionalExperience.append({
                 description: "",
-                type: "",
-                year: new Date().getFullYear(),
+                subcategory: "",
+                initialYear: new Date().getFullYear(),
+                finalYear: new Date().getFullYear(),
+                certifications: "",
               })
             }
             type="button"
@@ -171,11 +242,11 @@ export default function ExtracurricularActivities() {
             <ArrowRight className="h-4 w-4 ml-1" />
           </Button>
 
-          {fieldExtracurricularActivities.fields.length > 1 && (
+          {fieldProfessionalExperience.fields.length > 0 && (
             <Button
               onClick={() =>
-                fieldExtracurricularActivities.remove(
-                  fieldExtracurricularActivities.fields.length - 1
+                fieldProfessionalExperience.remove(
+                  fieldProfessionalExperience.fields.length - 1
                 )
               }
               type="button"

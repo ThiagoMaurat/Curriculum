@@ -1,22 +1,32 @@
 import { CurriculumFormInput } from "@/components/forms/create-curriculum-form-collaborator/type";
-import { View, Text } from "@react-pdf/renderer";
 import React from "react";
+import { View, Text } from "@react-pdf/renderer";
 import { commonStyles } from "../../common-style";
+import { formatBySequenceForms } from "../../helpers/format-chapters-by-sequence-forms";
 import { orderBy } from "lodash";
 
-interface AcademicEducationProps {
+interface ExtracurricularActivitiesProps {
   data: CurriculumFormInput;
 }
 
-export default function AcademicEducation({ data }: AcademicEducationProps) {
-  if (!data?.academicEducation || !data?.academicEducation?.[0]?.description) {
+export default function ExtracurricularActivities({
+  data,
+}: ExtracurricularActivitiesProps) {
+  if (
+    !data?.extracurricularActivities ||
+    !data?.extracurricularActivities?.[0]?.description
+  ) {
     return null;
   }
 
   return (
     <React.Fragment>
       <View style={[commonStyles.commonCentralizedView, { marginTop: 32 }]}>
-        <Text style={commonStyles.chapter}>2. FORMAÇÃO ACADÊMICA</Text>
+        <Text style={commonStyles.chapter}>
+          {`${
+            formatBySequenceForms(data).extracurricularActivities
+          }. ATIVIDADES EXTRACURRICULARES`}
+        </Text>
       </View>
 
       <View
@@ -28,16 +38,18 @@ export default function AcademicEducation({ data }: AcademicEducationProps) {
         }}
       >
         {orderBy(
-          data.academicEducation,
+          data?.extracurricularActivities,
           [(item) => item.finalYear || item.initialYear, "initialYear"],
           ["desc", "desc"]
         ).map((item, index) => (
           <View
-            key={`academic-education-${index}`}
+            key={`extracurricularActivities-${index}`}
             style={index > 0 ? { paddingTop: 30 } : undefined}
           >
             <Text style={[commonStyles.subtitle]}>
-              {`2.${index + 1} ${item.subcategory}`}
+              {`${formatBySequenceForms(data).extracurricularActivities}.${
+                index + 1
+              } ${item.subcategory}`}
             </Text>
 
             <View

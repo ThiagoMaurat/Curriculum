@@ -2,27 +2,33 @@ import React from "react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Text, View } from "@react-pdf/renderer";
-import { CurriculumFormInput } from "@/components/forms/curriculum-form-admin/type";
 import { commonStyles } from "../../common-style";
+import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
 
 interface PersonalDataProps {
-  data: CurriculumFormInput;
+  userApiData: ListTodoCurriculumByCollaborator;
 }
 
-export default function PersonalData({ data }: PersonalDataProps) {
+export default function PersonalData({ userApiData }: PersonalDataProps) {
   return (
     <React.Fragment>
       <Text style={[commonStyles.title, { fontStyle: "italic" }]}>
         Curriculum Vitae
       </Text>
 
-      {data?.fullName && (
-        <Text style={[commonStyles.title, { fontStyle: "italic" }]}>
-          {data?.fullName}
+      {userApiData?.fullName && (
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: "bold",
+            fontFamily: "Times New Roman",
+          }}
+        >
+          {userApiData?.fullName}
         </Text>
       )}
 
-      {data.selfDescription && (
+      {/* {userApiData.selfDescription && (
         <View
           style={{
             display: "flex",
@@ -39,119 +45,133 @@ export default function PersonalData({ data }: PersonalDataProps) {
               },
             ]}
           >
-            {data.selfDescription}
+            {userApiData.selfDescription}
+          </Text>
+        </View>
+      )} */}
+
+      <View style={[commonStyles.commonCentralizedView, { marginTop: 32 }]}>
+        <Text style={[commonStyles.chapter]}>1. DADOS PESSOAIS</Text>
+      </View>
+
+      {userApiData?.fullName && (
+        <View>
+          <Text style={commonStyles.fieldText}>
+            Nome:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>
+              {userApiData?.fullName}
+            </Text>
           </Text>
         </View>
       )}
 
-      <View style={[commonStyles.commonCentralizedView, { marginVertical: 8 }]}>
-        <Text style={commonStyles.chapter}>1. DADOS PESSOAIS</Text>
-      </View>
-
-      {data?.fullName && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>Nome: </Text>
-            <Text style={commonStyles.descriptionTitle}>{data?.fullName}</Text>
-          </>
-        </View>
-      )}
-
-      {data?.fathersName && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>Nome do Pai: </Text>
-            <Text style={commonStyles.descriptionTitle}>
-              {data?.fathersName}
+      {userApiData?.fathersName && (
+        <View>
+          <Text style={commonStyles.fieldText}>
+            Nome do Pai:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>
+              {userApiData?.fathersName}
             </Text>
-          </>
+          </Text>
         </View>
       )}
 
-      {data?.mothersName && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>Nome da Mae: </Text>
-            <Text style={commonStyles.descriptionTitle}>
-              {data?.mothersName}
+      {userApiData?.mothersName && (
+        <View>
+          <Text style={commonStyles.fieldText}>
+            Nome da Mae:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>
+              {userApiData?.mothersName}
             </Text>
-          </>
+          </Text>
         </View>
       )}
 
-      {data?.birthday && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>Data de Nascimento: </Text>
-            <Text style={commonStyles.descriptionTitle}>
-              {format(data?.birthday, "dd/MM/yyyy", { locale: ptBR })}
+      {userApiData?.birthday && (
+        <View>
+          <Text style={commonStyles.fieldText}>
+            Data de Nascimento:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>
+              {format(userApiData?.birthday, "dd/MM/yyyy", { locale: ptBR })}
             </Text>
-          </>
+          </Text>
         </View>
       )}
 
-      {data?.identityDocument && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>Documento de identidade: </Text>
-            <Text style={commonStyles.descriptionTitle}>
-              {data?.identityDocument}
+      {userApiData?.identityDocument && (
+        <View>
+          <Text style={commonStyles.fieldText}>
+            Documento de identidade:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>
+              {userApiData?.identityDocument}
             </Text>
-          </>
+          </Text>
         </View>
       )}
 
-      {data?.CRM && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>CRM: </Text>
-            <Text style={commonStyles.descriptionTitle}>{data?.CRM}</Text>
-          </>
+      {userApiData?.CRM && (
+        <View>
+          <Text style={commonStyles.fieldText}>
+            CRM:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>
+              {userApiData?.CRM}
+            </Text>
+          </Text>
         </View>
       )}
 
-      {data?.CPF && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>CPF: </Text>
-            <Text style={commonStyles.descriptionTitle}>{data?.CPF}</Text>
-          </>
+      {userApiData?.CPF && (
+        <View>
+          <Text style={commonStyles.fieldText}>
+            CPF:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>
+              {userApiData?.CPF}
+            </Text>
+          </Text>
         </View>
       )}
 
-      {data?.phone && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>Telefone: </Text>
-            <Text style={commonStyles.descriptionTitle}>{data?.phone}</Text>
-          </>
+      {userApiData?.phone && (
+        <View>
+          <Text style={commonStyles.fieldText}>
+            Telefone:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>
+              {userApiData?.phone}
+            </Text>
+          </Text>
         </View>
       )}
 
-      {data?.address && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>Endereço: </Text>
-            <Text style={commonStyles.descriptionTitle}>{data?.address}</Text>
-          </>
+      {userApiData?.address && (
+        <View>
+          <Text style={commonStyles.fieldText}>
+            Endereço:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>
+              {userApiData?.address}
+            </Text>
+          </Text>
         </View>
       )}
 
-      {data?.email && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>E-mail: </Text>
-            <Text style={commonStyles.descriptionTitle}>{data?.email}</Text>
-          </>
+      {userApiData?.email && (
+        <View>
+          <Text style={commonStyles.fieldText}>
+            E-mail:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>
+              {userApiData?.email}
+            </Text>
+          </Text>
         </View>
       )}
 
-      {data?.lattes && (
-        <View style={commonStyles.commonCentralizedView}>
-          <>
-            <Text style={commonStyles.title}>Lattes: </Text>
-            <Text style={commonStyles.descriptionTitle}>{data?.lattes}</Text>
-          </>
+      {userApiData?.lattes && (
+        <View>
+          <Text style={commonStyles.fieldText}>
+            Lattes:{" "}
+            <Text style={commonStyles.fieldAdditionalText}>
+              {userApiData?.lattes}
+            </Text>
+          </Text>
         </View>
       )}
 

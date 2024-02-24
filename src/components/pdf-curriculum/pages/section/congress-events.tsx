@@ -2,21 +2,26 @@ import { CurriculumFormInput } from "@/components/forms/create-curriculum-form-c
 import { View, Text } from "@react-pdf/renderer";
 import React from "react";
 import { commonStyles } from "../../common-style";
+import { formatBySequenceForms } from "../../helpers/format-chapters-by-sequence-forms";
 import { orderBy } from "lodash";
 
-interface AcademicEducationProps {
+interface CongressEventsProps {
   data: CurriculumFormInput;
 }
 
-export default function AcademicEducation({ data }: AcademicEducationProps) {
-  if (!data?.academicEducation || !data?.academicEducation?.[0]?.description) {
+export default function CongressEvents({ data }: CongressEventsProps) {
+  if (!data?.eventsCongress || !data?.eventsCongress?.[0]?.description) {
     return null;
   }
 
   return (
     <React.Fragment>
       <View style={[commonStyles.commonCentralizedView, { marginTop: 32 }]}>
-        <Text style={commonStyles.chapter}>2. FORMAÇÃO ACADÊMICA</Text>
+        <Text style={commonStyles.chapter}>
+          {`${
+            formatBySequenceForms(data).eventsCongress
+          }. CONGRESSOS E EVENTOS CIENTÍFICOS`}
+        </Text>
       </View>
 
       <View
@@ -28,7 +33,7 @@ export default function AcademicEducation({ data }: AcademicEducationProps) {
         }}
       >
         {orderBy(
-          data.academicEducation,
+          data.eventsCongress,
           [(item) => item.finalYear || item.initialYear, "initialYear"],
           ["desc", "desc"]
         ).map((item, index) => (
@@ -37,7 +42,9 @@ export default function AcademicEducation({ data }: AcademicEducationProps) {
             style={index > 0 ? { paddingTop: 30 } : undefined}
           >
             <Text style={[commonStyles.subtitle]}>
-              {`2.${index + 1} ${item.subcategory}`}
+              {`${formatBySequenceForms(data).eventsCongress}.${index + 1} ${
+                item.subcategory
+              }`}
             </Text>
 
             <View

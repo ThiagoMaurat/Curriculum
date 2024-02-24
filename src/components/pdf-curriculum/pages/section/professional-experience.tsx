@@ -2,21 +2,31 @@ import { CurriculumFormInput } from "@/components/forms/create-curriculum-form-c
 import { View, Text } from "@react-pdf/renderer";
 import React from "react";
 import { commonStyles } from "../../common-style";
+import { formatBySequenceForms } from "../../helpers/format-chapters-by-sequence-forms";
 import { orderBy } from "lodash";
 
-interface AcademicEducationProps {
+interface ProfessionalExperienceProps {
   data: CurriculumFormInput;
 }
 
-export default function AcademicEducation({ data }: AcademicEducationProps) {
-  if (!data?.academicEducation || !data?.academicEducation?.[0]?.description) {
+export default function ProfessionalExperience({
+  data,
+}: ProfessionalExperienceProps) {
+  if (
+    !data?.professionalExperience ||
+    !data?.professionalExperience?.[0]?.description
+  ) {
     return null;
   }
 
   return (
     <React.Fragment>
       <View style={[commonStyles.commonCentralizedView, { marginTop: 32 }]}>
-        <Text style={commonStyles.chapter}>2. FORMAÇÃO ACADÊMICA</Text>
+        <Text style={commonStyles.chapter}>
+          {`${
+            formatBySequenceForms(data).professionalExperience
+          }. ATUAÇÃO PROFISSIONAL`}
+        </Text>
       </View>
 
       <View
@@ -28,16 +38,18 @@ export default function AcademicEducation({ data }: AcademicEducationProps) {
         }}
       >
         {orderBy(
-          data.academicEducation,
+          data.professionalExperience,
           [(item) => item.finalYear || item.initialYear, "initialYear"],
           ["desc", "desc"]
         ).map((item, index) => (
           <View
-            key={`academic-education-${index}`}
+            key={`professional-experience-${index}`}
             style={index > 0 ? { paddingTop: 30 } : undefined}
           >
             <Text style={[commonStyles.subtitle]}>
-              {`2.${index + 1} ${item.subcategory}`}
+              {`${formatBySequenceForms(data).professionalExperience}.${
+                index + 1
+              } ${item.subcategory}`}
             </Text>
 
             <View
