@@ -167,7 +167,7 @@ export default function ProfessionalExperience({
                           <SelectGroup>
                             {data?.certifications?.map((certifications) => (
                               <SelectItem
-                                key={`${certifications.fileName}-${certifications.userId}`}
+                                key={`${certifications.key}-${certifications.userId}-professionalExperience`}
                                 value={String(certifications?.url)}
                               >
                                 {certifications.fileName}

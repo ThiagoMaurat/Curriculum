@@ -169,7 +169,7 @@ export default function ExtracurricularActivities({
                           <SelectGroup>
                             {data?.certifications?.map((certifications) => (
                               <SelectItem
-                                key={`${certifications.fileName}-${certifications.userId}`}
+                                key={`${certifications.key}-${certifications.userId}-extracurricular-activities-card`}
                                 value={String(certifications?.url)}
                               >
                                 {certifications.fileName}

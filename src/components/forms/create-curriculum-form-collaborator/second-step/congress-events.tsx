@@ -162,7 +162,7 @@ export default function Congress({ data }: CongressProps) {
                           <SelectGroup>
                             {data?.certifications?.map((certifications) => (
                               <SelectItem
-                                key={`${certifications.fileName}-${certifications.userId}`}
+                                key={`${certifications.key}-${certifications.userId}`}
                                 value={String(certifications?.url)}
                               >
                                 {certifications.fileName}
