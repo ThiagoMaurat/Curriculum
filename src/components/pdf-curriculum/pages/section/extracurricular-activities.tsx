@@ -13,8 +13,8 @@ export default function ExtracurricularActivities({
   data,
 }: ExtracurricularActivitiesProps) {
   if (
-    !data.extracurricularActivities ||
-    !data.extracurricularActivities?.[0].description
+    !data?.extracurricularActivities ||
+    !data?.extracurricularActivities?.[0]?.description
   ) {
     return null;
   }
@@ -38,7 +38,7 @@ export default function ExtracurricularActivities({
         }}
       >
         {orderBy(
-          data.extracurricularActivities,
+          data?.extracurricularActivities,
           [(item) => item.finalYear || item.initialYear, "initialYear"],
           ["desc", "desc"]
         ).map((item, index) => (

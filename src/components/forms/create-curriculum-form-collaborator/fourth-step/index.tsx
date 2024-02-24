@@ -16,9 +16,7 @@ export default function FourthStep({ children }: FifthStepProps) {
     <Card className="max-w-2xl mx-auto">
       <CardHeader className="space-y-1">
         <CardTitle className="text-2xl">Preview</CardTitle>
-        <CardDescription>
-          Analise como está os dados gerados aqui.
-        </CardDescription>
+        <CardDescription>Analise o preview do pdf gerado.</CardDescription>
       </CardHeader>
 
       <CardContent className="grid">{children}</CardContent>

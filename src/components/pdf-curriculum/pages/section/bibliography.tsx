@@ -10,7 +10,7 @@ interface BibliographyProps {
 }
 
 export default function Bibliography({ data }: BibliographyProps) {
-  if (!data.bibliography || !data.bibliography?.[0].description) {
+  if (!data?.bibliography || !data?.bibliography?.[0]?.description) {
     return null;
   }
 

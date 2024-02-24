@@ -9,7 +9,7 @@ interface AcademicEducationProps {
 }
 
 export default function AcademicEducation({ data }: AcademicEducationProps) {
-  if (!data.academicEducation || !data.academicEducation?.[0].description) {
+  if (!data?.academicEducation || !data?.academicEducation?.[0]?.description) {
     return null;
   }
 

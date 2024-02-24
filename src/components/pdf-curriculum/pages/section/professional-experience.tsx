@@ -13,8 +13,8 @@ export default function ProfessionalExperience({
   data,
 }: ProfessionalExperienceProps) {
   if (
-    !data.professionalExperience ||
-    !data.professionalExperience?.[0].description
+    !data?.professionalExperience ||
+    !data?.professionalExperience?.[0]?.description
   ) {
     return null;
   }

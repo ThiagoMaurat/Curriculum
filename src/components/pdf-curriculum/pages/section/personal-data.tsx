@@ -12,8 +12,6 @@ interface PersonalDataProps {
 export default function PersonalData({ userApiData }: PersonalDataProps) {
   return (
     <React.Fragment>
-      <Text style={[commonStyles.title]}>Sumário</Text>
-
       <Text style={[commonStyles.title, { fontStyle: "italic" }]}>
         Curriculum Vitae
       </Text>

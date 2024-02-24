@@ -68,15 +68,18 @@ export function FormsCollaboratorCreateCurriculum(
 
     const blobBuffer = await blob.arrayBuffer();
 
-    await merger.add(blobBuffer); //merge all pages. parameter is the path to file and filename.
+    await merger.add(blobBuffer);
 
-    const pdf = await fetch(
-      "https://utfs.io/f/d3f5f289-1aa8-4064-9a86-b2234e915434-f1lhsm.pdf"
-    );
-
-    const pdfBuffer = await pdf.arrayBuffer();
-
-    await merger.add(pdfBuffer); //merge all pages. parameter is the path to file and filename.
+    for (const [_, value] of Object.entries(methods.getValues())) {
+      for (const [_, value2] of Object.entries(value)) {
+        if (value2.certifications) {
+          const response = await fetch(value2.certifications);
+          const dataBlob = await response.blob();
+          const blobBuffer = await dataBlob.arrayBuffer();
+          await merger.add(blobBuffer);
+        }
+      }
+    }
 
     const finalDoc = await merger.saveAsBuffer();
     const blobFinalDoc = new Blob([finalDoc], { type: "application/pdf" });
@@ -123,6 +126,9 @@ export function FormsCollaboratorCreateCurriculum(
           )}
           {currentStep === 3 && (
             <FourthStep>
+              <Button className="mb-2" onClick={() => setCurrentStep(0)}>
+                Voltar
+              </Button>
               <BlobProvider
                 document={
                   <PdfCurriculumTemplate
@@ -134,8 +140,11 @@ export function FormsCollaboratorCreateCurriculum(
                 {({ blob, url, loading, error }) => {
                   if (blob) {
                     return (
-                      <Button onClick={() => downloadBlob(blob)}>
-                        {loading ? "Loading..." : "Download"}
+                      <Button
+                        className="mb-2"
+                        onClick={() => downloadBlob(blob)}
+                      >
+                        {loading ? "Loading..." : "Download com os Currículos"}
                       </Button>
                     );
                   }

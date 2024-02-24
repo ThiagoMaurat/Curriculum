@@ -10,7 +10,7 @@ interface CongressEventsProps {
 }
 
 export default function CongressEvents({ data }: CongressEventsProps) {
-  if (!data.eventsCongress || !data.eventsCongress?.[0].description) {
+  if (!data?.eventsCongress || !data?.eventsCongress?.[0]?.description) {
     return null;
   }
 
