@@ -242,7 +242,7 @@ export default function ProfessionalExperience({
             <ArrowRight className="h-4 w-4 ml-1" />
           </Button>
 
-          {fieldProfessionalExperience.fields.length > 1 && (
+          {fieldProfessionalExperience.fields.length > 0 && (
             <Button
               onClick={() =>
                 fieldProfessionalExperience.remove(

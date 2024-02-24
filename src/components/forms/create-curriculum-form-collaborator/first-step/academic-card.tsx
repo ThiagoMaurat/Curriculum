@@ -240,7 +240,7 @@ export default function AcademicCard({ data }: AcademicCardProps) {
             <ArrowRight className="h-4 w-4 ml-1" />
           </Button>
 
-          {fieldAcademicEducation.fields.length > 1 && (
+          {fieldAcademicEducation.fields.length > 0 && (
             <Button
               onClick={() =>
                 fieldAcademicEducation.remove(

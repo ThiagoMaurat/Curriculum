@@ -237,7 +237,7 @@ export default function Congress({ data }: CongressProps) {
             <ArrowRight className="h-4 w-4 ml-1" />
           </Button>
 
-          {fieldCongress.fields.length > 1 && (
+          {fieldCongress.fields.length > 0 && (
             <Button
               onClick={() =>
                 fieldCongress.remove(fieldCongress.fields.length - 1)

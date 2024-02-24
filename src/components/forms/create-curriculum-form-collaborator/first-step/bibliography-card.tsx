@@ -233,7 +233,7 @@ export default function BibliographyCard({ data }: BibliographyCardProps) {
             <ArrowRight className="h-4 w-4 ml-1" />
           </Button>
 
-          {fieldBibliography.fields.length > 1 && (
+          {fieldBibliography.fields.length > 0 && (
             <Button
               onClick={() =>
                 fieldBibliography.remove(fieldBibliography.fields.length - 1)

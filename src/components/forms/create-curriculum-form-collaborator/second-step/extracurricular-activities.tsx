@@ -244,7 +244,7 @@ export default function ExtracurricularActivities({
             <ArrowRight className="h-4 w-4 ml-1" />
           </Button>
 
-          {fieldExtracurricularActivities.fields.length > 1 && (
+          {fieldExtracurricularActivities.fields.length > 0 && (
             <Button
               onClick={() =>
                 fieldExtracurricularActivities.remove(
