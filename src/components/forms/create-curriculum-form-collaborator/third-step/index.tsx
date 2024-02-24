@@ -1,5 +1,4 @@
 import React from "react";
-import ExtracurricularActivities from "./extracurricular-activities";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ProfessionalExperience from "./professional-experience";
@@ -16,7 +15,6 @@ export default function ThirdStep(props: FourthStepProps) {
   return (
     <React.Fragment>
       <div className="flex flex-col md:flex-row gap-4">
-        <ExtracurricularActivities data={data} />
         <ProfessionalExperience data={data} />
       </div>
 

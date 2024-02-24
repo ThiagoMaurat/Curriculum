@@ -1,18 +1,6 @@
 import { CurriculumFormInput } from "./type";
 
 export const DEFAULT_FORM: CurriculumFormInput = {
-  fullName: "",
-  fathersName: "",
-  mothersName: "",
-  birthday: new Date(),
-  identityDocument: "",
-  CRM: "",
-  CPF: "",
-  phone: "",
-  address: "",
-  email: "",
-  lattes: "",
-  selfDescription: "",
   academicEducation: [
     {
       description: "",
@@ -31,16 +19,7 @@ export const DEFAULT_FORM: CurriculumFormInput = {
       certifications: "",
     },
   ],
-  congress: [
-    {
-      description: "",
-      subcategory: "",
-      finalYear: new Date().getFullYear(),
-      initialYear: new Date().getFullYear(),
-      certifications: "",
-    },
-  ],
-  events: [
+  eventsCongress: [
     {
       description: "",
       subcategory: "",
@@ -65,11 +44,6 @@ export const DEFAULT_FORM: CurriculumFormInput = {
       finalYear: new Date().getFullYear(),
       initialYear: new Date().getFullYear(),
       certifications: "",
-    },
-  ],
-  certificateImages: [
-    {
-      link: "",
     },
   ],
 };

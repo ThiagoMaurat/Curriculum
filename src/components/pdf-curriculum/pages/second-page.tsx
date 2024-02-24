@@ -5,7 +5,7 @@ import { CurriculumFormInput } from "@/components/forms/create-curriculum-form-c
 import PersonalData from "./section/personal-data";
 import AcademicEducation from "./section/academic-education";
 import Bibliography from "./section/bibliography";
-import Congress from "./section/congress";
+import Congress from "./section/congress-events";
 import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
 
 interface SecondPageProps {

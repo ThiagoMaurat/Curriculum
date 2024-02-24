@@ -28,50 +28,50 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { CongressConst } from "@/const/events";
-import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
+import { CongressConst } from "@/const/congress";
 import ModalViewCertificates from "../ModalViewCertificates";
+import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
 
-interface EventsProps {
+interface CongressProps {
   data: ListTodoCurriculumByCollaborator;
 }
 
-export default function Events({ data }: EventsProps) {
+export default function Congress({ data }: CongressProps) {
   const { control, watch } = useFormContext<CurriculumFormInput>();
 
-  const fieldEvents = useFieldArray<CurriculumFormInput, "events">({
+  const fieldCongress = useFieldArray<CurriculumFormInput, "eventsCongress">({
     control: control,
-    name: "events",
+    name: "eventsCongress",
   });
 
   return (
     <Card className="max-w-2xl w-full">
       <CardHeader className="space-y-1">
         <CardTitle className="text-2xl flex items-center gap-2">
-          Eventos Acadêmicos{" "}
+          Congressos e Eventos Científicos
           <ModalViewCertificates data={data?.certifications} />
         </CardTitle>
         <CardDescription>
-          Insira seus eventos acadêmicos realizados.
+          Insira seus congressos e eventos acadêmicos realizados.
         </CardDescription>
       </CardHeader>
 
       <CardContent className="w-full">
-        {fieldEvents.fields.map((field, index) => (
+        {fieldCongress.fields.map((field, index) => (
           <div
             className="w-full flex flex-col gap-2"
-            key={`fieldEvents-${index}`}
+            key={`fieldCongress-${index}`}
           >
             <div className="w-full flex flex-col sm:flex-row gap-4">
               <FormField
                 control={control}
-                name={`events.${index}.initialYear` as const}
+                name={`eventsCongress.${index}.initialYear` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>Ano Inicial</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Insira o ano do evneto"
+                        placeholder="Insira o ano inicial"
                         {...field}
                         type="number"
                       />
@@ -83,7 +83,7 @@ export default function Events({ data }: EventsProps) {
 
               <FormField
                 control={control}
-                name={`events.${index}.finalYear` as const}
+                name={`eventsCongress.${index}.finalYear` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>Ano Final</FormLabel>
@@ -103,7 +103,7 @@ export default function Events({ data }: EventsProps) {
             <div className="w-full flex flex-col sm:flex-row gap-4">
               <FormField
                 control={control}
-                name={`events.${index}.subcategory` as const}
+                name={`eventsCongress.${index}.subcategory` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>Categoria</FormLabel>
@@ -141,7 +141,7 @@ export default function Events({ data }: EventsProps) {
 
               <FormField
                 control={control}
-                name={`events.${index}.certifications` as const}
+                name={`eventsCongress.${index}.certifications` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>Certificados</FormLabel>
@@ -180,7 +180,7 @@ export default function Events({ data }: EventsProps) {
 
             <FormField
               control={control}
-              name={`events.${index}.description` as const}
+              name={`eventsCongress.${index}.description` as const}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Descrição</FormLabel>
@@ -193,9 +193,15 @@ export default function Events({ data }: EventsProps) {
                         {...field}
                       />
 
-                      {watch(`events.${index}.description` as const) && (
+                      {watch(
+                        `eventsCongress.${index}.description` as const
+                      ) && (
                         <p className="text-xs text-muted-foreground w-full text-end">
-                          {watch(`events.${index}.description` as const).length}
+                          {
+                            watch(
+                              `eventsCongress.${index}.description` as const
+                            ).length
+                          }
                           / 400
                         </p>
                       )}
@@ -206,8 +212,8 @@ export default function Events({ data }: EventsProps) {
               )}
             />
 
-            {fieldEvents.fields.length > 1 &&
-              fieldEvents.fields.length - 1 !== index && (
+            {fieldCongress.fields.length > 1 &&
+              fieldCongress.fields.length - 1 !== index && (
                 <Separator orientation="horizontal" className="my-3" />
               )}
           </div>
@@ -216,7 +222,7 @@ export default function Events({ data }: EventsProps) {
         <div className="w-full mt-4 flex sm:flex-row flex-col gap-2">
           <Button
             onClick={() =>
-              fieldEvents.append({
+              fieldCongress.append({
                 description: "",
                 subcategory: "",
                 initialYear: new Date().getFullYear(),
@@ -231,9 +237,11 @@ export default function Events({ data }: EventsProps) {
             <ArrowRight className="h-4 w-4 ml-1" />
           </Button>
 
-          {fieldEvents.fields.length > 1 && (
+          {fieldCongress.fields.length > 1 && (
             <Button
-              onClick={() => fieldEvents.remove(fieldEvents.fields.length - 1)}
+              onClick={() =>
+                fieldCongress.remove(fieldCongress.fields.length - 1)
+              }
               type="button"
               className="w-full"
               variant="destructive"

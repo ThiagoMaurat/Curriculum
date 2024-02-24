@@ -10,7 +10,7 @@ interface CongressProps {
 }
 
 export default function Congress({ data }: CongressProps) {
-  if (!data.congress || !data.congress?.[0].description) {
+  if (!data.eventsCongress || !data.eventsCongress?.[0].description) {
     return null;
   }
 
@@ -33,7 +33,7 @@ export default function Congress({ data }: CongressProps) {
         }}
       >
         {orderBy(
-          data.congress,
+          data.eventsCongress,
           [(item) => item.finalYear || item.initialYear, "initialYear"],
           ["desc", "desc"]
         ).map((item, index) => (
