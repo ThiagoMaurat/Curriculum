@@ -1,15 +1,15 @@
 import React from "react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { Text, View, Tspan } from "@react-pdf/renderer";
+import { Text, View } from "@react-pdf/renderer";
 import { commonStyles } from "../../common-style";
 import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
 
 interface PersonalDataProps {
-  data: ListTodoCurriculumByCollaborator;
+  userApiData: ListTodoCurriculumByCollaborator;
 }
 
-export default function PersonalData({ data }: PersonalDataProps) {
+export default function PersonalData({ userApiData }: PersonalDataProps) {
   return (
     <React.Fragment>
       <Text style={[commonStyles.title]}>Sumário</Text>
@@ -18,7 +18,7 @@ export default function PersonalData({ data }: PersonalDataProps) {
         Curriculum Vitae
       </Text>
 
-      {data?.fullName && (
+      {userApiData?.fullName && (
         <Text
           style={{
             fontSize: 16,
@@ -26,11 +26,11 @@ export default function PersonalData({ data }: PersonalDataProps) {
             fontFamily: "Times New Roman",
           }}
         >
-          {data?.fullName}
+          {userApiData?.fullName}
         </Text>
       )}
 
-      {/* {data.selfDescription && (
+      {/* {userApiData.selfDescription && (
         <View
           style={{
             display: "flex",
@@ -47,7 +47,7 @@ export default function PersonalData({ data }: PersonalDataProps) {
               },
             ]}
           >
-            {data.selfDescription}
+            {userApiData.selfDescription}
           </Text>
         </View>
       )} */}
@@ -56,113 +56,123 @@ export default function PersonalData({ data }: PersonalDataProps) {
         <Text style={[commonStyles.chapter]}>1. DADOS PESSOAIS</Text>
       </View>
 
-      {data?.fullName && (
+      {userApiData?.fullName && (
         <View>
           <Text style={commonStyles.fieldText}>
             Nome:{" "}
             <Text style={commonStyles.fieldAdditionalText}>
-              {data?.fullName}
+              {userApiData?.fullName}
             </Text>
           </Text>
         </View>
       )}
 
-      {data?.fathersName && (
+      {userApiData?.fathersName && (
         <View>
           <Text style={commonStyles.fieldText}>
             Nome do Pai:{" "}
             <Text style={commonStyles.fieldAdditionalText}>
-              {data?.fathersName}
+              {userApiData?.fathersName}
             </Text>
           </Text>
         </View>
       )}
 
-      {data?.mothersName && (
+      {userApiData?.mothersName && (
         <View>
           <Text style={commonStyles.fieldText}>
             Nome da Mae:{" "}
             <Text style={commonStyles.fieldAdditionalText}>
-              {data?.mothersName}
+              {userApiData?.mothersName}
             </Text>
           </Text>
         </View>
       )}
 
-      {data?.birthday && (
+      {userApiData?.birthday && (
         <View>
           <Text style={commonStyles.fieldText}>
             Data de Nascimento:{" "}
             <Text style={commonStyles.fieldAdditionalText}>
-              {format(data?.birthday, "dd/MM/yyyy", { locale: ptBR })}
+              {format(userApiData?.birthday, "dd/MM/yyyy", { locale: ptBR })}
             </Text>
           </Text>
         </View>
       )}
 
-      {data?.identityDocument && (
+      {userApiData?.identityDocument && (
         <View>
           <Text style={commonStyles.fieldText}>
             Documento de identidade:{" "}
             <Text style={commonStyles.fieldAdditionalText}>
-              {data?.identityDocument}
+              {userApiData?.identityDocument}
             </Text>
           </Text>
         </View>
       )}
 
-      {data?.CRM && (
+      {userApiData?.CRM && (
         <View>
           <Text style={commonStyles.fieldText}>
             CRM:{" "}
-            <Text style={commonStyles.fieldAdditionalText}>{data?.CRM}</Text>
+            <Text style={commonStyles.fieldAdditionalText}>
+              {userApiData?.CRM}
+            </Text>
           </Text>
         </View>
       )}
 
-      {data?.CPF && (
+      {userApiData?.CPF && (
         <View>
           <Text style={commonStyles.fieldText}>
             CPF:{" "}
-            <Text style={commonStyles.fieldAdditionalText}>{data?.CPF}</Text>
+            <Text style={commonStyles.fieldAdditionalText}>
+              {userApiData?.CPF}
+            </Text>
           </Text>
         </View>
       )}
 
-      {data?.phone && (
+      {userApiData?.phone && (
         <View>
           <Text style={commonStyles.fieldText}>
             Telefone:{" "}
-            <Text style={commonStyles.fieldAdditionalText}>{data?.phone}</Text>
+            <Text style={commonStyles.fieldAdditionalText}>
+              {userApiData?.phone}
+            </Text>
           </Text>
         </View>
       )}
 
-      {data?.address && (
+      {userApiData?.address && (
         <View>
           <Text style={commonStyles.fieldText}>
             Endereço:{" "}
             <Text style={commonStyles.fieldAdditionalText}>
-              {data?.address}
+              {userApiData?.address}
             </Text>
           </Text>
         </View>
       )}
 
-      {data?.email && (
+      {userApiData?.email && (
         <View>
           <Text style={commonStyles.fieldText}>
             E-mail:{" "}
-            <Text style={commonStyles.fieldAdditionalText}>{data?.email}</Text>
+            <Text style={commonStyles.fieldAdditionalText}>
+              {userApiData?.email}
+            </Text>
           </Text>
         </View>
       )}
 
-      {data?.lattes && (
+      {userApiData?.lattes && (
         <View>
           <Text style={commonStyles.fieldText}>
             Lattes:{" "}
-            <Text style={commonStyles.fieldAdditionalText}>{data?.lattes}</Text>
+            <Text style={commonStyles.fieldAdditionalText}>
+              {userApiData?.lattes}
+            </Text>
           </Text>
         </View>
       )}

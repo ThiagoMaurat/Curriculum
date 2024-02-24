@@ -70,7 +70,7 @@ export const PdfCurriculumTemplate = ({
   return (
     <Document>
       <FirstPage data={formsFilledByStudent} />
-      <SecondPage secondStepData={formsFilledByStudent} data={data} />
+      <SecondPage userApiData={formsFilledByStudent} data={data} />
       {/* <Certifications data={data} /> */}
     </Document>
   );
