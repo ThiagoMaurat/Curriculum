@@ -53,7 +53,7 @@ export default function ProfessionalExperience({
     <Card className="max-w-2xl w-full">
       <CardHeader className="space-y-1">
         <CardTitle className="text-2xl flex items-center gap-2">
-          Experiência Profissional{" "}
+          Atuação Profissional{" "}
           <ModalViewCertificates data={data?.certifications} />
         </CardTitle>
         <CardDescription>

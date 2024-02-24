@@ -5,11 +5,11 @@ import { commonStyles } from "../../common-style";
 import { formatBySequenceForms } from "../../helpers/format-chapters-by-sequence-forms";
 import { orderBy } from "lodash";
 
-interface CongressProps {
+interface CongressEventsProps {
   data: CurriculumFormInput;
 }
 
-export default function Congress({ data }: CongressProps) {
+export default function CongressEvents({ data }: CongressEventsProps) {
   if (!data.eventsCongress || !data.eventsCongress?.[0].description) {
     return null;
   }
@@ -19,7 +19,7 @@ export default function Congress({ data }: CongressProps) {
       <View style={[commonStyles.commonCentralizedView, { marginTop: 32 }]}>
         <Text style={commonStyles.chapter}>
           {`${
-            formatBySequenceForms(data).congress
+            formatBySequenceForms(data).eventsCongress
           }. CONGRESSOS E EVENTOS CIENTÍFICOS`}
         </Text>
       </View>
@@ -42,7 +42,7 @@ export default function Congress({ data }: CongressProps) {
             style={index > 0 ? { paddingTop: 30 } : undefined}
           >
             <Text style={[commonStyles.subtitle]}>
-              {`${formatBySequenceForms(data).congress}. ${index + 1} ${
+              {`${formatBySequenceForms(data).eventsCongress}.${index + 1} ${
                 item.subcategory
               }`}
             </Text>

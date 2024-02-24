@@ -40,7 +40,7 @@ export default function Bibliography({ data }: BibliographyProps) {
             style={index > 0 ? { paddingTop: 30 } : undefined}
           >
             <Text style={[commonStyles.subtitle]}>
-              {`${formatBySequenceForms(data).bibliography}. ${index + 1} ${
+              {`${formatBySequenceForms(data).bibliography}.${index + 1} ${
                 item.subcategory
               }`}
             </Text>

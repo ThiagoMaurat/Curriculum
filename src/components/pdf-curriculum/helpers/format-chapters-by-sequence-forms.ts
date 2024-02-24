@@ -11,11 +11,7 @@ export function formatBySequenceForms(data: CurriculumFormInput) {
     data.description ? data : undefined
   );
 
-  const congress = data.congress.filter((data) =>
-    data.description ? data : undefined
-  );
-
-  const events = data.events.filter((data) =>
+  const eventsCongress = data.eventsCongress.filter((data) =>
     data.description ? data : undefined
   );
 
@@ -30,8 +26,7 @@ export function formatBySequenceForms(data: CurriculumFormInput) {
   const result = {
     academicEducation: academicEducation.length > 0 ? sequence++ : undefined,
     bibliography: bibliography.length > 0 ? sequence++ : undefined,
-    congress: congress.length > 0 ? sequence++ : undefined,
-    events: events.length > 0 ? sequence++ : undefined,
+    eventsCongress: eventsCongress.length > 0 ? sequence++ : undefined,
     extracurricularActivities:
       extracurricularActivities.length > 0 ? sequence++ : undefined,
     professionalExperience:
