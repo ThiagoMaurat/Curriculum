@@ -2,18 +2,13 @@ import { CurriculumFormInput } from "@/components/forms/create-curriculum-form-c
 import { View, Text } from "@react-pdf/renderer";
 import React from "react";
 import { commonStyles } from "../../common-style";
-import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
 import { orderBy } from "lodash";
 
 interface AcademicEducationProps {
   data: CurriculumFormInput;
-  secondStepData: ListTodoCurriculumByCollaborator;
 }
 
-export default function AcademicEducation({
-  data,
-  secondStepData,
-}: AcademicEducationProps) {
+export default function AcademicEducation({ data }: AcademicEducationProps) {
   if (!data.academicEducation || !data.academicEducation?.[0].description) {
     return null;
   }

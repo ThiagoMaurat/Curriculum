@@ -34,6 +34,7 @@ export const commonStyles = StyleSheet.create({
     fontSize: 10,
     fontFamily: "Cambria",
     fontWeight: "bold",
+    textDecoration: "underline",
   },
   yearsAdditionalText: {
     fontSize: 10,

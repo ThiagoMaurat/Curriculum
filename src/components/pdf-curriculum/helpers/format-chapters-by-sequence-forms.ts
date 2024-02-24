@@ -31,6 +31,7 @@ export function formatBySequenceForms(data: CurriculumFormInput) {
       extracurricularActivities.length > 0 ? sequence++ : undefined,
     professionalExperience:
       professionalExperience.length > 0 ? sequence++ : undefined,
+    certificates: sequence++,
   };
 
   return result;
