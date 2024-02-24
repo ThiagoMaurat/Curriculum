@@ -2,7 +2,8 @@ import { CurriculumFormInput } from "@/components/forms/create-curriculum-form-c
 import { View, Text } from "@react-pdf/renderer";
 import React from "react";
 import { commonStyles } from "../../common-style";
-import { formatBySequenceForms } from "../../helpers/format-by-sequence-forms";
+import { formatBySequenceForms } from "../../helpers/format-chapters-by-sequence-forms";
+import { orderBy } from "lodash";
 
 interface BibliographyProps {
   data: CurriculumFormInput;
@@ -29,7 +30,11 @@ export default function Bibliography({ data }: BibliographyProps) {
           textAlign: "justify",
         }}
       >
-        {data.bibliography.map((item, index) => (
+        {orderBy(
+          data.bibliography,
+          [(item) => item.finalYear || item.initialYear, "initialYear"],
+          ["desc", "desc"]
+        ).map((item, index) => (
           <View
             key={`academic-education-${index}`}
             style={index > 0 ? { paddingTop: 30 } : undefined}

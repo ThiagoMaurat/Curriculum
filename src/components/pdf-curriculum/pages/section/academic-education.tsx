@@ -3,6 +3,7 @@ import { View, Text } from "@react-pdf/renderer";
 import React from "react";
 import { commonStyles } from "../../common-style";
 import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
+import { orderBy } from "lodash";
 
 interface AcademicEducationProps {
   data: CurriculumFormInput;
@@ -31,7 +32,11 @@ export default function AcademicEducation({
           textAlign: "justify",
         }}
       >
-        {data.academicEducation.map((item, index) => (
+        {orderBy(
+          data.academicEducation,
+          [(item) => item.finalYear || item.initialYear, "initialYear"],
+          ["desc", "desc"]
+        ).map((item, index) => (
           <View
             key={`academic-education-${index}`}
             style={index > 0 ? { paddingTop: 30 } : undefined}
