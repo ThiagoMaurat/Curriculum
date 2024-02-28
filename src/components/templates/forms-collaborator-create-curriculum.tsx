@@ -8,7 +8,7 @@ import { schema } from "@/components/forms/create-curriculum-form-collaborator/s
 import { CurriculumFormInput } from "@/components/forms/create-curriculum-form-collaborator/type";
 import { DEFAULT_FORM } from "@/components/forms/create-curriculum-form-collaborator/data";
 import { PdfCurriculumTemplate } from "./pdf-curriculum-template-admin";
-import { BlobProvider, PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import { BlobProvider, PDFViewer } from "@react-pdf/renderer";
 import { Button } from "@/components/ui/button";
 import PDFMerger from "pdf-merger-js";
 import FirstStep from "../forms/create-curriculum-form-collaborator/first-step";
@@ -137,7 +137,7 @@ export function FormsCollaboratorCreateCurriculum(
                   />
                 }
               >
-                {({ blob, url, loading, error }) => {
+                {({ blob, loading }) => {
                   if (blob) {
                     return (
                       <Button
