@@ -22,6 +22,20 @@
       "when": 1708108012839,
       "tag": "0002_fine_exodus",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1709138347912,
+      "tag": "0003_spooky_ma_gnuci",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1709140167984,
+      "tag": "0004_salty_lila_cheney",
+      "breakpoints": true
     }
   ]
 }

@@ -1,0 +1,1 @@
+ALTER TABLE "curriculum" DROP COLUMN IF EXISTS "generatedPDFLink";
