@@ -204,6 +204,8 @@ export const listCoordinatorKanbamAction = action(
         columns: {
           statusCurriculum: true,
           id: true,
+          generatedPDFUrl: true,
+          generatedPDFUploadedAt: true,
         },
         with: {
           collaborators: {
@@ -266,6 +268,8 @@ export const listCoordinatorKanbamAction = action(
         columns: {
           statusCurriculum: true,
           id: true,
+          generatedPDFUrl: true,
+          generatedPDFUploadedAt: true,
         },
         with: {
           collaborators: {
@@ -311,7 +315,7 @@ export const listCoordinatorKanbamAction = action(
           },
         },
         where(fields, operators) {
-          return operators.eq(fields.statusCurriculum, "fabrication");
+          return operators.eq(fields.statusCurriculum, "curriculum_send");
         },
         orderBy(fields, operators) {
           return operators.desc(fields.createdAt);
