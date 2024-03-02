@@ -48,6 +48,7 @@ export function FormsCollaboratorCreateCurriculum(
   const [currentStep, setCurrentStep] = React.useState(0);
   const { useUploadThing } = generateReactHelpers<OurFileRouter>();
   const { startUpload } = useUploadThing("pdfUploadStudent");
+  const [isSendingForm, setIsSendingForm] = React.useState(false);
 
   const curriculumSteps: Array<{ title: string }> = [
     {
@@ -103,6 +104,7 @@ export function FormsCollaboratorCreateCurriculum(
   };
 
   const saveAndGenerateCurriculum = async (blob: Blob) => {
+    setIsSendingForm(true);
     const merger = new PDFMerger();
 
     const blobBuffer = await blob.arrayBuffer();
@@ -148,6 +150,8 @@ export function FormsCollaboratorCreateCurriculum(
         description: "Erro ao enviar certificado.",
         duration: 3000,
       });
+    } finally {
+      setIsSendingForm(false);
     }
 
     const { data: serverData, serverError } =
@@ -165,7 +169,7 @@ export function FormsCollaboratorCreateCurriculum(
         description: serverError || "Erro ao salvar certificado.",
         duration: 3000,
       });
-
+      setIsSendingForm(false);
       return;
     }
 
@@ -177,6 +181,7 @@ export function FormsCollaboratorCreateCurriculum(
       });
     }
 
+    setIsSendingForm(false);
     router.push("/");
   };
 
@@ -263,6 +268,8 @@ export function FormsCollaboratorCreateCurriculum(
                       <div className="w-full flex flex-col">
                         <Button
                           className="mb-2"
+                          isLoading={isSendingForm}
+                          disabled={isSendingForm}
                           onClick={async () =>
                             await saveAndGenerateCurriculum(blob)
                           }
