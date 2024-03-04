@@ -3,7 +3,6 @@ import React from "react";
 import { Card } from "../../types";
 import { format } from "date-fns";
 import CommentsComponent from "../../comments";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 interface ModalCurriculumSentProps {

@@ -3,6 +3,7 @@ import React from "react";
 import { Card } from "../../types";
 import { format } from "date-fns";
 import CommentsComponent from "../../comments";
+import Link from "next/link";
 
 interface ModalRevisionProps {
   data: Card;
@@ -74,6 +75,31 @@ export default function ModalRevision(props: ModalRevisionProps) {
             <span>Não há colaborador associado</span>
           )}
         </p>
+
+        {data?.generatedPDFUrl && (
+          <p className="text-muted-foreground text-lg font-bold">
+            Link do PDF:{" "}
+            <Link
+              href={data?.generatedPDFUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="text-primary text-base">
+                {data?.generatedPDFUrl}
+              </span>
+            </Link>
+          </p>
+        )}
+
+        {data?.generatedPDFUploadedAt && (
+          <p className="text-muted-foreground text-lg font-bold">
+            PDF final gerado em:{" "}
+            <span className="text-primary text-base">
+              {data?.generatedPDFUploadedAt &&
+                format(data?.generatedPDFUploadedAt, "dd/MM/yyyy HH:mm")}
+            </span>
+          </p>
+        )}
 
         <CommentsComponent data={data} />
       </DialogContent>

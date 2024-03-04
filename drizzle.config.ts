@@ -14,12 +14,7 @@ export default {
   driver: "pg",
   schema: "./src/server/db/schema.ts",
   dbCredentials: {
-    host: env.PGHOST,
-    password: env.PGPASSWORD,
-    user: env.PGUSER,
-    database: env.PGDATABASE,
-    port: 5432,
-    ssl: true,
+    connectionString: env.PG_CONNECTION_STRING,
   },
   out: "./drizzle",
 } satisfies Config;

@@ -173,6 +173,7 @@ export default function SecondStepEditForm(props: SecondStepProps) {
                       {
                         key: item.key!,
                         userId: session?.user.id,
+                        curriculumId: data.id,
                       }
                     );
 
