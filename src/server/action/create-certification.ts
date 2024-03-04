@@ -6,7 +6,8 @@ import { createCertificationActionSchema } from "@/validators/create-certificati
 import { InvalidCredentialsError } from "../errors/invalid-credentials";
 import { CertificationInsertSchema } from "../db/types-schema";
 import { db } from "../db/drizzle";
-import { certifications } from "../db/schema";
+import { certifications, curriculums } from "../db/schema";
+import { and, eq } from "drizzle-orm";
 
 export const createCertificationAction = action(
   createCertificationActionSchema,
@@ -22,28 +23,44 @@ export const createCertificationAction = action(
       throw new InvalidCredentialsError();
     }
 
-    const formatCertificate: CertificationInsertSchema[] = certification.map(
-      (data) => {
-        return {
-          userId: userId,
-          url: data.url,
-          key: data.key,
-          fileName: data.fileName,
-          curriculumId: curriculumId,
-        };
+    await db.transaction(async (tx) => {
+      const formatCertificate: CertificationInsertSchema[] = certification.map(
+        (data) => {
+          return {
+            userId: userId,
+            url: data.url,
+            key: data.key,
+            fileName: data.fileName,
+            curriculumId: curriculumId,
+          };
+        }
+      );
+
+      const [certificationCreated] = await db
+        .insert(certifications)
+        .values(formatCertificate)
+        .returning();
+
+      if (!certificationCreated) {
+        throw new Error("Erro ao criar certificação");
       }
-    );
 
-    const [certificationCreated] = await db
-      .insert(certifications)
-      .values(formatCertificate)
-      .returning();
+      const updateCurriculum = await tx
+        .update(curriculums)
+        .set({
+          statusCurriculum: "revision",
+        })
+        .where(
+          and(eq(curriculums.userId, userId), eq(curriculums.id, curriculumId))
+        )
+        .returning();
 
-    if (!certificationCreated) {
-      throw new Error("Erro ao criar certificação");
-    }
+      if (!updateCurriculum) {
+        throw new Error("Erro ao atualizar currículo");
+      }
 
-    revalidatePath("/edit-form");
+      revalidatePath("/edit-form");
+    });
 
     return { message: `Certificado criado.` };
   }
