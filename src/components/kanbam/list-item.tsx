@@ -8,6 +8,8 @@ import CardWaitingDocs from "./card/waiting-docs";
 import { notFound } from "next/navigation";
 import CardSelection from "./card/selection";
 import CardFabrication from "./card/fabrication";
+import CardRevision from "./card/revision";
+import CardCurriculumSent from "./card/curriculum-sent";
 
 interface ListItemProps {
   data: ListWithCards;
@@ -46,6 +48,18 @@ export const ListItem = ({ data }: ListItemProps) => {
             if (list.title === "Fabricação") {
               return list?.cards?.map((card, cardIndex) => (
                 <CardFabrication key={cardIndex} data={card} />
+              ));
+            }
+
+            if (list.title === "Revisão") {
+              return list?.cards?.map((card, cardIndex) => (
+                <CardRevision key={cardIndex} data={card} />
+              ));
+            }
+
+            if (list.title === "Envio do currículo") {
+              return list?.cards?.map((card, cardIndex) => (
+                <CardCurriculumSent key={cardIndex} data={card} />
               ));
             }
 
