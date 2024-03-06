@@ -4,7 +4,6 @@ import { randomUUID } from "crypto";
 import { db } from "./drizzle";
 
 const main = async () => {
-
   const user = await db
     .insert(users)
     .values([
@@ -48,11 +47,6 @@ const main = async () => {
         id: 3,
         name: "coordinator",
         userId: user[2].id,
-      },
-      {
-        id: 4,
-        name: "user",
-        userId: user[3].id,
       },
     ]);
   }

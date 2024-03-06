@@ -11,7 +11,7 @@ noStore();
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? ""),
+  metadataBase: new URL(process.env.APP_PUBLIC_APP_URL ?? ""),
   title: "Admin - Kanbam Supervisor",
   description: "Área do kanbam Supervisor",
 };

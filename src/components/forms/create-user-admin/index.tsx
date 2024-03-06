@@ -18,7 +18,7 @@ import { registerUserByAdmin } from "@/server/action/register-user-by-admin";
 import { useSession } from "next-auth/react";
 import {
   createUserAdminForm,
-  CreateUserAdminForm,
+  CreateUserAdminFormSchema,
 } from "@/validators/create-user-admin";
 import {
   Select,
@@ -37,7 +37,7 @@ export function CreateUserAdminForm() {
   const { toast } = useToast();
   const { data: session } = useSession();
 
-  const form = useForm<CreateUserAdminForm>({
+  const form = useForm<CreateUserAdminFormSchema>({
     resolver: zodResolver(createUserAdminForm),
     shouldFocusError: false,
     shouldUnregister: true,
@@ -50,7 +50,7 @@ export function CreateUserAdminForm() {
     },
   });
 
-  function onSubmit(data: CreateUserAdminForm) {
+  function onSubmit(data: CreateUserAdminFormSchema) {
     startTransition(async () => {
       if (!session?.user.roleName || !data.role) {
         return;

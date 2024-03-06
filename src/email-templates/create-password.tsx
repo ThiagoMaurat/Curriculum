@@ -41,15 +41,15 @@ export default function CreatePassword({
           </Text>
           <Hr style={hr} />
           <Link
-            href={`${env.NEXT_PUBLIC_APP_URL}/create-password?token=${createPasswordToken}&email=${email}`}
+            href={`${env.APP_PUBLIC_APP_URL}/create-password?token=${createPasswordToken}&email=${email}`}
             style={reportLink}
           >
-            {`${env.NEXT_PUBLIC_APP_URL}/create-password?token=${createPasswordToken}&email=${email}`}
+            {`${env.APP_PUBLIC_APP_URL}/create-password?token=${createPasswordToken}&email=${email}`}
           </Link>
           <Section style={buttonContainer}>
             <Button
               style={button}
-              href={`${env.NEXT_PUBLIC_APP_URL}/create-password?token=${createPasswordToken}&email=${email}`}
+              href={`${env.APP_PUBLIC_APP_URL}/create-password?token=${createPasswordToken}&email=${email}`}
             >
               Login
             </Button>

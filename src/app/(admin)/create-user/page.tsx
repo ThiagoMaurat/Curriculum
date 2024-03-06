@@ -6,7 +6,7 @@ import { CreateUserAdminForm } from "@/components/forms/create-user-admin";
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? ""),
+  metadataBase: new URL(process.env.APP_PUBLIC_APP_URL ?? ""),
   title: "Admin - Criar usuário",
   description: "Área do administrador",
 };
