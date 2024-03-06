@@ -8,7 +8,7 @@ export default async function Home() {
     <React.Fragment>
       <Header />
 
-      <div className="bg-gray-50 dark:bg-zinc-950 py-12 lg:py-24 container">
+      <div className="bg-gray-50 dark:bg-card py-12 lg:py-24 container">
         <div className="container px-4 py-6 md:py-12 space-y-6">
           <div className="flex flex-col items-center justify-center space-y-2">
             <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl ">
