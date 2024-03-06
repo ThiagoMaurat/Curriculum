@@ -8,7 +8,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import { db } from "@/server/db/drizzle";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? ""),
+  metadataBase: new URL(process.env.APP_PUBLIC_APP_URL ?? ""),
   title: "Edição de formulário",
   description: "Edição de formulário de envio de currículo",
 };

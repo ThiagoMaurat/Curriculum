@@ -10,7 +10,7 @@ import {
 import { SignInForm } from "@/components/forms/signin-form";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? ""),
+  metadataBase: new URL(process.env.APP_PUBLIC_APP_URL ?? ""),
   title: "Entrar",
   description: "Entrar na plataforma Curriculum",
 };

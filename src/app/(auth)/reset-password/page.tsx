@@ -10,7 +10,7 @@ import {
 import { ResetPasswordForm } from "@/components/forms/reset-password";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? ""),
+  metadataBase: new URL(process.env.APP_PUBLIC_APP_URL ?? ""),
   title: "Resetar senha",
   description: "Resetar senha",
 };

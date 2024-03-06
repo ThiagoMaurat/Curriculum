@@ -15,7 +15,7 @@ interface UserProfileProps {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? ""),
+  metadataBase: new URL(process.env.APP_PUBLIC_APP_URL ?? ""),
   title: "Admin - Perfil do aluno",
   description: "Área do administrador",
 };
@@ -46,10 +46,7 @@ export default async function UserProfile({ searchParams }: UserProfileProps) {
       <CardHeader className="space-y-1 flex flex-row items-center justify-between gap-4">
         <CardTitle className="text-2xl">Perfil dos Alunos</CardTitle>
 
-        <InputSearch
-          className="max-w-64"
-          placeholder="Pesquisar"
-        />
+        <InputSearch className="max-w-64" placeholder="Pesquisar" />
       </CardHeader>
 
       <CardContent>
