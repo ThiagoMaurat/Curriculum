@@ -8,10 +8,6 @@ export const env = createEnv({
    * Will throw if you access these variables on the client.
    */
   server: {
-    PGHOST: z.string(),
-    PGDATABASE: z.string(),
-    PGUSER: z.string(),
-    PGPASSWORD: z.string(),
     NEXTAUTH_SECRET: z.string(),
     NEXTAUTH_URL: z.string().url(),
     GMAIL_MAIL: z.string(),
@@ -35,10 +31,6 @@ export const env = createEnv({
    * 💡 You'll get type errors if not all variables from `server` & `client` are included here.
    */
   runtimeEnv: {
-    PGHOST: process.env.PGHOST,
-    PGDATABASE: process.env.PGDATABASE,
-    PGUSER: process.env.PGUSER,
-    PGPASSWORD: process.env.PGPASSWORD,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
