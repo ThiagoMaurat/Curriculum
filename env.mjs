@@ -8,8 +8,20 @@ export const env = createEnv({
    * Will throw if you access these variables on the client.
    */
   server: {
-    NEXTAUTH_SECRET: z.string(),
-    NEXTAUTH_URL: z.string().url(),
+    NEXTAUTH_SECRET:
+      process.env.NODE_ENV === "production"
+        ? z.string()
+        : z.string().optional(),
+    NODE_ENV: z
+      .enum(["development", "test", "production"])
+      .default("development"),
+    NEXTAUTH_URL: z.preprocess(
+      // This makes Vercel deployments not fail if you don't set NEXTAUTH_URL
+      // Since NextAuth.js automatically uses the VERCEL_URL if present.
+      (str) => process.env.VERCEL_URL ?? str,
+      // VERCEL_URL doesn't include `https` so it cant be validated as a URL
+      process.env.VERCEL ? z.string() : z.string().url()
+    ),
     GMAIL_MAIL: z.string(),
     GMAIL_PASSWORD: z.string(),
     PG_CONNECTION_STRING: z.string(),
