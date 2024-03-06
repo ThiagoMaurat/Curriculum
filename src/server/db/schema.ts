@@ -69,6 +69,12 @@ export const curriculums = pgTable("curriculum", {
   })
     .$type<CurriculumStatus>()
     .default(null),
+  generatedPDPFileName: varchar("generatedPdfFileName", { length: 191 }),
+  generatedPDFKey: varchar("generatedPdfKey", { length: 191 }),
+  generatedPDFUrl: varchar("generatedPdfUrl", { length: 191 }),
+  generatedPDFUploadedAt: timestamp("generatedPdfCreatedAt", {
+    mode: "date",
+  }),
 });
 
 export const certifications = pgTable("certification", {

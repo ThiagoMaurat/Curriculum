@@ -12,6 +12,8 @@ export type CommentsWithUser = Comments & {
 export type Card = {
   id: number;
   statusCurriculum: CurriculumStatus;
+  generatedPDFUrl?: string;
+  generatedPDFUploadedAt?: string;
   user: {
     email: string;
     name: string | null;

@@ -73,7 +73,7 @@ export default function FirstStepEditForm(props: EditFormTemplateProps) {
 
     toast({
       title: "Sucesso",
-      description: "Certificado salvo com sucesso.",
+      description: data?.message || "Certificado salvo com sucesso.",
       duration: 3000,
     });
   };
@@ -383,7 +383,7 @@ export default function FirstStepEditForm(props: EditFormTemplateProps) {
           disabled={methods.formState.isSubmitting}
           type="submit"
         >
-          Cadastrar Currículo
+          Atualizar Currículo
         </Button>
       </form>
     </Form>

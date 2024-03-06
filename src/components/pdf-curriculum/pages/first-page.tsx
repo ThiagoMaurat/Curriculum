@@ -1,7 +1,7 @@
 import React from "react";
 import { Page, Text, StyleSheet, View } from "@react-pdf/renderer";
 import { commonStyles } from "../common-style";
-import { CurriculumFormInput } from "../../forms/curriculum-form-admin/type";
+import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
 
 const firstPageStyles = StyleSheet.create({
   view: {
@@ -15,7 +15,7 @@ const firstPageStyles = StyleSheet.create({
 });
 
 interface FirstPageProps {
-  data: CurriculumFormInput;
+  data: ListTodoCurriculumByCollaborator;
 }
 
 export default function FirstPage({ data }: FirstPageProps) {
@@ -28,8 +28,9 @@ export default function FirstPage({ data }: FirstPageProps) {
           style={{
             fontStyle: "italic",
             textAlign: "center",
-            fontSize: 22,
+            fontSize: 18,
             fontWeight: "bold",
+            fontFamily: "Times New Roman",
           }}
         >
           {fullName}
@@ -47,8 +48,9 @@ export default function FirstPage({ data }: FirstPageProps) {
             style={{
               textAlign: "center",
               fontStyle: "italic",
-              fontSize: 22,
+              fontSize: 18,
               fontWeight: "bold",
+              fontFamily: "Times New Roman",
             }}
           >
             CURRICULUM VITAE
@@ -56,10 +58,10 @@ export default function FirstPage({ data }: FirstPageProps) {
           <Text
             style={{
               textAlign: "center",
-              fontStyle: "italic",
-              fontSize: 22,
+              fontSize: 16,
               fontWeight: "bold",
-              marginTop: 10,
+              marginTop: 20,
+              fontFamily: "Times New Roman",
             }}
           >
             Medicina

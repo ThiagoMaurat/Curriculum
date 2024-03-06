@@ -1,20 +1,20 @@
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import React from "react";
 import { Card } from "../../types";
 import { format } from "date-fns";
 import CommentsComponent from "../../comments";
 
 interface ModalWaitingDocsProps {
-  onOpenChange: () => void;
-  open: boolean;
+  children: React.ReactNode;
   data: Card;
 }
 
 export default function ModalWaitingDocs(props: ModalWaitingDocsProps) {
-  const { onOpenChange, open, data } = props;
+  const { data, children } = props;
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[550px] max-h-[600px] overflow-auto space-y-2">
         <p className="text-muted-foreground text-lg font-bold">
           Nome:{" "}

@@ -19,7 +19,10 @@ export const updateCurriculumAction = action(
 
     const [curriculum] = await db
       .update(curriculums)
-      .set(data)
+      .set({
+        ...data,
+        statusCurriculum: "revision",
+      })
       .where(eq(curriculums.userId, serverSession.user.id))
       .returning();
 

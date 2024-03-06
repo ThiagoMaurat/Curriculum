@@ -16,13 +16,15 @@ interface StudentByIdProps {
   };
 }
 
+noStore();
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? ""),
   title: "Admin - Perfil do aluno",
   description: "Área do administrador",
 };
-noStore();
-export const revalidate = 0;
+
 export default async function StudentById({ params }: StudentByIdProps) {
   const data = await getServerAuthSession();
   const [paramsId] = params.id;

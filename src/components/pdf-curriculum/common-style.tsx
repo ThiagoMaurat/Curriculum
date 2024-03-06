@@ -4,30 +4,43 @@ export const commonStyles = StyleSheet.create({
   body: {
     paddingTop: 55,
     paddingBottom: 65,
-    paddingLeft: 40,
+    paddingLeft: 55,
     paddingRight: 65,
   },
   title: {
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: 12,
-    fontWeight: "bold",
-  },
-  descriptionTitle: {
-    fontWeight: "normal",
-    fontSize: 10,
+    fontFamily: "Times New Roman",
   },
   chapter: {
-    marginVertical: 6,
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 18,
+    fontFamily: "Calibri",
   },
-  subChapter: {
-    marginVertical: 6,
+  fieldText: {
     fontSize: 12,
     fontWeight: "bold",
+    fontFamily: "Times New Roman",
+  },
+  fieldAdditionalText: {
+    fontWeight: "normal",
+    fontSize: 12,
+    fontFamily: "Times New Roman",
+  },
+  subtitle: {
+    fontSize: 14,
+    fontFamily: "Calibri",
+  },
+  yearsText: {
+    fontSize: 10,
+    fontFamily: "Cambria",
+    fontWeight: "bold",
+    textDecoration: "underline",
+  },
+  yearsAdditionalText: {
+    fontSize: 10,
+    fontFamily: "Cambria",
+    textDecoration: "underline",
+    fontWeight: "normal",
   },
   author: {
     fontSize: 8,
