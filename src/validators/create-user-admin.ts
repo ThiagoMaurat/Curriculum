@@ -89,4 +89,4 @@ export const createUserAdminAction = createUserAdmin.extend({
 });
 
 export type CreateUserAdmin = z.infer<typeof createUserAdmin>;
-export type CreateUserAdminForm = z.infer<typeof createUserAdminForm>;
+export type CreateUserAdminFormSchema = z.infer<typeof createUserAdminForm>;
