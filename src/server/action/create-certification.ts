@@ -45,18 +45,28 @@ export const createCertificationAction = action(
         throw new Error("Erro ao criar certificação");
       }
 
-      const updateCurriculum = await tx
-        .update(curriculums)
-        .set({
-          statusCurriculum: "revision",
-        })
-        .where(
-          and(eq(curriculums.userId, userId), eq(curriculums.id, curriculumId))
-        )
-        .returning();
+      const [userCurriculum] = await tx
+        .select()
+        .from(curriculums)
+        .where(eq(curriculums.userId, userId));
 
-      if (!updateCurriculum) {
-        throw new Error("Erro ao atualizar currículo");
+      if (userCurriculum.generatedPDFUploadedAt) {
+        const updateCurriculum = await tx
+          .update(curriculums)
+          .set({
+            statusCurriculum: "revision",
+          })
+          .where(
+            and(
+              eq(curriculums.userId, userId),
+              eq(curriculums.id, curriculumId)
+            )
+          )
+          .returning();
+
+        if (!updateCurriculum) {
+          throw new Error("Erro ao atualizar currículo");
+        }
       }
 
       revalidatePath("/edit-form");

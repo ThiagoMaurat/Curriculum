@@ -95,7 +95,7 @@ export default function ProfileByIdAdmin({ data }: ProfileByIdAdminProps) {
 
       <p className="text-muted-foreground text-lg font-bold">
         Currículo:{"  "}
-        {data.curriculums.email ? (
+        {data?.curriculums?.email ? (
           <Dialog>
             <DialogTrigger asChild>
               <Button className="ml-2 h-8" variant="destructive">

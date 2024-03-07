@@ -28,6 +28,7 @@ export const metadata: Metadata = {
 export default async function StudentById({ params }: StudentByIdProps) {
   const data = await getServerAuthSession();
   const [paramsId] = params.id;
+
   if (!data?.user || data?.user.roleName === "user") {
     return <RedirectUnauthorized message="Usuário sem permissão" />;
   }
