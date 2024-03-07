@@ -95,17 +95,143 @@ export default function ProfileByIdAdmin({ data }: ProfileByIdAdminProps) {
 
       <p className="text-muted-foreground text-lg font-bold">
         Currículo:{"  "}
-        {data.curriculums ? (
+        {data.curriculums.email ? (
           <Dialog>
             <DialogTrigger asChild>
               <Button className="ml-2 h-8" variant="destructive">
                 Visualizar
-                <span className="sr-only">Upload Images</span>
               </Button>
             </DialogTrigger>
 
             <DialogContent className="sm:max-w-[480px] max-h-[600px] overflow-auto">
-              {/* TODO: show and edit the curriculum by admin */}
+              <p className="text-muted-foreground text-lg font-bold">
+                Nome Completo:{" "}
+                <span className="text-primary text-base ">
+                  {data?.curriculums?.fullName
+                    ? data?.curriculums?.fullName
+                    : "-"}
+                </span>
+              </p>
+
+              <p className="text-muted-foreground text-lg font-bold">
+                Nome do pai:{" "}
+                <span className="text-primary text-base ">
+                  {data?.curriculums?.fathersName
+                    ? data?.curriculums?.fathersName
+                    : "-"}
+                </span>
+              </p>
+
+              <p className="text-muted-foreground text-lg font-bold">
+                Nome da mãe:{" "}
+                <span className="text-primary text-base ">
+                  {data?.curriculums?.mothersName
+                    ? data?.curriculums?.mothersName
+                    : "-"}
+                </span>
+              </p>
+
+              <p className="text-muted-foreground text-lg font-bold">
+                Data de Nascimento:{" "}
+                <span className="text-primary text-base ">
+                  {data?.curriculums?.birthday
+                    ? format(data?.curriculums?.birthday, "dd/MM/yyyy")
+                    : "-"}
+                </span>
+              </p>
+
+              <p className="text-muted-foreground text-lg font-bold">
+                Data de Início do curso:{" "}
+                <span className="text-primary text-base ">
+                  {data?.curriculums?.initialCourseDate
+                    ? format(data?.curriculums?.initialCourseDate, "dd/MM/yyyy")
+                    : "-"}
+                </span>
+              </p>
+
+              <p className="text-muted-foreground text-lg font-bold">
+                Data final do curso:{" "}
+                <span className="text-primary text-base ">
+                  {data?.curriculums?.finalCourseDate
+                    ? format(data?.curriculums?.finalCourseDate, "dd/MM/yyyy")
+                    : "-"}
+                </span>
+              </p>
+
+              <p className="text-muted-foreground text-lg font-bold">
+                Documento de Identidade:{" "}
+                <span className="text-primary text-base ">
+                  {data?.curriculums?.identityDocument
+                    ? data?.curriculums?.identityDocument
+                    : "-"}
+                </span>
+              </p>
+
+              <p className="text-muted-foreground text-lg font-bold">
+                CRM:{" "}
+                <span className="text-primary text-base ">
+                  {data?.curriculums?.CRM ? data?.curriculums?.CRM : "-"}
+                </span>
+              </p>
+
+              <p className="text-muted-foreground text-lg font-bold">
+                CPF:{" "}
+                <span className="text-primary text-base ">
+                  {data?.curriculums?.CPF ? data?.curriculums?.CPF : "-"}
+                </span>
+              </p>
+
+              <p className="text-muted-foreground text-lg font-bold">
+                Telefone:{" "}
+                <span className="text-primary text-base ">
+                  {data?.curriculums?.phone ? data?.curriculums?.phone : "-"}
+                </span>
+              </p>
+
+              <p className="text-muted-foreground text-lg font-bold">
+                Endereço:{" "}
+                <span className="text-primary text-base ">
+                  {data?.curriculums?.address
+                    ? data?.curriculums?.address
+                    : "-"}
+                </span>
+              </p>
+
+              <p className="text-muted-foreground text-lg font-bold">
+                Email:{" "}
+                <span className="text-primary text-base ">
+                  {data?.curriculums?.email ? data?.curriculums?.email : "-"}
+                </span>
+              </p>
+
+              <p className="text-muted-foreground text-lg font-bold">
+                Currículo Lattes:{" "}
+                <span className="text-primary text-base ">
+                  {data?.curriculums?.lattes ? data?.curriculums?.lattes : "-"}
+                </span>
+              </p>
+
+              <p className="text-muted-foreground text-lg font-bold">
+                Certificados:{" "}
+                <span className="text-primary text-base ">
+                  {data?.certifications && data?.certifications?.length > 0
+                    ? data.certifications.map((certification, index) => (
+                        <React.Fragment key={certification.fileName}>
+                          <a
+                            href={`${certification.url}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {certification.fileName}
+                          </a>
+                          {index !== data!.certifications!.length - 1
+                            ? ", "
+                            : ""}
+                        </React.Fragment>
+                      ))
+                    : "-"}
+                </span>
+              </p>
             </DialogContent>
           </Dialog>
         ) : (
