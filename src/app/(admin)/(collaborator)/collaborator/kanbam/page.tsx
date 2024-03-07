@@ -6,12 +6,13 @@ import { type Metadata } from "next";
 import { unstable_noStore as noStore } from "next/cache";
 import { notFound } from "next/navigation";
 import { listCollaboratorKanbamAction } from "@/server/action/list-collaborator-kanbam";
+import { env } from "../../../../../../env.mjs";
 
 noStore();
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.APP_PUBLIC_APP_URL ?? ""),
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL ?? ""),
   title: "Admin - Kanbam Colaborador",
   description: "Área do kanbam coladorador",
 };

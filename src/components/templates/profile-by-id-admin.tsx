@@ -58,9 +58,9 @@ export default function ProfileByIdAdmin({ data }: ProfileByIdAdminProps) {
         Link senha:{" "}
         {data.createPasswordToken ? (
           <a
-            href={`${env.APP_PUBLIC_APP_URL}/create-password?token=${data.createPasswordToken}&email=${data.email}`}
+            href={`${env.NEXT_PUBLIC_APP_URL}/create-password?token=${data.createPasswordToken}&email=${data.email}`}
             className="text-primary text-base underline"
-          >{`${env.APP_PUBLIC_APP_URL}/create-password?token=${data.createPasswordToken}&email=${data.email}`}</a>
+          >{`${env.NEXT_PUBLIC_APP_URL}/create-password?token=${data.createPasswordToken}&email=${data.email}`}</a>
         ) : (
           <span className="text-primary text-base">Já criada</span>
         )}

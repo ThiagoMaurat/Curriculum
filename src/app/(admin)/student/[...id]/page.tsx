@@ -9,6 +9,7 @@ import ProfileByIdAdmin from "@/components/templates/profile-by-id-admin";
 import { db } from "@/server/db/drizzle";
 import { users } from "@/server/db/schema";
 import { eq } from "drizzle-orm";
+import { env } from "../../../../../env.mjs";
 
 interface StudentByIdProps {
   params: {
@@ -20,7 +21,7 @@ noStore();
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.APP_PUBLIC_APP_URL ?? ""),
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL ?? ""),
   title: "Admin - Perfil do aluno",
   description: "Área do administrador",
 };

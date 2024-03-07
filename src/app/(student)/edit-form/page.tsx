@@ -6,9 +6,10 @@ import { type Metadata } from "next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { unstable_noStore as noStore } from "next/cache";
 import { db } from "@/server/db/drizzle";
+import { env } from "../../../../env.mjs";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.APP_PUBLIC_APP_URL ?? ""),
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL ?? ""),
   title: "Edição de formulário",
   description: "Edição de formulário de envio de currículo",
 };

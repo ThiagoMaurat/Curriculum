@@ -8,9 +8,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { SignInForm } from "@/components/forms/signin-form";
+import { env } from "../../../../env.mjs";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.APP_PUBLIC_APP_URL ?? ""),
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL ?? ""),
   title: "Entrar",
   description: "Entrar na plataforma Curriculum",
 };

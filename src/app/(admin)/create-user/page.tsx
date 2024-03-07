@@ -4,9 +4,10 @@ import { getServerAuthSession } from "../../../../auth";
 import RedirectUnauthorized from "@/components/redirect-unauthorized";
 import { CreateUserAdminForm } from "@/components/forms/create-user-admin";
 import { type Metadata } from "next";
+import { env } from "../../../../env.mjs";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.APP_PUBLIC_APP_URL ?? ""),
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL ?? ""),
   title: "Admin - Criar usuário",
   description: "Área do administrador",
 };

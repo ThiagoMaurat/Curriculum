@@ -6,6 +6,7 @@ import RedirectUnauthorized from "@/components/redirect-unauthorized";
 import { NoSSRWrapper } from "@/hooks/no-ssr-wrapper";
 import { FormsCollaboratorCreateCurriculum } from "@/components/templates/forms-collaborator-create-curriculum";
 import { listTodoCurriculumByCollaborator } from "@/server/action/list-todo-curriculum-by-collaborator";
+import { env } from "../../../../../../../env.mjs";
 
 interface TodoCurriculumByCollaboratorProps {
   params: {
@@ -17,7 +18,7 @@ noStore();
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.APP_PUBLIC_APP_URL ?? ""),
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL ?? ""),
   title: "Admin Colaborador - Elaborar Currículo",
   description: "Área do administrador",
 };

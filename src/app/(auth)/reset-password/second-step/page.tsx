@@ -8,9 +8,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ResetPasswordFormSecondStep } from "@/components/forms/reset-password-second-step";
+import { env } from "../../../../../env.mjs";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.APP_PUBLIC_APP_URL ?? ""),
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL ?? ""),
   title: "Resetar senha",
   description: "Resetar senha",
 };

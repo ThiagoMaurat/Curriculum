@@ -49,14 +49,14 @@ export default function ResetPasswordEmail({
 
           <Hr style={hr} />
 
-          <Link href={new URL(env.APP_PUBLIC_APP_URL).href} style={reportLink}>
+          <Link href={new URL(env.NEXT_PUBLIC_APP_URL).href} style={reportLink}>
             Curriculun
           </Link>
 
           <Section style={buttonContainer}>
             <Button
               style={button}
-              href={`${env.APP_PUBLIC_APP_URL}/reset-password/second-step/?email=${email}`}
+              href={`${env.NEXT_PUBLIC_APP_URL}/reset-password/second-step/?email=${email}`}
             >
               Clique aqui para ser redirecionado
             </Button>

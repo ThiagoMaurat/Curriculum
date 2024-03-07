@@ -10,12 +10,13 @@ import { notFound } from "next/navigation";
 import { listUsersAction } from "@/server/action/list-users-by-admin";
 import { InputSearch } from "@/components/ui/field-search";
 import { ParamsType } from "@/validators/params-schema";
+import { env } from "../../../../env.mjs";
 interface UserProfileProps {
   searchParams: ParamsType;
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.APP_PUBLIC_APP_URL ?? ""),
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL ?? ""),
   title: "Admin - Perfil do aluno",
   description: "Área do administrador",
 };
