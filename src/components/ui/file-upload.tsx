@@ -200,14 +200,14 @@ function FileCard({ i, file, files, setFiles }: FileCardProps) {
   return (
     <div className="relative flex items-center justify-between gap-2.5">
       <div className="flex items-center gap-3">
-        {/* <Link
+        <a
           href={file.preview}
           target="_blank"
           rel="noreferrer"
           className=" shrink-0 rounded-md"
         >
           <ArrowUpRight className="h-5 w-5" />
-        </Link> */}
+        </a>
 
         <div className="flex flex-col">
           <p className="line-clamp-1 text-sm font-medium text-muted-foreground">
