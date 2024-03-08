@@ -129,7 +129,7 @@ export default function SecondStepEditForm(props: SecondStepProps) {
     });
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (data?.certifications) {
       convertCertificateLinToFileWithPreview(data?.certifications).then(
         (data) => {
@@ -137,7 +137,7 @@ export default function SecondStepEditForm(props: SecondStepProps) {
         }
       );
     }
-  }, [data, setFiles]);
+  }, [data, setFiles]); */
 
   const calcMaxFiles = useMemo(() => {
     if (files && files.length > 0) {
