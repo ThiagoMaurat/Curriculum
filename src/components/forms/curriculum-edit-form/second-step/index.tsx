@@ -130,8 +130,8 @@ export default function SecondStepEditForm(props: SecondStepProps) {
   };
 
   useEffect(() => {
-    if (data) {
-      convertCertificateLinToFileWithPreview(data.certifications).then(
+    if (data?.certifications) {
+      convertCertificateLinToFileWithPreview(data?.certifications).then(
         (data) => {
           setFiles(data);
         }
