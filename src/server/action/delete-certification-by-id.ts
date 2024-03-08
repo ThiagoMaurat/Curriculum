@@ -30,10 +30,17 @@ export const deleteCertificationByIdAction = action(
         throw new Error("Failed to delete certificate");
       }
 
+      const [userCurriculum] = await tx
+        .select()
+        .from(curriculums)
+        .where(eq(curriculums.userId, userId));
+
       const updateCurriculum = await tx
         .update(curriculums)
         .set({
-          statusCurriculum: "revision",
+          statusCurriculum: userCurriculum?.generatedPDFUploadedAt
+            ? "revision"
+            : userCurriculum.statusCurriculum,
         })
         .where(
           and(eq(curriculums.userId, userId), eq(curriculums.id, curriculumId))
