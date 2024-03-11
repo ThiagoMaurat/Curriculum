@@ -28,6 +28,7 @@ interface FileDialogProps<
   accept?: Accept;
   maxSize?: number;
   maxFiles?: number;
+  exceedMaxFiles?: boolean;
   files: FileWithPreviewAndId[] | null;
   setFiles: React.Dispatch<React.SetStateAction<FileWithPreviewAndId[] | null>>;
   isUploading?: boolean;
@@ -37,6 +38,7 @@ interface FileDialogProps<
 export function FileUpload<TFieldValues extends FieldValues>({
   name,
   setValue,
+  exceedMaxFiles,
   accept = {
     "image/*": [],
   },
@@ -57,7 +59,7 @@ export function FileUpload<TFieldValues extends FieldValues>({
           key: undefined,
         });
 
-        if (files?.length === maxFiles) return;
+        if (files?.length === maxFiles || exceedMaxFiles) return;
         setFiles((prev) => [...(prev ?? []), fileWithPreview]);
       });
 
@@ -84,7 +86,7 @@ export function FileUpload<TFieldValues extends FieldValues>({
       }
     },
 
-    [files?.length, maxFiles, maxSize, setFiles]
+    [exceedMaxFiles, files?.length, maxFiles, maxSize, setFiles]
   );
 
   React.useEffect(() => {

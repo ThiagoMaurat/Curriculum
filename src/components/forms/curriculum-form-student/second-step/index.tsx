@@ -37,7 +37,7 @@ export default function SecondStepStudent() {
             <FileDialog
               setValue={form.setValue}
               name="certificate"
-              maxFiles={12}
+              maxFiles={6}
               maxSize={1024 * 1024 * 4 /* 4mb */}
               files={files}
               setFiles={setFiles}

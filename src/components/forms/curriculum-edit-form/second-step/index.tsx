@@ -139,14 +139,6 @@ export default function SecondStepEditForm(props: SecondStepProps) {
     }
   }, [data, setFiles]);
 
-  const calcMaxFiles = useMemo(() => {
-    if (files && files.length > 0) {
-      return 10 - files.length;
-    }
-
-    return 10;
-  }, [files]);
-
   return (
     <Form {...methods}>
       <form
@@ -202,8 +194,13 @@ export default function SecondStepEditForm(props: SecondStepProps) {
           <FormControl>
             <FileUpload
               setValue={methods.setValue}
+              exceedMaxFiles={
+                (files?.length || 0) +
+                  (methods?.watch("certificate") as File[])?.length >=
+                6
+              }
               name="certificate"
-              maxFiles={calcMaxFiles}
+              maxFiles={6}
               maxSize={1024 * 1024 * 4 /* 4mb */}
               files={uploadFiles}
               setFiles={setUploadFiles}
