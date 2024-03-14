@@ -78,8 +78,8 @@ export default function ModalCurriculumSent(props: ModalCurriculumSentProps) {
 
         {data?.generatedPDFUrl && (
           <p className="text-muted-foreground text-lg font-bold">
-            Link do PDF:{" "}
-            <Link
+            Link do PDF final:{" "}
+            <a
               href={data?.generatedPDFUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -87,7 +87,7 @@ export default function ModalCurriculumSent(props: ModalCurriculumSentProps) {
               <span className="text-primary text-base">
                 {data?.generatedPDFUrl}
               </span>
-            </Link>
+            </a>
           </p>
         )}
 

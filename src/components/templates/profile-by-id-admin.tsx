@@ -263,6 +263,31 @@ export default function ProfileByIdAdmin({ data }: ProfileByIdAdminProps) {
           </span>
         </p>
       )}
+
+{data?.curriculums?.generatedPDFUrl && (
+          <p className="text-muted-foreground text-lg font-bold">
+            Link do PDF final:{" "}
+            <a
+              href={data?.curriculums?.generatedPDFUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="text-primary text-base">
+                {data?.curriculums?.generatedPDFUrl}
+              </span>
+            </a>
+          </p>
+        )}
+
+        {data?.curriculums?.generatedPDFUploadedAt && (
+          <p className="text-muted-foreground text-lg font-bold">
+            PDF final gerado em:{" "}
+            <span className="text-primary text-base">
+              {data?.curriculums?.generatedPDFUploadedAt &&
+                format(data?.curriculums?.generatedPDFUploadedAt, "dd/MM/yyyy HH:mm")}
+            </span>
+          </p>
+        )}
     </section>
   );
 }
