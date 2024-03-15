@@ -1,5 +1,6 @@
 import { relations } from "drizzle-orm";
 import {
+  boolean,
   decimal,
   index,
   integer,
@@ -90,6 +91,9 @@ export const certifications = pgTable("certification", {
   userId: varchar("userId", { length: 255 }).references(() => users.id, {
     onDelete: "cascade",
   }),
+  isInsertedAfterCurriculumDone: boolean(
+    "isInsertedAfterCurriculumDone"
+  ).default(false),
 });
 
 export const comments = pgTable("comment", {

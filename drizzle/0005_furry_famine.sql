@@ -1,0 +1,1 @@
+ALTER TABLE "certification" ADD COLUMN "isInsertedAfterCurriculumDone" boolean DEFAULT false;
