@@ -30,7 +30,7 @@ export const deleteCertificationByIdAction = action(
         throw new Error("Failed to delete certificate");
       }
 
-      const [userCurriculum] = await tx
+      /* const [userCurriculum] = await tx
         .select()
         .from(curriculums)
         .where(eq(curriculums.userId, userId));
@@ -49,7 +49,7 @@ export const deleteCertificationByIdAction = action(
 
       if (!updateCurriculum) {
         throw new Error("Failed to update curriculum");
-      }
+      }  */
 
       revalidatePath("/edit-form");
     });

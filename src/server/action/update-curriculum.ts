@@ -20,18 +20,18 @@ export const updateCurriculumAction = action(
     }
 
     await db.transaction(async (tx) => {
-      const [userCurriculum] = await tx
+      /* const [userCurriculum] = await tx
         .select()
         .from(curriculums)
-        .where(eq(curriculums.userId, serverSession.user.id));
+        .where(eq(curriculums.userId, serverSession.user.id)); */
 
       const [curriculum] = await db
         .update(curriculums)
         .set({
           ...data,
-          statusCurriculum: userCurriculum.generatedPDFUploadedAt
+          /* statusCurriculum: userCurriculum.generatedPDFUploadedAt
             ? "revision"
-            : userCurriculum.statusCurriculum,
+            : userCurriculum.statusCurriculum, */
         })
         .where(eq(curriculums.userId, serverSession.user.id))
         .returning();
