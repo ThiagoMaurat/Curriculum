@@ -1,0 +1,1 @@
+ALTER TABLE "certification" ALTER COLUMN "isInsertedAfterCurriculumDone" DROP DEFAULT;

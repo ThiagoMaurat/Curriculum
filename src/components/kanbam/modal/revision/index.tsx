@@ -101,6 +101,28 @@ export default function ModalRevision(props: ModalRevisionProps) {
           </p>
         )}
 
+        {data?.certifications?.map((item) => {
+          if (item.isInsertedAfterCurriculumDone) {
+            return (
+              <p
+                key={item.fileName}
+                className="text-muted-foreground text-lg font-bold"
+              >
+                Certificados inseridos após o currículo ser concluído:{" "}
+                <a
+                  href={`${item.url}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="text-primary text-base">
+                    {item.fileName}
+                  </span>
+                </a>
+              </p>
+            );
+          }
+        })}
+
         <CommentsComponent data={data} />
       </DialogContent>
     </Dialog>

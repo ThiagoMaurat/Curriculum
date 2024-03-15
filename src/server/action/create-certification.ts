@@ -32,6 +32,7 @@ export const createCertificationAction = action(
             key: data.key,
             fileName: data.fileName,
             curriculumId: curriculumId,
+            isInsertedAfterCurriculumDone: true,
           };
         }
       );
