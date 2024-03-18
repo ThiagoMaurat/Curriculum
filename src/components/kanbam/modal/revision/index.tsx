@@ -1,9 +1,42 @@
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import React from "react";
+import React, { useEffect } from "react";
 import { Card } from "../../types";
 import { format } from "date-fns";
 import CommentsComponent from "../../comments";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Card as CardComponent,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { useForm } from "react-hook-form";
+import { AssociateUserByCoordinatorType, schema } from "../selection/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { associateUserByCoordinator } from "@/server/action/associate-user-by-coordinator";
+import { useToast } from "@/hooks/use-toast";
+import {
+  ListCoordinatorUsers,
+  listCoordinatorUsers,
+} from "@/server/action/list-coordinator-users";
 
 interface ModalRevisionProps {
   data: Card;
@@ -12,6 +45,58 @@ interface ModalRevisionProps {
 
 export default function ModalRevision(props: ModalRevisionProps) {
   const { data, children } = props;
+
+  const { data: session } = useSession();
+
+  const { toast } = useToast();
+
+  const methods = useForm<AssociateUserByCoordinatorType>({
+    resolver: zodResolver(schema),
+  });
+
+  const [coordinators, setCoordinators] = React.useState<
+    ListCoordinatorUsers[] | null
+  >(null);
+
+  const submitAssociateUserByCoordinator = async (
+    dataForm: AssociateUserByCoordinatorType
+  ) => {
+    if (!session?.user?.roleName || !data?.user?.id) return;
+
+    const { serverError } = await associateUserByCoordinator({
+      collaboratorId: dataForm.collaboratorId,
+      studentId: data.user.id,
+      userRole: session?.user.roleName,
+    });
+
+    if (serverError) {
+      toast({
+        title: "Erro",
+        description: serverError || "Erro associar usuário.",
+        duration: 4000,
+      });
+
+      return;
+    }
+
+    toast({
+      title: "Sucesso",
+      description: "Usuário associado com sucesso.",
+      duration: 4000,
+    });
+
+    methods.reset();
+  };
+
+  useEffect(() => {
+    const fetchCoordinators = async () => {
+      const response = await listCoordinatorUsers();
+      setCoordinators(response);
+      return response;
+    };
+
+    fetchCoordinators();
+  }, []);
 
   return (
     <Dialog>
@@ -122,6 +207,76 @@ export default function ModalRevision(props: ModalRevisionProps) {
             );
           }
         })}
+
+        {session?.user?.roleName === "coordinator" && (
+          <CardComponent className="w-full mx-auto md:mx-0">
+            <CardHeader className="space-y-1 py-4">
+              <CardTitle className="text-base">
+                Associar usuário ao Colaborador
+              </CardTitle>
+            </CardHeader>
+
+            <CardContent>
+              <Form {...methods}>
+                <form
+                  onSubmit={(...args) =>
+                    void methods.handleSubmit(submitAssociateUserByCoordinator)(
+                      ...args
+                    )
+                  }
+                  className="space-y-3"
+                >
+                  <FormField
+                    control={methods.control}
+                    name={"collaboratorId"}
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Colaborador</FormLabel>
+                        <FormControl>
+                          <Select
+                            onValueChange={(value) => field.onChange(value)}
+                            name={field.name}
+                            value={field.value ?? ""}
+                          >
+                            <SelectTrigger className="w-full">
+                              <SelectValue
+                                placeholder="Insira o colaborador"
+                                onChange={field.onChange}
+                              />
+                            </SelectTrigger>
+
+                            <SelectContent>
+                              <SelectGroup>
+                                {coordinators?.map((field) => (
+                                  <SelectItem
+                                    key={`${field.name}-${field.id}`}
+                                    value={String(field.id)}
+                                  >
+                                    {field.name}
+                                  </SelectItem>
+                                ))}
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <Button
+                    className="w-full"
+                    type="submit"
+                    disabled={methods.formState.isSubmitting}
+                    isLoading={methods.formState.isSubmitting}
+                  >
+                    Associar usuário
+                  </Button>
+                </form>
+              </Form>
+            </CardContent>
+          </CardComponent>
+        )}
 
         <CommentsComponent data={data} />
       </DialogContent>
