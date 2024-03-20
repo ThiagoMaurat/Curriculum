@@ -13,8 +13,6 @@ import { Button } from "@/components/ui/button";
 import PDFMerger from "pdf-merger-js";
 import FirstStep from "../forms/create-curriculum-form-collaborator/first-step";
 import SecondStep from "../forms/create-curriculum-form-collaborator/second-step";
-import ThirdStep from "../forms/create-curriculum-form-collaborator/third-step";
-import FourthStep from "../forms/create-curriculum-form-collaborator/fourth-step";
 import { Certification, Curriculum } from "@/server/db/types-schema";
 import { CurriculumStatus } from "@/server/db/schema";
 import { generateReactHelpers } from "@uploadthing/react/hooks";
@@ -52,16 +50,10 @@ export function FormsCollaboratorCreateCurriculum(
 
   const curriculumSteps: Array<{ title: string }> = [
     {
-      title: "Formação e Bibliografia",
+      title: "Preencher dados",
     },
     {
-      title: "Congressos e Eventos",
-    },
-    {
-      title: "Atividades Extracurriculares e Profissionais",
-    },
-    {
-      title: "Certificados",
+      title: "Preview",
     },
   ];
 
@@ -210,16 +202,15 @@ export function FormsCollaboratorCreateCurriculum(
           }
         >
           {currentStep === 0 && (
-            <FirstStep setCurrentStep={setCurrentStep} data={data} />
+            <FirstStep
+              setCurrentStep={setCurrentStep}
+              currentStep={currentStep}
+              data={data}
+            />
           )}
+
           {currentStep === 1 && (
-            <SecondStep setCurrentStep={setCurrentStep} data={data} />
-          )}
-          {currentStep === 2 && (
-            <ThirdStep setCurrentStep={setCurrentStep} data={data} />
-          )}
-          {currentStep === 3 && (
-            <FourthStep>
+            <SecondStep>
               <Button className="mb-2" onClick={() => setCurrentStep(0)}>
                 Voltar
               </Button>
@@ -292,7 +283,7 @@ export function FormsCollaboratorCreateCurriculum(
                   data={methods.watch() as CurriculumFormInput}
                 />
               </PDFViewer>
-            </FourthStep>
+            </SecondStep>
           )}
         </form>
       </Form>

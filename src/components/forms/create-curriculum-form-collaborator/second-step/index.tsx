@@ -1,60 +1,25 @@
-import { Button } from "@/components/ui/button";
 import React from "react";
-import Congress from "./congress-events";
-import { Card, CardContent } from "@/components/ui/card";
-import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
-import ExtracurricularActivities from "./extracurricular-activities";
-import { useFormContext } from "react-hook-form";
-import { CurriculumFormInput } from "../type";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
 
-interface ThirdStepProps {
-  setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
-  data: ListTodoCurriculumByCollaborator;
+interface FifthStepProps {
+  children?: React.ReactNode;
 }
 
-export default function SecondSep(props: ThirdStepProps) {
-  const { data, setCurrentStep } = props;
-  const { trigger } = useFormContext<CurriculumFormInput>();
-
-  const validateSecondStepStudent = async () => {
-    const [eventsCongress, extracurricularActivities] = await Promise.all([
-      trigger("eventsCongress"),
-      trigger("extracurricularActivities"),
-    ]);
-
-    if (eventsCongress && extracurricularActivities) {
-      setCurrentStep(2);
-    }
-  };
-
+export default function FourthStep({ children }: FifthStepProps) {
   return (
-    <React.Fragment>
-      <div className="flex flex-col md:flex-row gap-4">
-        <Congress data={data} />
-        <ExtracurricularActivities data={data} />
-      </div>
+    <Card className="max-w-2xl mx-auto">
+      <CardHeader className="space-y-1">
+        <CardTitle className="text-2xl">Preview</CardTitle>
+        <CardDescription>Analise o preview do pdf gerado.</CardDescription>
+      </CardHeader>
 
-      <Card className="mt-4 max-w-xl w-full mx-auto">
-        <CardContent className="mt-4 space-y-2">
-          <Button
-            type="button"
-            className="self-center align-middle w-full"
-            variant="default"
-            onClick={() => validateSecondStepStudent()}
-          >
-            Próximo passo
-          </Button>
-
-          <Button
-            type="button"
-            className="self-center align-middle w-full"
-            variant="outline"
-            onClick={() => setCurrentStep(0)}
-          >
-            Voltar
-          </Button>
-        </CardContent>
-      </Card>
-    </React.Fragment>
+      <CardContent className="grid">{children}</CardContent>
+    </Card>
   );
 }
