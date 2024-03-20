@@ -11,7 +11,7 @@ import { PdfCurriculumTemplate } from "./pdf-curriculum-template-admin";
 import { BlobProvider, PDFViewer } from "@react-pdf/renderer";
 import { Button } from "@/components/ui/button";
 import PDFMerger from "pdf-merger-js";
-import FirstStep from "../forms/create-curriculum-form-collaborator/first-step";
+import FirstStep from "../forms/create-curriculum-form-collaborator/first-step/index";
 import SecondStep from "../forms/create-curriculum-form-collaborator/second-step";
 import { Certification, Curriculum } from "@/server/db/types-schema";
 import { CurriculumStatus } from "@/server/db/schema";
