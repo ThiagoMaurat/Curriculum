@@ -1,4 +1,4 @@
-type AcademicEducation = {
+type fieldArray = {
   initialYear: number;
   finalYear: number;
   subcategory: string;
@@ -6,18 +6,6 @@ type AcademicEducation = {
   description: string;
 };
 
-type Bibliography = {} & AcademicEducation;
-
-type Events = {} & AcademicEducation;
-
-type ExtracurricularActivities = {} & AcademicEducation;
-
-type ProfessionalExperience = {} & AcademicEducation;
-
 export type CurriculumFormInput = {
-  academicEducation: AcademicEducation[];
-  bibliography: Bibliography[];
-  eventsCongress: Events[];
-  extracurricularActivities: ExtracurricularActivities[];
-  professionalExperience: ProfessionalExperience[];
+  data: fieldArray[];
 };
