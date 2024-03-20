@@ -5,7 +5,7 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-import React from "react";
+import React, { useEffect } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { CurriculumFormInput } from "../type";
 import {
@@ -16,8 +16,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, Trash } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
 import {
   Select,
   SelectContent,
@@ -28,24 +26,36 @@ import {
 } from "@/components/ui/select";
 import { AcademicEducationConst } from "@/const/academic-education-category";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
 import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
 import ModalViewCertificates from "../ModalViewCertificates";
 
 interface AcademicCardProps {
   data: ListTodoCurriculumByCollaborator;
+  setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
+  currentStep: number;
 }
 
-export default function AcademicCard({ data }: AcademicCardProps) {
-  const { control, watch } = useFormContext<CurriculumFormInput>();
+export default function AcademicCard({
+  data,
+  currentStep,
+  setCurrentStep,
+}: AcademicCardProps) {
+  const { control, watch, setValue } = useFormContext<CurriculumFormInput>();
 
-  const fieldAcademicEducation = useFieldArray<
-    CurriculumFormInput,
-    "academicEducation"
-  >({
+  const fieldAcademicEducation = useFieldArray<CurriculumFormInput, "data">({
     control: control,
-    name: "academicEducation",
+    name: "data",
   });
+
+  useEffect(() => {
+    if (fieldAcademicEducation?.fields?.[currentStep]) {
+      setValue("data", fieldAcademicEducation?.fields?.[currentStep]?.data);
+    }
+  }, [currentStep, fieldAcademicEducation?.fields, setValue]);
+
+  if (fieldAcademicEducation?.fields?.[currentStep]) {
+    //todo: add component if there is data added
+  }
 
   return (
     <Card className="max-w-2xl w-full">
@@ -68,7 +78,7 @@ export default function AcademicCard({ data }: AcademicCardProps) {
             <div className="w-full flex flex-col sm:flex-row gap-4">
               <FormField
                 control={control}
-                name={`academicEducation.${index}.initialYear` as const}
+                name={`data.${index}.initialYear` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>Ano Inicial</FormLabel>
@@ -86,7 +96,7 @@ export default function AcademicCard({ data }: AcademicCardProps) {
 
               <FormField
                 control={control}
-                name={`academicEducation.${index}.finalYear` as const}
+                name={`data.${index}.finalYear` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>Ano Final</FormLabel>
@@ -106,7 +116,7 @@ export default function AcademicCard({ data }: AcademicCardProps) {
             <div className="w-full flex flex-col sm:flex-row gap-4">
               <FormField
                 control={control}
-                name={`academicEducation.${index}.subcategory` as const}
+                name={`data.${index}.subcategory` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>Categoria</FormLabel>
@@ -144,7 +154,7 @@ export default function AcademicCard({ data }: AcademicCardProps) {
 
               <FormField
                 control={control}
-                name={`academicEducation.${index}.certifications` as const}
+                name={`data.${index}.certifications` as const}
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>Certificados</FormLabel>
@@ -183,7 +193,7 @@ export default function AcademicCard({ data }: AcademicCardProps) {
 
             <FormField
               control={control}
-              name={`academicEducation.${index}.description` as const}
+              name={`data.${index}.description` as const}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Descrição</FormLabel>
@@ -196,16 +206,10 @@ export default function AcademicCard({ data }: AcademicCardProps) {
                         {...field}
                       />
 
-                      {watch(
-                        `academicEducation.${index}.description` as const
-                      ) && (
+                      {watch(`data.${index}.description` as const) && (
                         <p className="text-xs text-muted-foreground w-full text-end">
-                          {
-                            watch(
-                              `academicEducation.${index}.description` as const
-                            ).length
-                          }
-                          / 400
+                          {watch(`data.${index}.description` as const).length}/
+                          400
                         </p>
                       )}
                     </React.Fragment>
@@ -214,48 +218,8 @@ export default function AcademicCard({ data }: AcademicCardProps) {
                 </FormItem>
               )}
             />
-
-            {fieldAcademicEducation.fields.length > 1 &&
-              fieldAcademicEducation.fields.length - 1 !== index && (
-                <Separator orientation="horizontal" className="my-3" />
-              )}
           </div>
         ))}
-
-        <div className="w-full mt-4 flex sm:flex-row flex-col gap-2">
-          <Button
-            onClick={() =>
-              fieldAcademicEducation.append({
-                description: "",
-                subcategory: "",
-                initialYear: new Date().getFullYear(),
-                finalYear: new Date().getFullYear(),
-                certifications: "",
-              })
-            }
-            type="button"
-            className="w-full"
-          >
-            <p>Adicionar</p>
-            <ArrowRight className="h-4 w-4 ml-1" />
-          </Button>
-
-          {fieldAcademicEducation.fields.length > 0 && (
-            <Button
-              onClick={() =>
-                fieldAcademicEducation.remove(
-                  fieldAcademicEducation.fields.length - 1
-                )
-              }
-              type="button"
-              className="w-full"
-              variant="destructive"
-            >
-              <p>Remover</p>
-              <Trash className="h-4 w-4 ml-1" />
-            </Button>
-          )}
-        </div>
       </CardContent>
     </Card>
   );
