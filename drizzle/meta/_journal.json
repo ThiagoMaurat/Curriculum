@@ -57,6 +57,13 @@
       "when": 1710467972469,
       "tag": "0007_mature_luke_cage",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1711407321212,
+      "tag": "0008_daffy_chat",
+      "breakpoints": true
     }
   ]
 }

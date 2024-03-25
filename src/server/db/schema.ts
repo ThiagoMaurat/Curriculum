@@ -12,6 +12,7 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "@auth/core/adapters";
+import { fieldArray } from "@/components/forms/create-curriculum-form-collaborator/type";
 
 export type CurriculumStatus =
   | "waiting_docs"
@@ -76,6 +77,7 @@ export const curriculums = pgTable("curriculum", {
   generatedPDFUploadedAt: timestamp("generatedPdfCreatedAt", {
     mode: "date",
   }),
+  pdfFormGenerated: varchar("pdfFormGenerated").$type<fieldArray[]>(),
 });
 
 export const certifications = pgTable("certification", {
