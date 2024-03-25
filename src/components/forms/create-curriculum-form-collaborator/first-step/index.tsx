@@ -26,10 +26,10 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
-import ModalViewCertificates from "../ModalViewCertificates";
 import { Button } from "@/components/ui/button";
 import { ITopic, Topic } from "@/const/themes/topic";
 import { AcademicEducationPatternMatching } from "@/const/themes";
+import PDFView from "../pdf-view";
 
 interface FirstStepProps {
   data: ListTodoCurriculumByCollaborator;
@@ -54,7 +54,6 @@ export default function FirstStep(props: FirstStepProps) {
     const [validateForm] = await Promise.all([
       trigger(`data.${firstStepIteration}`),
     ]);
-    console.log(firstStepIteration, fieldData?.fields?.length);
 
     if (validateForm && firstStepIteration + 1 === fieldData?.fields?.length) {
       fieldData.append({
@@ -104,17 +103,14 @@ export default function FirstStep(props: FirstStepProps) {
     setFirstStepIteration((prev) => prev - 1);
   }, [firstStepIteration, clearErrors, setFirstStepIteration]);
 
-  console.log(watch("data"), firstStepIteration);
-  console.log(watch("data")[firstStepIteration].topic);
   return (
     <>
       <div className="flex flex-col md:flex-row gap-4">
-        <Card className="max-w-2xl w-full">
+        <Card className="w-full">
           <CardHeader className="space-y-1">
             <div className="flex items-center justify-between">
               <CardTitle className="text-2xl flex items-center gap-2">
                 Criar seção
-                <ModalViewCertificates data={data?.certifications} />
               </CardTitle>
 
               <p>{`${firstStepIteration + 1}/${fieldData?.fields?.length}`}</p>
@@ -124,204 +120,225 @@ export default function FirstStep(props: FirstStepProps) {
             </CardDescription>
           </CardHeader>
 
-          <CardContent className="w-full">
-            {fieldData.fields.length >= 0 && (
-              <div
-                className="w-full flex flex-col gap-2"
-                key={`fieldData-${firstStepIteration}`}
-              >
-                <FormField
-                  control={control}
-                  name={`data.${firstStepIteration}.topic` as const}
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Tópico</FormLabel>
-                      <FormControl>
-                        <Select
-                          onValueChange={(value) => field.onChange(value)}
-                          name={field.name}
-                          value={field.value}
-                        >
-                          <SelectTrigger className="w-full">
-                            <SelectValue
-                              placeholder="Insira o topic associado"
-                              onChange={field.onChange}
+          <CardContent className="flex gap-4 w-full">
+            <div className="w-full flex flex-col gap-2">
+              {fieldData.fields.length >= 0 && (
+                <div
+                  className="w-full flex flex-col gap-2"
+                  key={`fieldData-${firstStepIteration}`}
+                >
+                  <FormField
+                    control={control}
+                    name={`data.${firstStepIteration}.topic` as const}
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Tópico</FormLabel>
+                        <FormControl>
+                          <Select
+                            onValueChange={(value) => field.onChange(value)}
+                            name={field.name}
+                            value={field.value}
+                          >
+                            <SelectTrigger className="w-full">
+                              <SelectValue
+                                placeholder="Insira o tópico associado"
+                                onChange={field.onChange}
+                              />
+                            </SelectTrigger>
+
+                            <SelectContent>
+                              <SelectGroup>
+                                {Topic?.map((topic) => (
+                                  <SelectItem
+                                    key={`${field.name}-${topic}`}
+                                    value={String(topic)}
+                                  >
+                                    {topic}
+                                  </SelectItem>
+                                ))}
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <div className="w-full flex flex-col sm:flex-row gap-4">
+                    <FormField
+                      control={control}
+                      name={`data.${firstStepIteration}.initialYear` as const}
+                      render={({ field }) => (
+                        <FormItem className="w-full">
+                          <FormLabel>Ano Inicial</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="Insira o ano inicial"
+                              {...field}
+                              type="number"
                             />
-                          </SelectTrigger>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
 
-                          <SelectContent>
-                            <SelectGroup>
-                              {Topic?.map((topic) => (
-                                <SelectItem
-                                  key={`${field.name}-${topic}`}
-                                  value={String(topic)}
-                                >
-                                  {topic}
-                                </SelectItem>
-                              ))}
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                    <FormField
+                      control={control}
+                      name={`data.${firstStepIteration}.finalYear` as const}
+                      render={({ field }) => (
+                        <FormItem className="w-full">
+                          <FormLabel>Ano Final</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="Insira o ano final"
+                              {...field}
+                              type="number"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
 
-                <div className="w-full flex flex-col sm:flex-row gap-4">
+                  <div className="w-full flex flex-col sm:flex-row gap-4">
+                    <FormField
+                      control={control}
+                      name={`data.${firstStepIteration}.subcategory` as const}
+                      render={({ field }) => (
+                        <FormItem className="w-full">
+                          <FormLabel>Categoria</FormLabel>
+                          <FormControl>
+                            <Select
+                              onValueChange={(value) => field.onChange(value)}
+                              name={field.name}
+                              value={field.value}
+                            >
+                              <SelectTrigger className="w-full">
+                                <SelectValue
+                                  placeholder="Insira o tema associado"
+                                  onChange={field.onChange}
+                                />
+                              </SelectTrigger>
+
+                              <SelectContent>
+                                <SelectGroup>
+                                  {AcademicEducationPatternMatching[
+                                    watch("data")[firstStepIteration]
+                                      ?.topic as ITopic
+                                  ]?.map((category) => (
+                                    <SelectItem
+                                      key={`${field.name}-${category.label}`}
+                                      value={String(category.value)}
+                                    >
+                                      {category.label}
+                                    </SelectItem>
+                                  ))}
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={control}
+                      name={
+                        `data.${firstStepIteration}.certifications` as const
+                      }
+                      render={({ field }) => (
+                        <FormItem className="w-full">
+                          <FormLabel>Certificados</FormLabel>
+                          <FormControl>
+                            <Select
+                              onValueChange={(value) => field.onChange(value)}
+                              name={field.name}
+                              value={field.value}
+                            >
+                              <SelectTrigger className="w-full">
+                                <SelectValue
+                                  placeholder="Insira os certificados associados"
+                                  onChange={field.onChange}
+                                />
+                              </SelectTrigger>
+
+                              <SelectContent>
+                                <SelectGroup>
+                                  {data?.certifications
+                                    .filter((certification) => {
+                                      return !watch("data")?.some(
+                                        (dataItem, index) =>
+                                          dataItem.certifications ===
+                                            certification.url &&
+                                          firstStepIteration !== index
+                                      );
+                                    })
+                                    .map((certifications) => (
+                                      <SelectItem
+                                        key={`${certifications.key}-${certifications.userId}`}
+                                        value={String(certifications?.url)}
+                                      >
+                                        {certifications.fileName}
+                                      </SelectItem>
+                                    ))}
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
                   <FormField
                     control={control}
-                    name={`data.${firstStepIteration}.initialYear` as const}
+                    name={`data.${firstStepIteration}.description` as const}
                     render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel>Ano Inicial</FormLabel>
+                      <FormItem>
+                        <FormLabel>Descrição</FormLabel>
                         <FormControl>
-                          <Input
-                            placeholder="Insira o ano inicial"
-                            {...field}
-                            type="number"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                          <React.Fragment>
+                            <Textarea
+                              maxLength={400}
+                              className="min-h-[227px]"
+                              placeholder="Insira uma descrição"
+                              {...field}
+                            />
 
-                  <FormField
-                    control={control}
-                    name={`data.${firstStepIteration}.finalYear` as const}
-                    render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel>Ano Final</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Insira o ano final"
-                            {...field}
-                            type="number"
-                          />
+                            {watch(
+                              `data.${firstStepIteration}.description` as const
+                            ) && (
+                              <p className="text-xs text-muted-foreground w-full text-end">
+                                {
+                                  watch(
+                                    `data.${firstStepIteration}.description` as const
+                                  ).length
+                                }
+                                / 400
+                              </p>
+                            )}
+                          </React.Fragment>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
                 </div>
+              )}
+            </div>
 
-                <div className="w-full flex flex-col sm:flex-row gap-4">
-                  <FormField
-                    control={control}
-                    name={`data.${firstStepIteration}.subcategory` as const}
-                    render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel>Categoria</FormLabel>
-                        <FormControl>
-                          <Select
-                            onValueChange={(value) => field.onChange(value)}
-                            name={field.name}
-                            value={field.value}
-                          >
-                            <SelectTrigger className="w-full">
-                              <SelectValue
-                                placeholder="Insira o tema associado"
-                                onChange={field.onChange}
-                              />
-                            </SelectTrigger>
-
-                            <SelectContent>
-                              <SelectGroup>
-                                {AcademicEducationPatternMatching[
-                                  watch("data")[firstStepIteration]
-                                    ?.topic as ITopic
-                                ]?.map((category) => (
-                                  <SelectItem
-                                    key={`${field.name}-${category.label}`}
-                                    value={String(category.value)}
-                                  >
-                                    {category.label}
-                                  </SelectItem>
-                                ))}
-                              </SelectGroup>
-                            </SelectContent>
-                          </Select>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={control}
-                    name={`data.${firstStepIteration}.certifications` as const}
-                    render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel>Certificados</FormLabel>
-                        <FormControl>
-                          <Select
-                            onValueChange={(value) => field.onChange(value)}
-                            name={field.name}
-                            value={field.value}
-                          >
-                            <SelectTrigger className="w-full">
-                              <SelectValue
-                                placeholder="Insira os certificados associados"
-                                onChange={field.onChange}
-                              />
-                            </SelectTrigger>
-
-                            <SelectContent>
-                              <SelectGroup>
-                                {data?.certifications?.map((certifications) => (
-                                  <SelectItem
-                                    key={`${certifications.key}-${certifications.userId}`}
-                                    value={String(certifications?.url)}
-                                  >
-                                    {certifications.fileName}
-                                  </SelectItem>
-                                ))}
-                              </SelectGroup>
-                            </SelectContent>
-                          </Select>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <FormField
-                  control={control}
-                  name={`data.${firstStepIteration}.description` as const}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Descrição</FormLabel>
-                      <FormControl>
-                        <React.Fragment>
-                          <Textarea
-                            maxLength={400}
-                            className="min-h-[90px]"
-                            placeholder="Insira uma descrição"
-                            {...field}
-                          />
-
-                          {watch(
-                            `data.${firstStepIteration}.description` as const
-                          ) && (
-                            <p className="text-xs text-muted-foreground w-full text-end">
-                              {
-                                watch(
-                                  `data.${firstStepIteration}.description` as const
-                                ).length
-                              }
-                              / 400
-                            </p>
-                          )}
-                        </React.Fragment>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            )}
+            <div className="w-full flex flex-col sm:flex-row gap-4">
+              <PDFView
+                data={data?.certifications}
+                formSelectedCertifications={watch("data")}
+                firstStepIteration={firstStepIteration}
+              />
+            </div>
           </CardContent>
         </Card>
       </div>

@@ -1,4 +1,4 @@
-type fieldArray = {
+export type fieldArray = {
   topic: string;
   initialYear: number;
   finalYear: number;

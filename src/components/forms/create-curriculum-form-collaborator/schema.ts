@@ -4,6 +4,9 @@ export const schema = z.object({
   data: z
     .array(
       z.object({
+        topic: z
+          .string({ required_error: "Insira um tema" })
+          .min(1, "Insira um tema"),
         initialYear: z.coerce.number().min(1900, "Insira uma data"),
         finalYear: z.coerce.number().min(1900, "Insira uma data"),
         subcategory: z.string().min(1, "Insira uma categoria"),
