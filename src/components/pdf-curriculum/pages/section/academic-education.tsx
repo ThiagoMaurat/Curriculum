@@ -9,7 +9,10 @@ interface AcademicEducationProps {
 }
 
 export default function AcademicEducation({ data }: AcademicEducationProps) {
-  if (!data?.academicEducation || !data?.academicEducation?.[0]?.description) {
+  if (
+    data?.data?.filter((data) => data?.topic === "Formação Acadêmica")
+      ?.length <= 0
+  ) {
     return null;
   }
 
@@ -28,7 +31,7 @@ export default function AcademicEducation({ data }: AcademicEducationProps) {
         }}
       >
         {orderBy(
-          data.academicEducation,
+          data.data.filter((item) => item.topic === "Formação Acadêmica"),
           [(item) => item.finalYear || item.initialYear, "initialYear"],
           ["desc", "desc"]
         ).map((item, index) => (

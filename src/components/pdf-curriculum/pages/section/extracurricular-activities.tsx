@@ -13,8 +13,8 @@ export default function ExtracurricularActivities({
   data,
 }: ExtracurricularActivitiesProps) {
   if (
-    !data?.extracurricularActivities ||
-    !data?.extracurricularActivities?.[0]?.description
+    data?.data?.filter((data) => data?.topic === "Atividades Extracurriculares")
+      .length <= 0
   ) {
     return null;
   }
@@ -38,7 +38,9 @@ export default function ExtracurricularActivities({
         }}
       >
         {orderBy(
-          data?.extracurricularActivities,
+          data?.data?.filter(
+            (item) => item.topic === "Atividades Extracurriculares"
+          ),
           [(item) => item.finalYear || item.initialYear, "initialYear"],
           ["desc", "desc"]
         ).map((item, index) => (

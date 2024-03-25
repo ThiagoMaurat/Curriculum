@@ -10,7 +10,11 @@ interface CongressEventsProps {
 }
 
 export default function CongressEvents({ data }: CongressEventsProps) {
-  if (!data?.eventsCongress || !data?.eventsCongress?.[0]?.description) {
+  if (
+    data?.data?.filter(
+      (data) => data?.topic === "Congressos e Eventos Científicos"
+    )?.length <= 0
+  ) {
     return null;
   }
 
@@ -33,7 +37,9 @@ export default function CongressEvents({ data }: CongressEventsProps) {
         }}
       >
         {orderBy(
-          data.eventsCongress,
+          data.data.filter(
+            (item) => item.topic === "Congressos e Eventos Científicos"
+          ),
           [(item) => item.finalYear || item.initialYear, "initialYear"],
           ["desc", "desc"]
         ).map((item, index) => (

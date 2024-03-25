@@ -12,10 +12,7 @@ interface ProfessionalExperienceProps {
 export default function ProfessionalExperience({
   data,
 }: ProfessionalExperienceProps) {
-  if (
-    !data?.professionalExperience ||
-    !data?.professionalExperience?.[0]?.description
-  ) {
+  if (data?.data?.filter((data) => data?.topic === "Atuação Profissional")) {
     return null;
   }
 
@@ -38,7 +35,7 @@ export default function ProfessionalExperience({
         }}
       >
         {orderBy(
-          data.professionalExperience,
+          data.data.filter((item) => item.topic === "Atuação Profissional"),
           [(item) => item.finalYear || item.initialYear, "initialYear"],
           ["desc", "desc"]
         ).map((item, index) => (

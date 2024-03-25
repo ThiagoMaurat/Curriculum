@@ -10,7 +10,10 @@ interface BibliographyProps {
 }
 
 export default function Bibliography({ data }: BibliographyProps) {
-  if (!data?.bibliography || !data?.bibliography?.[0]?.description) {
+  if (
+    data?.data?.filter((data) => data?.topic === "Produções Bibliográficas")
+      ?.length <= 0
+  ) {
     return null;
   }
 
@@ -31,7 +34,7 @@ export default function Bibliography({ data }: BibliographyProps) {
         }}
       >
         {orderBy(
-          data.bibliography,
+          data.data.filter((item) => item.topic === "Produções Bibliográficas"),
           [(item) => item.finalYear || item.initialYear, "initialYear"],
           ["desc", "desc"]
         ).map((item, index) => (
