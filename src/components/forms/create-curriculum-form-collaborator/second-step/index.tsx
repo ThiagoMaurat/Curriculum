@@ -7,11 +7,11 @@ import {
   CardContent,
 } from "@/components/ui/card";
 
-interface FifthStepProps {
+interface SecondProps {
   children?: React.ReactNode;
 }
 
-export default function FourthStep({ children }: FifthStepProps) {
+export default function SecondStep({ children }: SecondProps) {
   return (
     <Card className="max-w-2xl mx-auto">
       <CardHeader className="space-y-1">

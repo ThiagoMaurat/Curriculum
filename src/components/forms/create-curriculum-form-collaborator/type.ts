@@ -1,4 +1,5 @@
 type fieldArray = {
+  topic: string;
   initialYear: number;
   finalYear: number;
   subcategory: string;

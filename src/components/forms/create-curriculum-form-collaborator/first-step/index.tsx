@@ -5,7 +5,7 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { CurriculumFormInput } from "../type";
 import {
@@ -24,12 +24,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { AcademicEducationConst } from "@/const/academic-education-category";
 import { Textarea } from "@/components/ui/textarea";
 import { ListTodoCurriculumByCollaborator } from "@/components/templates/forms-collaborator-create-curriculum";
 import ModalViewCertificates from "../ModalViewCertificates";
 import { Button } from "@/components/ui/button";
-import { watch } from "fs";
+import { ITopic, Topic } from "@/const/themes/topic";
+import { AcademicEducationPatternMatching } from "@/const/themes";
 
 interface FirstStepProps {
   data: ListTodoCurriculumByCollaborator;
@@ -58,6 +58,7 @@ export default function FirstStep(props: FirstStepProps) {
 
     if (validateForm && firstStepIteration + 1 === fieldData?.fields?.length) {
       fieldData.append({
+        topic: watch("data")[firstStepIteration].topic,
         description: watch("data")[firstStepIteration].description,
         subcategory: watch("data")[firstStepIteration]?.subcategory,
         finalYear: watch("data")[firstStepIteration]?.finalYear,
@@ -67,6 +68,7 @@ export default function FirstStep(props: FirstStepProps) {
 
       // Atualiza os valores do objeto no índice do passo atual
       setValue(`data.${firstStepIteration + 1}`, {
+        topic: "",
         description: "",
         subcategory: "",
         finalYear: new Date().getFullYear(),
@@ -80,8 +82,8 @@ export default function FirstStep(props: FirstStepProps) {
     }
 
     if (validateForm && firstStepIteration + 1 !== fieldData?.fields?.length) {
-      console.log("neoif");
       fieldData.update(firstStepIteration, {
+        topic: watch("data")[firstStepIteration].topic,
         description: watch("data")[firstStepIteration].description,
         subcategory: watch("data")[firstStepIteration]?.subcategory,
         finalYear: watch("data")[firstStepIteration]?.finalYear,
@@ -103,7 +105,7 @@ export default function FirstStep(props: FirstStepProps) {
   }, [firstStepIteration, clearErrors, setFirstStepIteration]);
 
   console.log(watch("data"), firstStepIteration);
-
+  console.log(watch("data")[firstStepIteration].topic);
   return (
     <>
       <div className="flex flex-col md:flex-row gap-4">
@@ -128,6 +130,44 @@ export default function FirstStep(props: FirstStepProps) {
                 className="w-full flex flex-col gap-2"
                 key={`fieldData-${firstStepIteration}`}
               >
+                <FormField
+                  control={control}
+                  name={`data.${firstStepIteration}.topic` as const}
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>Tópico</FormLabel>
+                      <FormControl>
+                        <Select
+                          onValueChange={(value) => field.onChange(value)}
+                          name={field.name}
+                          value={field.value}
+                        >
+                          <SelectTrigger className="w-full">
+                            <SelectValue
+                              placeholder="Insira o topic associado"
+                              onChange={field.onChange}
+                            />
+                          </SelectTrigger>
+
+                          <SelectContent>
+                            <SelectGroup>
+                              {Topic?.map((topic) => (
+                                <SelectItem
+                                  key={`${field.name}-${topic}`}
+                                  value={String(topic)}
+                                >
+                                  {topic}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
                 <div className="w-full flex flex-col sm:flex-row gap-4">
                   <FormField
                     control={control}
@@ -188,12 +228,15 @@ export default function FirstStep(props: FirstStepProps) {
 
                             <SelectContent>
                               <SelectGroup>
-                                {AcademicEducationConst?.map((category) => (
+                                {AcademicEducationPatternMatching[
+                                  watch("data")[firstStepIteration]
+                                    ?.topic as ITopic
+                                ]?.map((category) => (
                                   <SelectItem
-                                    key={`${field.name}-${category}`}
-                                    value={String(category)}
+                                    key={`${field.name}-${category.label}`}
+                                    value={String(category.value)}
                                   >
-                                    {category}
+                                    {category.label}
                                   </SelectItem>
                                 ))}
                               </SelectGroup>
