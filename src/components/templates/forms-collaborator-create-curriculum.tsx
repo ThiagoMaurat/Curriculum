@@ -153,6 +153,7 @@ export function FormsCollaboratorCreateCurriculum(
         generatedPDFUrl: uploadDedImages[0].url,
         generatedPDPFileName: uploadDedImages[0].fileName,
         roleName: session?.user?.roleName as any,
+        pdfFormGenerated: methods.getValues("data"),
       });
 
     if (serverError) {

@@ -110,10 +110,9 @@ export default function FirstStep(props: FirstStepProps) {
           <CardHeader className="space-y-1">
             <div className="flex items-center justify-between">
               <CardTitle className="text-2xl flex items-center gap-2">
-                Criar seção
+                Criar seção{" "}
+                {`${firstStepIteration + 1}/${fieldData?.fields?.length}`}
               </CardTitle>
-
-              <p>{`${firstStepIteration + 1}/${fieldData?.fields?.length}`}</p>
             </div>
             <CardDescription>
               Insira sua formação acadêmica e informações adicionais.
@@ -366,7 +365,15 @@ export default function FirstStep(props: FirstStepProps) {
             type="submit"
             className="self-center align-middle w-full"
             variant="default"
-            onClick={() => setCurrentStep(currentStep + 1)}
+            onClick={async () => {
+              const [validateForm] = await Promise.all([
+                trigger(`data.${firstStepIteration}`),
+              ]);
+
+              if (validateForm) {
+                setCurrentStep(currentStep + 1);
+              }
+            }}
           >
             Preview do PDF
           </Button>

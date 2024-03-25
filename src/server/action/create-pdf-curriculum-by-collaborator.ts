@@ -5,6 +5,7 @@ import { db } from "../db/drizzle";
 import { z } from "zod";
 import { curriculums } from "../db/schema";
 import { eq } from "drizzle-orm";
+import { fieldArray } from "@/components/forms/create-curriculum-form-collaborator/type";
 
 export const createCertificateByCollaborator = action(
   z.object({
@@ -23,6 +24,18 @@ export const createCertificateByCollaborator = action(
     generatedPDFUrl: z
       .string()
       .min(1, { message: "Id do coordenador obrigatoriedade" }),
+    pdfFormGenerated: z
+      .array(
+        z.object({
+          topic: z.string(),
+          initialYear: z.number(),
+          finalYear: z.number(),
+          subcategory: z.string(),
+          certifications: z.string(),
+          description: z.string(),
+        })
+      )
+      .min(1, { message: "Campo obrigatório" }),
   }),
   async ({
     roleName,
@@ -30,6 +43,7 @@ export const createCertificateByCollaborator = action(
     generatedPDFKey,
     generatedPDFUrl,
     generatedPDPFileName,
+    pdfFormGenerated,
   }) => {
     if (roleName !== "collaborator") {
       throw new Error("Sem permissão");
@@ -43,6 +57,9 @@ export const createCertificateByCollaborator = action(
         generatedPDFUrl: generatedPDFUrl,
         generatedPDPFileName: generatedPDPFileName,
         statusCurriculum: "curriculum_send",
+        pdfFormGenerated: JSON.stringify(
+          pdfFormGenerated
+        ) as unknown as fieldArray[],
       })
       .where(eq(curriculums.id, curriculumId))
       .returning();
