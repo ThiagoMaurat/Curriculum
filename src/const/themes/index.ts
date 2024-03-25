@@ -28,8 +28,8 @@ export const AcademicEducationPatternMatching: Record<
       value: item,
     })
   ),
-  "Atuação Profissional": map(["Atuação Profissional"], (item) => ({
+  /*   "Atuação Profissional": map(["Atuação Profissional"], (item) => ({
     label: item,
     value: item,
-  })),
+  })), */
 };
